@@ -84,10 +84,13 @@ DeviceInfo
 DeviceNetworkEvents
 | where DeviceName == "sakel-lunix-2.p2zfvso05mlezjev3ck4vqd3kd.cx.internal.cloudapp.net"
 | where Timestamp between (datetime(2025-03-14T16:41:22.631607Z) .. datetime(2025-03-14T20:46:16.607719Z))
-| summarize ActionOccurrences = count() by ActionType
+| where InitiatingProcessCommandLine !contains "nessus" and InitiatingProcessCommandLine !contains "/var/lib/waagent/"
+and InitiatingProcessCommandLine !contains "tenable"
+| summarize CommandOccurrence = count() by InitiatingProcessCommandLine, ActionType
+| order by CommandOccurrence desc
 ```
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/61bf984a-49ad-4ef0-b7b7-ac84c96cce1d" alt="Screenshot description" width="350"/>
+  <img src="https://github.com/user-attachments/assets/754928b6-e72a-4f57-84e3-b083f27333fa" alt="Screenshot description" width="800"/>
 </p>
 
 **Status:** ✅ *Confirmed Malicious*
@@ -108,7 +111,20 @@ DeviceNetworkEvents
 - 8-second timeout suggests aggressive brute-forcing or scanning  
 - Used repeatedly from the source device across multiple sessions
 
-> 🖼️ *Insert Screenshot 2: DeviceProcessEvents showing `.bisis` execution on `sakel-lunix-2`*
+**Query Used:**
+```kql
+DeviceNetworkEvents
+| where DeviceName == "sakel-lunix-2.p2zfvso05mlezjev3ck4vqd3kd.cx.internal.cloudapp.net"
+| where Timestamp between (datetime(2025-03-14T16:41:22.631607Z) .. datetime(2025-03-14T20:46:16.607719Z))
+| where InitiatingProcessCommandLine !contains "nessus" and InitiatingProcessCommandLine !contains "/var/lib/waagent/"
+and InitiatingProcessCommandLine !contains "tenable"
+| where ActionType == "ConnectionRequest"
+| summarize CommandOccurrence = count() by InitiatingProcessCommandLine, ActionType
+| order by CommandOccurrence desc
+```
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/0b6fb247-4307-4c8b-8ae7-f0ff4419c696" alt="Screenshot description" width="800"/>
+</p>
 
 **VirusTotal Score:** `6/64`  
 **Likely Role:** SSH brute-force tool
@@ -121,27 +137,45 @@ DeviceNetworkEvents
 
 ---
 
-### 🔎 Finding #3 — Persistence via Cron Jobs and Obfuscated Executables
+### 🔎 Finding #3 — Repeated Execution of `.bisis` and Obfuscated Payloads
 
 **Command Observed:**
 ```bash
 bash -c "cd /var/tmp/.update-logs ; chmod +x /var/tmp/.update-logs/.bisis ; ulimit -n 999999 ; cat iplist | ./bisis ... ; ./x"
 ```
-[View full command → `observed-commands.md`](./observed-commands.md#bisis-cron-command)
+[View full command → `observed-commands.md`](./observed-commands.md#bisis-repeated-execution-command)
 
 **Details:**  
-- Launches `.bisis`, `.b`, and `x` — multiple hidden executables  
-- Uses `ulimit` to raise system resource limits  
-- Cron jobs and `disown` used to enable background persistence  
-- Behavior consistent with long-term automation and stealth execution
+- Executes `.bisis`, `.b`, and `x` — multiple hidden binaries  
+- Uses `ulimit` to raise system limits for high concurrency  
+- Behavior indicates repeated brute-force and secondary payload execution  
+- No scheduled task or cron job confirmed
 
-> 🖼️ *Insert Screenshot 3: Cron configuration or background process tree showing persistence behavior*
+> 🖼️ *Insert Screenshot 3: Process tree or timeline showing `.bisis` and `./x` execution*
+
+**Query Used:**
+```kql
+DeviceFileEvents
+| where DeviceName == "sakel-lunix-2.p2zfvso05mlezjev3ck4vqd3kd.cx.internal.cloudapp.net"
+| where Timestamp between (datetime(2025-03-14T16:41:22.631607Z) .. datetime(2025-03-14T20:46:16.607719Z))
+| where FolderPath contains "update-logs"
+| project Timestamp, ActionType, FileName, FolderPath, SHA256, InitiatingProcessFolderPath, InitiatingProcessCommandLine
+```
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/ecc9ca13-cca3-42a5-84c7-e8d9b479d76a" alt="Process execution of .bisis and x" width="800"/>
+</p>
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/0ad63c32-9742-4013-822b-fe89b1c1f27e" alt="Process execution of .bisis and x" width="300"/>
+  <img src="https://github.com/user-attachments/assets/1c5b83cd-5b2f-4985-bb88-2cf3fe6370fc" alt="Process execution of .bisis and x" width="300"/>
+</p>
+
 
 **VirusTotal Score (cache):** `31/64`  
-**Likely Role:** Persistence mechanism and loader
+**Likely Role:** Brute-force tool and follow-up loader
 
 **Mapped MITRE Techniques:**  
-- `T1053.003` — Scheduled Task/Job: Cron  
 - `T1027` — Obfuscated Files or Information  
 - `T1036` — Masquerading
 
