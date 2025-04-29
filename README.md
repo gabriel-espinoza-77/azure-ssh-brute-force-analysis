@@ -6,7 +6,6 @@ This project documents a real-world post-incident analysis involving SSH brute-f
   <img src="https://github.com/user-attachments/assets/c87eeabf-cad0-4f4d-a9c0-30c853fe52c1" alt="Screenshot description" width="600"/>
 </p>
 
-
 The goal of this project is to showcase deep forensic investigation techniques, detection logic development, and an understanding of threat behavior patterns using Microsoft tools and threat intelligence sources.
 
 ---
