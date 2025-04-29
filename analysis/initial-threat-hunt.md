@@ -22,7 +22,8 @@ To identify, analyze, and document SSH brute-force activity targeting virtual ma
 
 > 🔁 This investigation is conducted in two phases:  
 > **Phase 1 (this file)**: Manual log-based hunting  
-> **Phase 2**: Review of MDE’s Incidents Dashboard (see `mde-dashboard-review.md`)
+> **Phase 2**: Review of MDE’s Incidents Dashboard (see [`mde-dashboard-review.md`](../mde-dashboard-review.md))
+
 
 ---
 
