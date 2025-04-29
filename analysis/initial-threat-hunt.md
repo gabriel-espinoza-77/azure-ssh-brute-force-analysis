@@ -105,7 +105,7 @@ DeviceNetworkEvents
 ```bash
 bash -c "cd /var/tmp/.update-logs ; chmod +x /var/tmp/.update-logs/.bisis ; ulimit -n 999999 ; cat iplist | ./bisis ... ; ./x"
 ```
-[View full command → `observed-commands.md`](../observed-commands.md#bisis-cron-command)
+[View full command → `observed-commands.md`](./observed-commands.md#bisis-cron-command)
 
 **Details:**  
 - Launches `.bisis`, `.b`, and `x` — multiple hidden executables  
