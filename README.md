@@ -2,6 +2,11 @@
 
 This project documents a real-world post-incident analysis involving SSH brute-force attacks against virtual machines (VMs) within a Microsoft Azure tenant. The investigation was initiated following a Microsoft Security Notice and involved both manual threat hunting and the use of Microsoft Defender for Endpoint's (MDE) built-in Incidents Dashboard.
 
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/c87eeabf-cad0-4f4d-a9c0-30c853fe52c1" alt="Screenshot description" width="600"/>
+</p>
+
+
 The goal of this project is to showcase deep forensic investigation techniques, detection logic development, and an understanding of threat behavior patterns using Microsoft tools and threat intelligence sources.
 
 ---
@@ -45,6 +50,7 @@ The goal of this project is to showcase deep forensic investigation techniques, 
 All analysis presented in this repository is for **educational and professional development** purposes only.  
 No real production environments were harmed or interfered with during this investigation.  
 All systems analyzed were under the analyst's authorized scope.
+This investigation was conducted within a controlled cyber range environment using a personal Microsoft Azure tenant.
 
 ---
 
