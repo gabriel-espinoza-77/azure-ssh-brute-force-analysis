@@ -77,6 +77,7 @@ DeviceNetworkEvents
 ```bash
 /var/tmp/.update-logs/./.bisis ssh -o /var/tmp/.update-logs/data.json --userauth none --timeout 8
 ```
+[View full command → `observed-commands.md`](../observed-commands.md#bisis-ssh-brute-force-command)
 
 **Details:**  
 - `.bisis` is a hidden binary located in a non-standard `/var/tmp/.update-logs/` path  
