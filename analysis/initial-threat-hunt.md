@@ -66,7 +66,29 @@ DeviceNetworkEvents
 - Brute-force behavior originating from a single internal system  
 - IP-to-device attribution confirmed via `DeviceInfo` schema
 
-> 🖼️ *Insert Screenshot 1: DeviceInfo query showing IP-to-hostname mapping for `sakel-lunix-2`*
+**Query Used:**  
+```kql
+DeviceInfo
+| where PublicIP == "20.81.228.191"
+| order by Timestamp asc
+```
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/aafcf2c0-6ad0-4ca2-9730-43bfe2de3944" alt="Screenshot description" width="600"/>
+</p>
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/135723e8-64fb-47cf-85ce-a980ac502f4e" alt="Screenshot description" width="600"/>
+</p>
+
+**Query Used:**
+```kql
+DeviceNetworkEvents
+| where DeviceName == "sakel-lunix-2.p2zfvso05mlezjev3ck4vqd3kd.cx.internal.cloudapp.net"
+| where Timestamp between (datetime(2025-03-14T16:41:22.631607Z) .. datetime(2025-03-14T20:46:16.607719Z))
+| summarize ActionOccurrences = count() by ActionType
+```
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/61bf984a-49ad-4ef0-b7b7-ac84c96cce1d" alt="Screenshot description" width="350"/>
+</p>
 
 **Status:** ✅ *Confirmed Malicious*
 
