@@ -108,11 +108,10 @@ and InitiatingProcessCommandLine !contains "tenable"
 `sakel-lunix-2.p2zfvso05mlezjev3ck4vqd3kd.cx.internal.cloudapp.net`
 
 **Timeframe:**  
-`March 14, 2025 @ 16:41 UTC`
-`March 17, 2025 @ 12:36 UTC`
+`March 14, 2025 @ 16:41 UTC` and `March 17, 2025 @ 12:36 UTC`
 
 **Details:**  
-- `bash` command that initiated 97,318 SSH connection attempts
+- `bash` command responsible for 97,318 SSH attempts on March 14 and 85,152 more on March 17
 - `.bisis` is a hidden binary located in a non-standard `/var/tmp/.update-logs/` path  
 - Executes SSH attempts using a config file (`data.json`)  
 - 8-second timeout suggests aggressive brute-forcing or scanning  
@@ -130,12 +129,18 @@ and InitiatingProcessCommandLine !contains "tenable"
 | where ActionType == "ConnectionRequest"
 | summarize CommandOccurrence = count() by InitiatingProcessCommandLine, ActionType
 | order by CommandOccurrence desc
-```
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/e9f0ab77-0292-4613-bbe3-2a41a6ccaf34" alt="Screenshot description" width="1000"/>
+```-->
+
+**March 14th Activity**
+<p align="left">
+  <img src="https://github.com/user-attachments/assets/e9f0ab77-0292-4613-bbe3-2a41a6ccaf34" alt="Screenshot description" width="770"/>
 </p>
 
--->
+**March 17th Activity**
+<p align="left">
+  <img src="https://github.com/user-attachments/assets/280d4db6-c6a9-4808-a134-65ce13b99b89" alt="Screenshot description" width="770"/>
+</p>
+
 
 **VirusTotal Score (.bisis):** `6/64`  
 **Likely Role:** SSH brute-force tool
@@ -144,7 +149,8 @@ and InitiatingProcessCommandLine !contains "tenable"
 - `T1110.001` — Brute Force: Password Guessing  
 - `T1059` — Command and Scripting Interpreter
 
-**Status:** ✅ *Confirmed Malicious*
+**Note**
+- *Brute-force activity began on March 14, but MDE only flagged it after the March 17 activity.*
 
 ---
 
@@ -195,8 +201,6 @@ DeviceFileEvents
 **Mapped MITRE Techniques:**  
 - `T1027` — Obfuscated Files or Information  
 - `T1036` — Masquerading
-
-**Status:** ✅ *Confirmed Malicious*
 
 ---
 
