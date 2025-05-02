@@ -118,7 +118,9 @@ and InitiatingProcessCommandLine !contains "tenable"
 - 8-second timeout suggests aggressive brute-forcing or scanning  
 - Used repeatedly from the source device across multiple sessions
 
+<!--
 **Query Used:**
+
 ```kql
 DeviceNetworkEvents
 | where DeviceName == "sakel-lunix-2.p2zfvso05mlezjev3ck4vqd3kd.cx.internal.cloudapp.net"
@@ -130,8 +132,10 @@ and InitiatingProcessCommandLine !contains "tenable"
 | order by CommandOccurrence desc
 ```
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/0b6fb247-4307-4c8b-8ae7-f0ff4419c696" alt="Screenshot description" width="800"/>
+  <img src="https://github.com/user-attachments/assets/e9f0ab77-0292-4613-bbe3-2a41a6ccaf34" alt="Screenshot description" width="1000"/>
 </p>
+
+-->
 
 **VirusTotal Score (.bisis):** `6/64`  
 **Likely Role:** SSH brute-force tool
