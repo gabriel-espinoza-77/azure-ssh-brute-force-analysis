@@ -50,10 +50,10 @@ DeviceNetworkEvents
 
 ## 4. Findings
 
-### 🔎 Finding #1 — Source Device Attribution
+### Finding #1 — Source Device Attribution
 
 **Indicator:**  
-`20.81.228.191` (internal Azure IP flagged in Microsoft security notice)
+`20.81.228.191` (Internal Azure IP flagged in Microsoft security notice)
 
 **Associated Device:**  
 `sakel-lunix-2.p2zfvso05mlezjev3ck4vqd3kd.cx.internal.cloudapp.net`
@@ -81,6 +81,7 @@ DeviceInfo
 
 **Query Used:**
 ```kql
+//Filtering out normal processes
 DeviceNetworkEvents
 | where DeviceName == "sakel-lunix-2.p2zfvso05mlezjev3ck4vqd3kd.cx.internal.cloudapp.net"
 | where Timestamp between (datetime(2025-03-14T16:41:22.631607Z) .. datetime(2025-03-14T20:46:16.607719Z))
@@ -95,7 +96,7 @@ and InitiatingProcessCommandLine !contains "tenable"
 
 ---
 
-### 🔎 Finding #2 — Execution of `.bisis` SSH Brute-Force Binary
+### Finding #2 — Execution of `.bisis` SSH Brute-Force Binary
 
 **Command Executed:**
 ```bash
