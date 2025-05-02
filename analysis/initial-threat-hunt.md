@@ -108,9 +108,11 @@ and InitiatingProcessCommandLine !contains "tenable"
 `sakel-lunix-2.p2zfvso05mlezjev3ck4vqd3kd.cx.internal.cloudapp.net`
 
 **Timeframe:**  
-`March 14, 2025 @ 12:41 UTC` → `March 18, 2025 @ 02:24 UTC`
+`March 14, 2025 @ 16:41 UTC`
+`March 17, 2025 @ 12:36 UTC`
 
 **Details:**  
+- `bash` command that initiated 97,318 SSH connection attempts
 - `.bisis` is a hidden binary located in a non-standard `/var/tmp/.update-logs/` path  
 - Executes SSH attempts using a config file (`data.json`)  
 - 8-second timeout suggests aggressive brute-forcing or scanning  
@@ -131,7 +133,7 @@ and InitiatingProcessCommandLine !contains "tenable"
   <img src="https://github.com/user-attachments/assets/0b6fb247-4307-4c8b-8ae7-f0ff4419c696" alt="Screenshot description" width="800"/>
 </p>
 
-**VirusTotal Score:** `6/64`  
+**VirusTotal Score (.bisis):** `6/64`  
 **Likely Role:** SSH brute-force tool
 
 **Mapped MITRE Techniques:**  
