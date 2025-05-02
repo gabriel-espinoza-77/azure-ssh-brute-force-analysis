@@ -168,11 +168,20 @@ bash -c "cd /var/tmp/.update-logs ; chmod +x /var/tmp/.update-logs/.bisis ; ulim
 **Timeframe:**  
 `March 14, 2025 @ 12:41 UTC` → `March 18, 2025 @ 02:24 UTC`
 
+<!--
 **Details:**  
 - Executes `.bisis`, `.b`, and `x` — multiple hidden binaries  
 - Uses `ulimit` to raise system limits for high concurrency  
 - Behavior indicates repeated brute-force and secondary payload execution  
 - No scheduled task or cron job confirmed
+-->
+**Details**
+- Activity occurs from a hidden directory (`/var/tmp/.update-logs`) with obfuscated file names
+- Executes `.bisis` with SSH brute-force parameters using high thread and timeout values
+- Raises system limits via `ulimit` to support mass connection attempts
+- Targets IPs listed in `iplist` and `iplist2`, brute-forcing the `root` user over port 22
+- Launches secondary binary `./x` after brute-force phase
+
 
 > 🖼️ *Insert Screenshot 3: Process tree or timeline showing `.bisis` and `./x` execution*
 
