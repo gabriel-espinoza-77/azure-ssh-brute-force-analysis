@@ -226,7 +226,7 @@ Files: `.b`, `.bisis`, `History`, `Update`, `x` and `UpzBUBnv`
 `March 14, 2025 @ 18:46 UTC` → `March 14, 2025 @ 21:29 UTC`
 
 **Details:**  
-- Multiple hidden binaries executed from `/var/tmp/.update-logs/`
+- Multiple hidden files created from `/var/tmp/.update-logs/`
 - No suspicious files or activity were observed prior to the creation of `UpzBUBnv`, suggesting it as the first clear indicator of malicious behavior
 - Subsequent malicious files appear to have been introduced following the execution of `UpzBUBnv`
 - `.bisis` was observed along with `x`, `.b`, `Update`, and `History`
@@ -266,8 +266,8 @@ DeviceFileEvents
 
 **Comment**: Remote SSH connection was established, and the file `UpzBUBnv` was transferred to `/var/tmp/` using SCP. 
 
-**VirusTotal Score (.bisis):** `6/64`
-**VirusTotal Score (.b):** Unknown
+**VirusTotal Score (.bisis):** `6/64`  
+**VirusTotal Score (.b):** Unknown  
 **VirusTotal Score (x):** Unknown  
 **VirusTotal Score (Update):** Unknown  
 **VirusTotal Score (History):** Unknown  
