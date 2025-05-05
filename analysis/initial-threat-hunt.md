@@ -223,15 +223,15 @@ Files: `.b`, `.bisis`, `.cache`, `History`, `Update`, `x` and `UpzBUBnv`
 `sakel-lunix-2.p2zfvso05mlezjev3ck4vqd3kd.cx.internal.cloudapp.net`
 
 **Timeframe:**  
-`March 14, 2025 @ 16:41 UTC` and `March 17, 2025 @ 12:36 UTC`
-`March 14, 2025 @ 16:41 UTC` and `March 17, 2025 @ 12:36 UTC`
-`March 14, 2025 @ 16:41 UTC` and `March 17, 2025 @ 12:36 UTC`
+`March 14, 2025 @ 18:46 UTC` → `March 14, 2025 @ 21:29 UTC`
 
 **Details:**  
 - Multiple hidden binaries executed from `/var/tmp/.update-logs/`
 - `.bisis` was launched with brute-force parameters
 - `x` executed shortly afterward (likely a follow-up loader)
 - Other files like `.b`, `Update`, and `History` observed in process trees
+- InitiatingProcessCommandLine output on `Update` record shows a process called `UpzBUBnv`
+- process tree shows that a remote SSH connection was established, and the file `UpzBUBnv` was transferred to `/var/tmp/` using SCP. 
 
 **Query Used:**  
 ```kql
@@ -246,6 +246,8 @@ DeviceFileEvents
   <img src="https://github.com/user-attachments/assets/b494bfc8-e572-497f-9cad-8cf0c7fbae4d" alt="Screenshot description" width="900"/>
 </p>
 
+
+
 **Query Used:**  
 ```kql
 DeviceFileEvents
@@ -253,9 +255,6 @@ DeviceFileEvents
 | where Timestamp between (datetime(2025-03-14T16:41:22.631607Z) .. datetime(2025-03-14T20:46:16.607719Z))
 | where FileName == "UpzBUBnv"
 ```
-
-> 🖼️ *Insert Screenshot 4: Process tree showing sequence of .bisis → x → Update*
-
 
 <p align="center">
   <img src="https://github.com/user-attachments/assets/63985440-ea64-4e9e-9176-cecd1337d03b" alt="UpzBUBnv" width="300"/>
