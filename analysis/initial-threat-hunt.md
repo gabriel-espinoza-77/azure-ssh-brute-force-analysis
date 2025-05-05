@@ -217,7 +217,7 @@ DeviceFileEvents
 ### Finding #4 — Malicious File Executions in `/var/tmp/`
 
 **Indicator:**  
-Files: `.b`, `.bisis`, `.cache`, `History`, `Update`, `x` and `UpzBUBnv`
+Files: `.b`, `.bisis`, `History`, `Update`, `x` and `UpzBUBnv`
 
 **Associated Device:**  
 `sakel-lunix-2.p2zfvso05mlezjev3ck4vqd3kd.cx.internal.cloudapp.net`
@@ -228,7 +228,6 @@ Files: `.b`, `.bisis`, `.cache`, `History`, `Update`, `x` and `UpzBUBnv`
 **Details:**  
 - Multiple hidden binaries executed from `/var/tmp/.update-logs/`
 - `.bisis` was launched with brute-force parameters
-- `x` executed shortly afterward (likely a follow-up loader)
 - Other files like `.b`, `Update`, and `History` observed in process trees
 - InitiatingProcessCommandLine output on `Update` record shows a process called `UpzBUBnv`
 - process tree shows that a remote SSH connection was established, and the file `UpzBUBnv` was transferred to `/var/tmp/` using SCP. 
@@ -262,6 +261,7 @@ DeviceFileEvents
 </p>
 
 **VirusTotal Score (cache):** `31/64`  
+**VirusTotal Score (x):** Unknown  
 **Likely Role:** Brute-force agent and follow-up payload loader
 
 **Mapped MITRE Techniques:**  
