@@ -227,10 +227,9 @@ Files: `.b`, `.bisis`, `History`, `Update`, `x` and `UpzBUBnv`
 
 **Details:**  
 - Multiple hidden binaries executed from `/var/tmp/.update-logs/`
-- `.bisis` was launched with brute-force parameters
-- Other files like `.b`, `Update`, and `History` observed in process trees
-- InitiatingProcessCommandLine output on `Update` record shows a process called `UpzBUBnv`
-- process tree shows that a remote SSH connection was established, and the file `UpzBUBnv` was transferred to `/var/tmp/` using SCP. 
+- No suspicious files or activity were observed prior to the creation of `UpzBUBnv`, suggesting it as the first clear indicator of malicious behavior
+- Subsequent malicious files appear to have been introduced following the execution of `UpzBUBnv`
+- `.bisis` was observed along with `x`, `.b`, `Update`, and `History`
 
 **Query Used:**  
 ```kql
@@ -245,10 +244,11 @@ DeviceFileEvents
   <img src="https://github.com/user-attachments/assets/b494bfc8-e572-497f-9cad-8cf0c7fbae4d" alt="Screenshot description" width="900"/>
 </p>
 
-
+**Comment**: InitiatingProcessCommandLine output on `Update` record shows a process called `UpzBUBnv`.
 
 **Query Used:**  
 ```kql
+// The same query was also run against the DeviceProcessEvents table
 DeviceFileEvents
 | where DeviceName == "sakel-lunix-2.p2zfvso05mlezjev3ck4vqd3kd.cx.internal.cloudapp.net"
 | where Timestamp between (datetime(2025-03-14T16:41:22.631607Z) .. datetime(2025-03-14T20:46:16.607719Z))
@@ -259,10 +259,19 @@ DeviceFileEvents
   <img src="https://github.com/user-attachments/assets/63985440-ea64-4e9e-9176-cecd1337d03b" alt="UpzBUBnv" width="300"/>
   <img src="https://github.com/user-attachments/assets/38fbc0ce-d133-4195-b571-214dcf51dfec" alt="UpzBUBnv" width="300"/>
 </p>
+<p align="center">
+  DeviceProcessEvents Output
+  <img src="https://github.com/user-attachments/assets/e6d0ad88-8eb3-4e49-befd-e82c930a046b" alt="UpzBUBnv" width="900"/>
+</p>
 
-**VirusTotal Score (cache):** `31/64`  
+**Comment**: Remote SSH connection was established, and the file `UpzBUBnv` was transferred to `/var/tmp/` using SCP. 
+
+**VirusTotal Score (.bisis):** `6/64`
+**VirusTotal Score (.b):** Unknown
 **VirusTotal Score (x):** Unknown  
-**Likely Role:** Brute-force agent and follow-up payload loader
+**VirusTotal Score (Update):** Unknown  
+**VirusTotal Score (History):** Unknown  
+**VirusTotal Score (UpzBUBnv):** Unknown  
 
 **Mapped MITRE Techniques:**  
 - `T1059.004` — Command and Scripting Interpreter: Unix Shell  
