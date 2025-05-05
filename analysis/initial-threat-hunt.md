@@ -214,31 +214,53 @@ DeviceFileEvents
 
 ---
 
-### Finding #4 — Malicious File Executions in `/var/tmp`
+### Finding #4 — Malicious File Executions in `/var/tmp/`
 
 **Indicator:**  
-Files: `.b`, `.bisis`, `.cache`, `.history`, `Update`, and `x`
+Files: `.b`, `.bisis`, `.cache`, `History`, `Update`, `x` and `UpzBUBnv`
 
 **Associated Device:**  
 `sakel-lunix-2.p2zfvso05mlezjev3ck4vqd3kd.cx.internal.cloudapp.net`
 
 **Timeframe:**  
-March 14–18, 2025
+`March 14, 2025 @ 16:41 UTC` and `March 17, 2025 @ 12:36 UTC`
+`March 14, 2025 @ 16:41 UTC` and `March 17, 2025 @ 12:36 UTC`
+`March 14, 2025 @ 16:41 UTC` and `March 17, 2025 @ 12:36 UTC`
 
 **Details:**  
 - Multiple hidden binaries executed from `/var/tmp/.update-logs/`
 - `.bisis` was launched with brute-force parameters
 - `x` executed shortly afterward (likely a follow-up loader)
-- Other files like `.b`, `Update`, and `.history` observed in process trees
+- Other files like `.b`, `Update`, and `History` observed in process trees
 
-**Query Used:**
+**Query Used:**  
 ```kql
-DeviceProcessEvents
-| where FolderPath has "/var/tmp"
-| where FileName in~ (".bisis", ".b", "x", "Update", ".cache", ".history")
+DeviceFileEvents
+| where DeviceName == "sakel-lunix-2.p2zfvso05mlezjev3ck4vqd3kd.cx.internal.cloudapp.net"
+| where Timestamp between (datetime(2025-03-14T16:41:22.631607Z) .. datetime(2025-03-14T20:46:16.607719Z))
+| where FolderPath contains "update-logs"
+| project Timestamp, ActionType, FileName, FolderPath, SHA256, InitiatingProcessFolderPath, InitiatingProcessCommandLine
+```
+
+<p align="left">
+  <img src="https://github.com/user-attachments/assets/b494bfc8-e572-497f-9cad-8cf0c7fbae4d" alt="Screenshot description" width="900"/>
+</p>
+
+**Query Used:**  
+```kql
+DeviceFileEvents
+| where DeviceName == "sakel-lunix-2.p2zfvso05mlezjev3ck4vqd3kd.cx.internal.cloudapp.net"
+| where Timestamp between (datetime(2025-03-14T16:41:22.631607Z) .. datetime(2025-03-14T20:46:16.607719Z))
+| where FileName == "UpzBUBnv"
 ```
 
 > 🖼️ *Insert Screenshot 4: Process tree showing sequence of .bisis → x → Update*
+
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/63985440-ea64-4e9e-9176-cecd1337d03b" alt="UpzBUBnv" width="300"/>
+  <img src="https://github.com/user-attachments/assets/38fbc0ce-d133-4195-b571-214dcf51dfec" alt="UpzBUBnv" width="300"/>
+</p>
 
 **VirusTotal Score (cache):** `31/64`  
 **Likely Role:** Brute-force agent and follow-up payload loader
