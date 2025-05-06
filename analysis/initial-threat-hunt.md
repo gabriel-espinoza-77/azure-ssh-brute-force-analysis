@@ -311,17 +311,18 @@ history -c ; \
 rm -rf .bash_history ~/.bash_history"
 ```
 
+**Note:** This command was observed in the March 14 `ConnectionRequests` query.
+
 **Associated Device:**  
 `sakel-lunix-2.p2zfvso05mlezjev3ck4vqd3kd.cx.internal.cloudapp.net`
 
 **Timeframe:**  
-
-`March 14, 2025 @ 16:41 UTC`
+`March 14, 2025 @ 18:46 UTC`
 <!--
 *March 17, 2025 @ 12:36 UTC* → *March 17, 2025 @ 13:03 UTC*
 -->
 
-**Behavior Observed:**  
+**Details:**
 - `./network` acts as a loader, executing `.diicot`, `.kuak`, and later `cache` (from downloaded `.balu`)  
 - Replaces `/var/tmp/Documents/` with a controlled drop site  
 - Clears bash history, kills known miners, and resets SSH authorized_keys  
