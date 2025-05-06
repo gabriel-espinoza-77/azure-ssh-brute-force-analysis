@@ -361,15 +361,12 @@ DeviceFileEvents
   <img src="https://github.com/user-attachments/assets/ea24de2f-0e57-4327-8bef-ffd34af025f8" alt="UpzBUBnv" width="250"/>
 </p>
 
-**Note:**
+**Note:** Two separate process trees were observed — one for diicot (top-right screenshot) and another for kuak (shown in both bottom screenshots).
 
 **VirusTotal Scores:**  
 - `.diicot`: `21/64`
 - `.kuak`: `30/64`
 - `.balu` (renamed to `cache`): `33/64` 
-
-**Likely Role:**  
-Loader and cleanup utility to obscure prior execution and enable long-term activity
 
 **Mapped MITRE Techniques:**  
 - `T1059` — Command and Scripting Interpreter  
