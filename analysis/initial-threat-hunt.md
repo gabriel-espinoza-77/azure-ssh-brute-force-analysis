@@ -281,7 +281,7 @@ DeviceFileEvents
 
 ---
 
-### 🔎 Finding #5 — Execution of `./network` Loader and Obfuscation Script
+### Finding #5 — Deployment of Diicot Cryptominer via `./network` Loader
 
 **Command Observed:**
 ```bash
@@ -323,10 +323,12 @@ rm -rf .bash_history ~/.bash_history"
 -->
 
 **Details:**
-- `./network` acts as a loader, executing `.diicot`, `.kuak`, and later `cache` (from downloaded `.balu`)  
-- Replaces `/var/tmp/Documents/` with a controlled drop site  
-- Clears bash history, kills known miners, and resets SSH authorized_keys  
-- Obfuscates execution paths using hidden directories and file renaming
+- `./network` functions as a loader and cleanup script
+- Deletes and recreates `/var/tmp/Documents` as a staging area
+- Executes `.diicot` and `.kuak`, then downloads and runs `.balu` (renamed to `cache`)
+- Kills known miner processes (`xmrig`, `cnrig`, `Opera`, `java`) to remove competition
+- Clears shell and bash history to erase evidence
+- Modifies SSH configs and uses obfuscated paths to evade detection
 
 **Query Used:**
 ```kql
