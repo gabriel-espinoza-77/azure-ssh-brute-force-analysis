@@ -361,7 +361,7 @@ DeviceFileEvents
   <img src="https://github.com/user-attachments/assets/ea24de2f-0e57-4327-8bef-ffd34af025f8" alt="UpzBUBnv" width="250"/>
 </p>
 
-**Note:** Two separate process trees were observed — one for diicot (top-right screenshot) and another for kuak (shown in both bottom screenshots).
+**Note:** Two process trees were observed — one for `diicot` (top-right) and one for `kuak` (bottom). An unfamiliar `./retea` command also appears and will be examined next.
 
 **VirusTotal Scores:**  
 - `.diicot`: `21/64`
