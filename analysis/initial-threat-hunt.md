@@ -95,6 +95,8 @@ and InitiatingProcessCommandLine !contains "tenable"
   <img src="https://github.com/user-attachments/assets/754928b6-e72a-4f57-84e3-b083f27333fa" alt="Screenshot description" width="800"/>
 </p>
 
+**VirusTotal Score (.bisis):** `6/64` 
+
 ---
 
 ### Finding #2 — Execution of `.bisis` SSH Brute-Force Binary
@@ -142,9 +144,7 @@ and InitiatingProcessCommandLine !contains "tenable"
   <img src="https://github.com/user-attachments/assets/280d4db6-c6a9-4808-a134-65ce13b99b89" alt="Screenshot description" width="770"/>
 </p>
 
-
 **VirusTotal Score (.bisis):** `6/64`  
-**Likely Role:** SSH brute-force tool
 
 **Mapped MITRE Techniques:**  
 - `T1110.001` — Brute Force: Password Guessing  
@@ -205,9 +205,10 @@ DeviceFileEvents
   <img src="https://github.com/user-attachments/assets/1c5b83cd-5b2f-4985-bb88-2cf3fe6370fc" alt="Process execution of .bisis and x" width="300"/>
 </p>
 
-
 **Note**
 - The observed `bash` command was executed via the `Update` file, as shown in the screenshots above.
+
+**VirusTotal Score (.bisis):** `6/64` 
 
 **Mapped MITRE Techniques:**  
 - `T1027` — Obfuscated Files or Information  
