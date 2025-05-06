@@ -267,12 +267,13 @@ DeviceFileEvents
 
 **Comment**: Remote SSH connection was established, and the file `UpzBUBnv` was transferred to `/var/tmp/` using SCP. 
 
-**VirusTotal Score (.bisis):** `6/64`  
-**VirusTotal Score (.b):** Unknown  
-**VirusTotal Score (x):** Unknown  
-**VirusTotal Score (Update):** Unknown  
-**VirusTotal Score (History):** Unknown  
-**VirusTotal Score (UpzBUBnv):** Unknown  
+**VirusTotal Scores:**
+- `.bisis`: `6/64`  
+- `.b`: Unknown  
+- `x`: Unknown  
+- `Update`: Unknown  
+- `History`: Unknown  
+- `UpzBUBnv`: Unknown  
 
 **Mapped MITRE Techniques:**  
 - `T1059.004` — Command and Scripting Interpreter: Unix Shell  
@@ -337,7 +338,8 @@ DeviceProcessEvents
 > 🖼️ *Insert Screenshot: Process tree showing `./network` and resulting sub-processes*
 
 **VirusTotal Scores:**  
-- `.diicot`: `21/64` — Likely crypto miner  
+- `.diicot`: `21/64` — Likely crypto miner
+- `.kuak`: `30/64`
 - `.balu` (renamed to `cache`): `33/64` — Likely loader or second-stage dropper  
 
 **Likely Role:**  
