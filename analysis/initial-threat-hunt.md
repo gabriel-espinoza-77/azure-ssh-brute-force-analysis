@@ -330,20 +330,43 @@ rm -rf .bash_history ~/.bash_history"
 - Clears shell and bash history to erase evidence
 - Modifies SSH configs and uses obfuscated paths to evade detection
 
-**Query Used:**
+**Queries Used:**
 ```kql
-DeviceProcessEvents
-| where InitiatingProcessFileName =~ "network"
-| where FolderPath contains "/var/tmp"
-| project Timestamp, DeviceName, InitiatingProcessCommandLine
+DeviceNetworkEvents
+| where DeviceName == "sakel-lunix-2.p2zfvso05mlezjev3ck4vqd3kd.cx.internal.cloudapp.net"
+| where Timestamp between (datetime(2025-03-14T16:41:22.631607Z) .. datetime(2025-03-14T20:46:16.607719Z))
+| where InitiatingProcessCommandLine contains "./network"
+| where ActionType == "ConnectionRequest"
+| project Timestamp, DeviceName, ActionType, RemoteIP, RemotePort, InitiatingProcessCommandLine
 ```
 
-> 🖼️ *Insert Screenshot: Process tree showing `./network` and resulting sub-processes*
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/01004535-b8d4-4c0d-bda5-b4e83b2d8620" alt="./network" width="800"/>
+</p>
+
+**Note:** Presence of `diicot`, `kuak`, and `cache` in `InitiatingProcessCommandLine` prompted deeper investigation of this command.
+
+```kql
+let Files = dynamic(["diicot", "kuak", "cache"]);
+DeviceFileEvents
+| where DeviceName == "sakel-lunix-2.p2zfvso05mlezjev3ck4vqd3kd.cx.internal.cloudapp.net"
+| where Timestamp between (datetime(2025-03-14T16:41:22.631607Z) .. datetime(2025-03-14T20:46:16.607719Z))
+| where FileName has_any(Files)
+```
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/50b894e5-8d5d-4613-a153-271be77ab166" alt="./network" width="600"/>
+  <img src="https://github.com/user-attachments/assets/2a0cd76e-78c4-4f13-aaa5-11b2325b242b" alt="UpzBUBnv" width="320"/>
+  <img src="https://github.com/user-attachments/assets/72410e77-c048-4aa6-8df0-ebfa109db5e9" alt="./network" width="275"/>
+  <img src="https://github.com/user-attachments/assets/ea24de2f-0e57-4327-8bef-ffd34af025f8" alt="UpzBUBnv" width="250"/>
+</p>
+
+**Note:**
 
 **VirusTotal Scores:**  
-- `.diicot`: `21/64` — Likely crypto miner
+- `.diicot`: `21/64`
 - `.kuak`: `30/64`
-- `.balu` (renamed to `cache`): `33/64` — Likely loader or second-stage dropper  
+- `.balu` (renamed to `cache`): `33/64` 
 
 **Likely Role:**  
 Loader and cleanup utility to obscure prior execution and enable long-term activity
