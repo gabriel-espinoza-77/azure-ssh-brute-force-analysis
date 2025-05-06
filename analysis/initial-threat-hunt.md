@@ -35,7 +35,7 @@ Investigation was initiated based on a Microsoft security alert indicating SSH b
 - `DeviceProcessEvents`, `DeviceFileEvents`, and `DeviceNetworkEvents` to trace behavior
 - VirusTotal to enrich SHA-256 hashes and assess malware reputation
 - MITRE ATT&CK used for TTP classification (linked in `mitre-attack-mapping.md`)
-
+<!--
 ### Base Query Template
 
 ```kql
@@ -46,6 +46,7 @@ DeviceNetworkEvents
       and InitiatingProcessCommandLine !contains "/var/lib/waagent/"
       and InitiatingProcessCommandLine !contains "tenable"
 ```
+-->
 ---
 
 ## 4. Findings
