@@ -458,7 +458,7 @@ DeviceProcessEvents
 
 **Command Observed:**
 ```bash
-./retea KOFVwMxV7k7XjP7fwXPY6Cmp16vf8EnL54650LjYb6WYBtuSs3Zd1Ncr3SrpvnAU Haceru...
+bash -c 'key=$1; user=$2; if [[ $key == "KOFVwMxV7k7XjP7fwXPY6Cmp16vf8EnL54650LjYb6WYBtuSs3Zd1Ncr3SrpvnAU" ]]; then... Haceru'
 ```
 [View full command → `observed-commands.md`](./observed-commands.md#bisis-repeated-execution-command)
 
