@@ -454,4 +454,46 @@ DeviceProcessEvents
 -->
 ---
 
+### Finding #6 — Execution of `./retea` Script for Credential Harvesting and Payload Launch
+
+**Command Observed:**
+```bash
+./retea KOFVwMxV7k7XjP7fwXPY6Cmp16vf8EnL54650LjYb6WYBtuSs3Zd1Ncr3SrpvnAU Haceru...
+```
+[View full command → `observed-commands.md`](./observed-commands.md#bisis-repeated-execution-command)
+
+**Associated Device:**  
+`sakel-lunix-2.p2zfvso05mlezjev3ck4vqd3kd.cx.internal.cloudapp.net`
+
+**Timeframe:**  
+*March 17, 2025 @ 13:03 UTC* → *March 17, 2025 @ 13:12 UTC*
+
+**Behavior Observed:**  
+- Script launches a multi-stage payload chain that removes competing malware, wipes cron jobs, and downloads a binary (`payload`) from `dinpasiune.com`  
+- Deletes history files and SSH keys to conceal activity  
+- Harvests system users and generates a brute-force password list (`pass`) using common patterns  
+- Initiates a secondary execution through the `network` file (linked to earlier loader activity)
+
+**Query Used:**
+```kql
+DeviceProcessEvents
+| where InitiatingProcessCommandLine contains "./retea"
+| project Timestamp, DeviceName, InitiatingProcessCommandLine
+```
+
+> 🖼️ *Insert Screenshot: Process tree showing `./retea` and downstream payload execution*
+
+**VirusTotal Scores:**  
+- `payload` (from dinpasiune.com): `43/64` — crypto miner  
+- `retea`: `38/64` — credential harvester and loader
+
+**Likely Role:**  
+Credential harvester and secondary loader used to prepare system for mining and persistence
+
+**Mapped MITRE Techniques:**  
+- `T1110.001` — Brute Force: Password Guessing  
+- `T1059` — Command and Scripting Interpreter  
+- `T1036` — Masquerading  
+- `T1070.004` — Indicator Removal on Host: File Deletion
+
 
