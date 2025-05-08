@@ -281,7 +281,7 @@ DeviceFileEvents
 - `T1036` — Masquerading
 
 ---
-<!--
+
 ### Finding #5 — Deployment of Diicot Cryptominer via `./network` Loader
 
 **Command Observed:**
@@ -389,19 +389,30 @@ DeviceFileEvents
 `March 14, 2025 @ 18:46 UTC`
 
 **Behavior Observed:**  
-- Script launches a multi-stage payload chain that removes competing malware, wipes cron jobs, and downloads a binary (`payload`) from `dinpasiune.com`  
-- Deletes history files and SSH keys to conceal activity  
-- Harvests system users and generates a brute-force password list (`pass`) using common patterns  
-- Initiates a secondary execution through the `network` file (linked to earlier loader activity)
+- Script performs credential harvesting by enumerating local users and generating a large password dictionary (`pass`) using common and patterned guesses
+- Wipes cron jobs, SSH authorized keys, and command history to conceal prior actions
+- Downloads and silently executes a remote payload (`payload`) from `dinpasiune.com`
+- Kills known miner processes and removes previous malware traces (e.g., `xmrig`, `cnrig`, `Opera`)
+- Alters system limits (`ulimit`, `/etc/sysctl.conf`) to enable high concurrency
+- Executes a hidden binary `.teaca` and modifies `/dev/shm` for staging and persistence
+- This is also where the `./network` loader script is executed, which is detailed in the following finding
 
-**Query Used:**
+
+
 ```kql
-DeviceProcessEvents
-| where InitiatingProcessCommandLine contains "./retea"
-| project Timestamp, DeviceName, InitiatingProcessCommandLine
+let Files = dynamic(["diicot", "kuak", "cache"]);
+DeviceFileEvents
+| where DeviceName == "sakel-lunix-2.p2zfvso05mlezjev3ck4vqd3kd.cx.internal.cloudapp.net"
+| where Timestamp between (datetime(2025-03-14T16:41:22.631607Z) .. datetime(2025-03-14T20:46:16.607719Z))
+| where FileName has_any(Files)
 ```
 
-> 🖼️ *Insert Screenshot: Process tree showing `./retea` and downstream payload execution*
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/50b894e5-8d5d-4613-a153-271be77ab166" alt="./network" width="800"/>
+  <img src="https://github.com/user-attachments/assets/034f2a65-993e-4f4f-88c8-35306e0649df" alt="./network" width="375"/>
+</p>
+
+**Note:** The `./retea` command was identified during deeper investigation into the origin of the `./network` script execution.
 
 **VirusTotal Scores:**  
 - `payload` (from dinpasiune.com): `43/64` — crypto miner  
@@ -415,10 +426,10 @@ Credential harvester and secondary loader used to prepare system for mining and 
 - `T1059` — Command and Scripting Interpreter  
 - `T1036` — Masquerading  
 - `T1070.004` — Indicator Removal on Host: File Deletion
--->
----
 
-### 🔎 Finding #5 — Execution of `./retea` Script for Credential Harvesting and Payload Launch
+---
+<!--
+### Finding #5 — Execution of `./retea` Script for Credential Harvesting and Payload Launch
 
 **Command Observed:**
 ```bash
@@ -462,7 +473,7 @@ Credential harvester and secondary loader used to prepare system for mining and 
 
 ---
 
-### 🔎 Finding #6 — Deployment of Diicot Cryptominer via `./network` Loader
+### Finding #6 — Deployment of Diicot Cryptominer via `./network` Loader
 
 **Command Observed:**
 ```bash
