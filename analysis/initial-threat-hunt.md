@@ -397,8 +397,6 @@ DeviceFileEvents
 - Executes a hidden binary `.teaca` and modifies `/dev/shm` for staging and persistence
 - This is also where the `./network` loader script is executed, which is detailed in the following finding
 
-
-
 ```kql
 let Files = dynamic(["diicot", "kuak", "cache"]);
 DeviceFileEvents
@@ -408,7 +406,6 @@ DeviceFileEvents
 ```
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/50b894e5-8d5d-4613-a153-271be77ab166" alt="./network" width="800"/>
   <img src="https://github.com/user-attachments/assets/034f2a65-993e-4f4f-88c8-35306e0649df" alt="./network" width="375"/>
 </p>
 
