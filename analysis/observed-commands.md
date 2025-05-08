@@ -85,7 +85,7 @@ Complex script to eliminate competition, hide traces, deploy mining payloads, an
 (id: `retea-full-payload-script`)
 
 ```bash
-#!/bin/bash
+./retea -c '
 key=$1
 user=$2
 
