@@ -35,18 +35,7 @@ Investigation was initiated based on a Microsoft security alert indicating SSH b
 - `DeviceProcessEvents`, `DeviceFileEvents`, and `DeviceNetworkEvents` to trace behavior
 - VirusTotal to enrich SHA-256 hashes and assess malware reputation
 - MITRE ATT&CK used for TTP classification (linked in `mitre-attack-mapping.md`)
-<!--
-### Base Query Template
 
-```kql
-DeviceNetworkEvents
-| where DeviceName == "<target_device>"
-| where Timestamp between (datetime(<start>) .. datetime(<end>))
-| where InitiatingProcessCommandLine !contains "nessus"
-      and InitiatingProcessCommandLine !contains "/var/lib/waagent/"
-      and InitiatingProcessCommandLine !contains "tenable"
-```
--->
 ---
 
 ## 4. Findings
@@ -95,7 +84,7 @@ and InitiatingProcessCommandLine !contains "tenable"
   <img src="https://github.com/user-attachments/assets/754928b6-e72a-4f57-84e3-b083f27333fa" alt="Screenshot description" width="800"/>
 </p>
 
-**VirusTotal Score (.bisis):** `6/64` 
+**Note:** 
 
 ---
 
