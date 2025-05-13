@@ -20,7 +20,7 @@ To identify, analyze, and document SSH brute-force activity targeting virtual ma
   - Isolation of other users' devices was not permitted due to tenant policy
   - Log data was limited by a 30-day retention window, preventing full root-cause tracing of earliest activity
 
-> 🔁 This investigation is conducted in two phases:  
+> This investigation is conducted in two phases:  
 > **Phase 1 (this file)**: Manual log-based hunting  
 > **Phase 2**: Review of MDE’s Incidents Dashboard (see [`mde-dashboard-review.md`](./mde-dashboard-review.md))
 
@@ -415,7 +415,6 @@ Credential harvester and secondary loader used to prepare system for mining and 
 - `T1070.004` — Indicator Removal on Host: File Deletion
 
 ---
-
 
 
 
