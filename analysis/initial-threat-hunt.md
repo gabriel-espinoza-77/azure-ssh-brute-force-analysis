@@ -416,6 +416,68 @@ Credential harvester and secondary loader used to prepare system for mining and 
 
 ---
 
+### 🔎 Finding #7 — Outbound SSH Connections via `.bisis` and `Update` Binaries
+
+**Command Observed:**
+```bash
+/var/tmp/.update-logs/./.bisis ssh -o /var/tmp/.update-logs/data.json --userauth none --timeout 8
+```
+```bash
+/var/tmp/.update-logs/Update -o /var/tmp/.update-logs/data.json --userauth none --timeout 8
+```
+[View full commands → `observed-commands.md`](./observed-commands.md#ssh-brute-force-commands)
+
+**Associated Device:**  
+`sakel-lunix-2.p2zfvso05mlezjev3ck4vqd3kd.cx.internal.cloudapp.net`
+
+**Timeframe:**  
+`March 14, 2025 @ 18:48 UTC` → `March 17, 2025 @ 13:12 UTC`
+
+**Behavior Observed:**  
+- High-volume outbound SSH connections were initiated using two different binaries: `.bisis` and `Update`  
+- Both used nearly identical flags, suggesting that `Update` is a renamed or recompiled variant of `.bisis`  
+- All connections were unauthenticated brute-force attempts over port 22 with short timeouts  
+- These were **confirmed successful connection requests** to a range of external IPs
+
+---
+
+### 🌐 IPs Contacted by `.bisis` Command
+Confirmed via `ConnectionSuccess` with `.bisis` in `InitiatingProcessCommandLine`:
+- `102.130.127.53`
+- `45.64.186.20`
+- `20.81.228.191`
+- `103.134.152.7`
+- `179.60.150.194`
+
+---
+
+### 🌐 IPs Contacted by `Update` Command
+Confirmed via `ConnectionSuccess` with `Update` in `InitiatingProcessCommandLine`:
+- `20.210.113.219`
+- `89.116.38.131`
+- `45.142.182.165`
+
+---
+
+**Details:**  
+- Both binaries were used from the same directory and share identical behavior patterns  
+- All IPs targeted are public and routable, indicating external brute-force attempts  
+- The split usage suggests either a fallback mechanism or stealth evasion via renaming  
+- **No connections to internal Azure tenant IPs** were observed in this phase  
+- This activity represents the scanning and propagation phase of the attack prior to payload deployment
+
+**VirusTotal Score (Binary References):**  
+- `.bisis`: `31/64`  
+- `Update`: `30/64`  
+*(No file hashes linked to the IPs directly — scores are for the binaries used to make the connections)*
+
+**Likely Role:**  
+Outbound SSH brute-force scanners targeting vulnerable external systems
+
+**Mapped MITRE Techniques:**  
+- `T1021.004` — Remote Services: SSH  
+- `T1110` — Brute Force  
+- `T1036` — Masquerading
 
 
 
