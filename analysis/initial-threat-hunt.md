@@ -440,33 +440,72 @@ Credential harvester and secondary loader used to prepare system for mining and 
 - These were **confirmed successful connection requests** to a range of external IPs
 
 ---
-March 14th, 2025 1:49 EST -> March 14th, 2025 2:22 EST - UPDATE
-### IPs Contacted by `.bisis` Command
+March 14th, 2025 1:49 PM EST -> March 14th, 2025 2:22 PM EST - .bisis
+### IPs Contacted by 
+`.bisis` Command
 Confirmed via `ConnectionSuccess` with `.bisis` in `InitiatingProcessCommandLine`:
-- `102.130.127.53`
-- `45.64.186.20`
-- `20.81.228.191`
-- `103.134.152.7`
-- `179.60.150.194`
-
----
-March 14th, 2025 2:23 EST -> March 14th, 2025 2:25 EST - UPDATE
-### IPs Contacted by `Update` Command
-Confirmed via `ConnectionSuccess` with `Update` in `InitiatingProcessCommandLine`:
-- `20.210.113.219`
-- `89.116.38.131`
-- `45.142.182.165`
+- `140.186.43.104`, `140.186.248.106`, `140.186.59.95`, `140.186.205.38`, `140.186.253.5`
+- `175.201.2.110`, `175.201.47.187`, `175.201.82.226`, `175.201.109.213`, `175.201.116.12`, `175.201.131.118`, `175.201.167.35`, `175.201.181.162`, `175.201.239.38`
+- `45.64.124.130`, `45.64.129.246`, `45.64.185.5`
+- `137.204.40.210`, `137.204.139.202`, `137.204.162.100`, `137.204.215.215`, `137.204.227.143`, `137.204.229.148`
 
 ```kql
-let Files = dynamic(["diicot", "kuak", "cache"]);
-DeviceFileEvents
+DeviceNetworkEvents
 | where DeviceName == "sakel-lunix-2.p2zfvso05mlezjev3ck4vqd3kd.cx.internal.cloudapp.net"
 | where Timestamp between (datetime(2025-03-14T16:41:22.631607Z) .. datetime(2025-03-14T20:46:16.607719Z))
-| where FileName has_any(Files)
+| where InitiatingProcessCommandLine !contains "nessus" and InitiatingProcessCommandLine !contains "/var/lib/waagent/"
+and InitiatingProcessCommandLine !contains "tenable"
+| where InitiatingProcessCommandLine == “/var/tmp/.update-logs/./.bisis ssh -o /var/tmp/.update-logs/data.json --userauth none --timeout 8"
+| where ActionType == "ConnectionSuccess"
+| project Timestamp, DeviceName, ActionType, RemoteIP, InitiatingProcessCommandLine
 ```
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/034f2a65-993e-4f4f-88c8-35306e0649df" alt="./network" width="375"/>
+  <img src="https://github.com/user-attachments/assets/f11353a2-f4b0-4809-a79c-df2d0f530123" alt="./network" width="1000"/>
+</p>
+
+March 17th, 2025 11:49 AM EST
+Contacted by `.bisis`
+- `213.217.173.134`
+
+```kql
+DeviceNetworkEvents
+| where DeviceName == "sakel-lunix-2.p2zfvso05mlezjev3ck4vqd3kd.cx.internal.cloudapp.net"
+| where Timestamp between (datetime(2025-03-17T15:20:22.3017084Z) .. datetime(2025-03-18T03:16:33.8086809Z))
+| where InitiatingProcessCommandLine !contains "nessus" and InitiatingProcessCommandLine !contains "/var/lib/waagent/"
+and InitiatingProcessCommandLine !contains "tenable"
+| where ActionType == "ConnectionSuccess"
+| project Timestamp, DeviceName, ActionType, RemoteIP, InitiatingProcessCommandLine
+```
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/ef2795dc-2732-4e0a-a8fa-6ad846eb59a8" alt="./network" width="1000"/>
+</p>
+---
+March 14th, 2025 2:23 PM EST -> March 14th, 2025 2:25 PM EST - UPDATE
+
+### IPs Contacted by 
+`Update` Command
+
+Confirmed via `ConnectionSuccess` with `Update` in `InitiatingProcessCommandLine`:
+- `45.64.52.3`
+- `45.64.237.36`
+- `45.64.248.22`
+- `45.64.128.181`
+
+```kql
+DeviceNetworkEvents
+| where DeviceName == "sakel-lunix-2.p2zfvso05mlezjev3ck4vqd3kd.cx.internal.cloudapp.net"
+| where Timestamp between (datetime(2025-03-14T16:41:22.631607Z) .. datetime(2025-03-14T20:46:16.607719Z))
+| where InitiatingProcessCommandLine !contains "nessus" and InitiatingProcessCommandLine !contains "/var/lib/waagent/"
+and InitiatingProcessCommandLine !contains "tenable"
+| where InitiatingProcessCommandLine == "/var/tmp/.update-logs/Update"
+| where ActionType == "ConnectionSuccess"
+| project Timestamp, DeviceName, ActionType, RemoteIP, InitiatingProcessCommandLine
+```
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/935e4433-7260-4a0a-8522-e9c3b0a6f050" alt="./network" width="800"/>
 </p>
 ---
 
