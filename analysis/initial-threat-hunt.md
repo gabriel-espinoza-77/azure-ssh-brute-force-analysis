@@ -527,6 +527,95 @@ and InitiatingProcessCommandLine !contains "tenable"
 - `T1110` — Brute Force  
 - `T1036` — Masquerading
 
+---
+
+### Finding #8 — Spread of `.bisis` Across Five Devices and Continued Brute-Force Activity
+
+**Query Used:**
+```kql
+DeviceNetworkEvents
+| where Timestamp > ago(100d)
+| where InitiatingProcessCommandLine !contains "nessus"
+      and InitiatingProcessCommandLine !contains "/var/lib/waagent/"
+      and InitiatingProcessCommandLine !contains "tenable"
+| where InitiatingProcessCommandLine == "/var/tmp/.update-logs/./.bisis ssh -o /var/tmp/.update-logs/data.json --userauth none --timeout 8"
+| summarize FirstSeen=min(Timestamp), LastSeen=max(Timestamp), CommandOccurrence=count() 
+          by ActionType, InitiatingProcessCommandLine, DeviceName
+| order by ActionType desc
+```
+
+**Behavior Observed:**  
+- As the attack appeared to focus on **data exfiltration and persistence**, further checks were initiated to ensure malicious activity wasn’t continuing undetected  
+- A 100-day retrospective query of `DeviceNetworkEvents` revealed **five devices** in the environment executed the `.bisis` SSH brute-force command  
+- Activity spanned from **March 14 to April 3, 2025**, indicating propagation of the malware beyond the initially observed host  
+- The device `jr-linux-vm-test` was flagged for follow-up due to its successful external connections
+
+---
+
+### Devices Involved in Brute-Force Activity
+
+| Device Name | First Seen |
+|-------------|-------------|
+| `sakel-lunix-2.p2zfvso05mlezjev3ck4vqd3kd.cx.internal.cloudapp.net` | March 14, 2025 |
+| `sakel-lunix-2` | March 16, 2025 |
+| `jr-linux-vm-test.p2zfvso05mlezjev3ck4vqd3kd.cx.internal.cloudapp.net` | March 24, 2025 |
+| `linux-vulnerability-test-dylan.p2zfvso05mlezjev3ck4vqd3kd.cx.internal.cloudapp.net` | March 29, 2025 |
+| `linuxvmcraig.p2zfvso05mlezjev3ck4vqd3kd.cx.internal.cloudapp.net` | April 3, 2025 |
+
+---
+
+### Suspicious External Connections by `jr-linux-vm-test`
+
+**Query Used:**
+```kql
+DeviceNetworkEvents
+| where DeviceName == "jr-linux-vm-test.p2zfvso05mlezjev3ck4vqd3kd.cx.internal.cloudapp.net"
+| where InitiatingProcessCommandLine !contains "nessus"
+      and InitiatingProcessCommandLine !contains "/var/lib/waagent/"
+      and InitiatingProcessCommandLine !contains "tenable"
+| where InitiatingProcessCommandLine == "/var/tmp/.update-logs/./.bisis ssh -o /var/tmp/.update-logs/data.json --userauth none --timeout 8"
+| where ActionType == "ConnectionSuccess"
+```
+
+**Observed Connections:**
+- `2` to China Unicom Beijing Province Network — IPs starting with `123.116.*.*`
+- `1` to Korea Telecom — IP: `121.134.230.136`
+- `2` to Partner Communications Ltd. — IPs starting with `80.179.*.*`
+- `1` to Chinanet Ningxia Province Network — IP: `111.113.54.162`
+
+---
+
+### Final Connection by `sakel-lunix-2`
+
+**Query Used:**
+```kql
+DeviceNetworkEvents
+| where DeviceName == "sakel-lunix-2"
+| where InitiatingProcessCommandLine == "/var/tmp/.update-logs/./.bisis ssh -o /var/tmp/.update-logs/data.json --userauth none --timeout 8"
+| where ActionType == "ConnectionSuccess"
+```
+
+**Observed Connection:**
+- `1` to Aliyun Computing Co. Ltd — IP: `42.121.86.211`
+
+---
+
+**Details:**  
+- `.bisis` brute-force activity was **not isolated** — evidence of propagation across five internal Linux VMs  
+- Multiple **external connections to foreign telecom and cloud providers** confirmed ongoing malicious outbound activity  
+- The final confirmed command execution occurred on **April 3, 2025**, indicating prolonged compromise  
+- This confirms that containment efforts must be extended beyond a single device
+
+**VirusTotal Scores (Binary Reference):**  
+- `.bisis`: `31/64`
+
+**Likely Role:**  
+Ongoing outbound SSH brute-force propagation across internal devices
+
+**Mapped MITRE Techniques:**  
+- `T1021.004` — Remote Services: SSH  
+- `T1110.003` — Brute Force: Credential Stuffing  
+- `T1571` — Non-Standard Port Communication (if exfiltration observed)
 
 
 
