@@ -40,7 +40,7 @@ Investigation was initiated based on a Microsoft security alert indicating SSH b
 
 ## 4. Findings
 
-## Finding #1 — Source Device Attribution
+### Finding #1 — Source Device Attribution
 
 **Indicator:**  
 `20.81.228.191` (Internal Azure IP flagged in Microsoft security notice)
@@ -88,7 +88,7 @@ and InitiatingProcessCommandLine !contains "tenable"
 
 ---
 
-## Finding #2 — Execution of `.bisis` SSH Brute-Force Binary
+### Finding #2 — Execution of `.bisis` SSH Brute-Force Binary
 
 **Command Executed:**
 ```bash
@@ -144,7 +144,7 @@ and InitiatingProcessCommandLine !contains "tenable"
 
 ---
 
-## Finding #3 —Brute-Force Execution of `.bisis` with Follow-Up Payload
+### Finding #3 —Brute-Force Execution of `.bisis` with Follow-Up Payload
 
 **Command Observed:**
 ```bash
@@ -205,7 +205,7 @@ DeviceFileEvents
 
 ---
 
-## Finding #4 — Malicious File Executions in `/var/tmp/`
+### Finding #4 — Malicious File Executions in `/var/tmp/`
 
 **Indicator:**  
 Files: `.b`, `.bisis`, `History`, `Update`, `x` and `UpzBUBnv`
@@ -271,7 +271,7 @@ DeviceFileEvents
 
 ---
 
-## Finding #5 — Deployment of Diicot Cryptominer via `./network` Loader
+### Finding #5 — Deployment of Diicot Cryptominer via `./network` Loader
 
 **Command Observed:**
 ```bash
@@ -363,7 +363,7 @@ DeviceFileEvents
 
 ---
 
-## Finding #6 — Execution of `./retea` Script for Credential Harvesting and Payload Launch
+### Finding #6 — Execution of `./retea` Script for Credential Harvesting and Payload Launch
 
 **Command Observed:**
 ```bash
@@ -416,7 +416,7 @@ Credential harvester and secondary loader used to prepare system for mining and 
 
 ---
 
-## Finding #7 — Outbound SSH Connections via `.bisis` and `Update` Binaries
+### Finding #7 — Outbound SSH Connections via `.bisis` and `Update` Binaries
 
 **Command Observed:**
 ```bash
