@@ -440,7 +440,7 @@ Credential harvester and secondary loader used to prepare system for mining and 
 - These were **confirmed successful connection requests** to a range of external IPs
 
 ---
-
+March 14th, 2025 1:49 EST -> March 14th, 2025 2:22 EST - UPDATE
 ### 🌐 IPs Contacted by `.bisis` Command
 Confirmed via `ConnectionSuccess` with `.bisis` in `InitiatingProcessCommandLine`:
 - `102.130.127.53`
@@ -450,7 +450,7 @@ Confirmed via `ConnectionSuccess` with `.bisis` in `InitiatingProcessCommandLine
 - `179.60.150.194`
 
 ---
-
+March 14th, 2025 2:23 EST -> March 14th, 2025 2:25 EST - UPDATE
 ### 🌐 IPs Contacted by `Update` Command
 Confirmed via `ConnectionSuccess` with `Update` in `InitiatingProcessCommandLine`:
 - `20.210.113.219`
