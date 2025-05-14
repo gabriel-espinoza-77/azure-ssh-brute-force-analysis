@@ -430,10 +430,11 @@ Credential harvester and secondary loader used to prepare system for mining and 
 **Associated Device:**  
 `sakel-lunix-2.p2zfvso05mlezjev3ck4vqd3kd.cx.internal.cloudapp.net`
 
-**Time Detected:**
-`March 14, 2025 @ 18:49 → 19:22 UTC`
-`March 14, 2025 @ 19:23 → 19:25 UTC`
+**Time Detected:**  
+`March 14, 2025 @ 18:49 → 19:22 UTC`  
+`March 14, 2025 @ 19:23 → 19:25 UTC`   
 `March 17, 2025 @ 15:49 UTC`
+
 
 **Behavior Observed:**  
 - High-volume outbound SSH connections were initiated using two different binaries: `.bisis` and `Update`  
