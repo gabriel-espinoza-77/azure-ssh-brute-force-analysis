@@ -430,15 +430,17 @@ Credential harvester and secondary loader used to prepare system for mining and 
 **Associated Device:**  
 `sakel-lunix-2.p2zfvso05mlezjev3ck4vqd3kd.cx.internal.cloudapp.net`
 
-**Timeframe:**  
-`March 14, 2025 @ 18:48 UTC` → `March 17, 2025 @ 13:12 UTC`
+**Time Detected:**
+`March 14, 2025 @ 18:49 → 19:22 UTC`
+`March 14, 2025 @ 19:23 → 19:25 UTC`
+`March 17, 2025 @ 15:49 UTC`
 
 **Behavior Observed:**  
 - High-volume outbound SSH connections were initiated using two different binaries: `.bisis` and `Update`  
 - All connections were unauthenticated brute-force attempts over port 22 with short timeouts  
 - These were **confirmed successful connection requests** to a range of external IPs
 
-### March 14, 2025 @ 18:49 – 19:22 UTC — `.bisis` Connections
+### `March 14, 2025 @ 18:49` – `19:22 UTC` — `.bisis` Connections
 
 **Confirmed Outbound IPs:**
 - `140.186.43.104`, `140.186.248.106`, `140.186.59.95`, `140.186.205.38`, `140.186.253.5`
@@ -462,7 +464,7 @@ and InitiatingProcessCommandLine !contains "tenable"
   <img src="https://github.com/user-attachments/assets/f11353a2-f4b0-4809-a79c-df2d0f530123" alt="./network" width="1000"/>
 </p>
 
-### March 17, 2025 @ 15:49 UTC — `.bisis` Additional Connection
+### `March 17, 2025 @ 15:49 UTC` — `.bisis` Additional Connection
 
 **Confirmed Outbound IP:**
 - `213.217.173.134`
@@ -484,7 +486,7 @@ and InitiatingProcessCommandLine !contains "tenable"
 
 ---
 
-### March 14, 2025 @ 19:23 – 19:25 UTC — `Update` Connections
+### `March 14, 2025 @ 19:23` – `19:25 UTC` — `Update` Connections
 
 **Confirmed Outbound IPs:**
 - `45.64.52.3`
