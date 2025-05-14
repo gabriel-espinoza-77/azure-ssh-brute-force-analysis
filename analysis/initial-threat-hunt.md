@@ -40,7 +40,7 @@ Investigation was initiated based on a Microsoft security alert indicating SSH b
 
 ## 4. Findings
 
-### Finding #1 — Source Device Attribution
+## Finding #1 — Source Device Attribution
 
 **Indicator:**  
 `20.81.228.191` (Internal Azure IP flagged in Microsoft security notice)
@@ -88,7 +88,7 @@ and InitiatingProcessCommandLine !contains "tenable"
 
 ---
 
-### Finding #2 — Execution of `.bisis` SSH Brute-Force Binary
+## Finding #2 — Execution of `.bisis` SSH Brute-Force Binary
 
 **Command Executed:**
 ```bash
@@ -144,7 +144,7 @@ and InitiatingProcessCommandLine !contains "tenable"
 
 ---
 
-### Finding #3 —Brute-Force Execution of `.bisis` with Follow-Up Payload
+## Finding #3 —Brute-Force Execution of `.bisis` with Follow-Up Payload
 
 **Command Observed:**
 ```bash
@@ -205,7 +205,7 @@ DeviceFileEvents
 
 ---
 
-### Finding #4 — Malicious File Executions in `/var/tmp/`
+## Finding #4 — Malicious File Executions in `/var/tmp/`
 
 **Indicator:**  
 Files: `.b`, `.bisis`, `History`, `Update`, `x` and `UpzBUBnv`
@@ -271,7 +271,7 @@ DeviceFileEvents
 
 ---
 
-### Finding #5 — Deployment of Diicot Cryptominer via `./network` Loader
+## Finding #5 — Deployment of Diicot Cryptominer via `./network` Loader
 
 **Command Observed:**
 ```bash
@@ -363,7 +363,7 @@ DeviceFileEvents
 
 ---
 
-### Finding #6 — Execution of `./retea` Script for Credential Harvesting and Payload Launch
+## Finding #6 — Execution of `./retea` Script for Credential Harvesting and Payload Launch
 
 **Command Observed:**
 ```bash
@@ -416,7 +416,7 @@ Credential harvester and secondary loader used to prepare system for mining and 
 
 ---
 
-### 🔎 Finding #7 — Outbound SSH Connections via `.bisis` and `Update` Binaries
+## Finding #7 — Outbound SSH Connections via `.bisis` and `Update` Binaries
 
 **Command Observed:**
 ```bash
@@ -435,20 +435,18 @@ Credential harvester and secondary loader used to prepare system for mining and 
 
 **Behavior Observed:**  
 - High-volume outbound SSH connections were initiated using two different binaries: `.bisis` and `Update`  
-- Both used nearly identical flags, suggesting that `Update` is a renamed or recompiled variant of `.bisis`  
 - All connections were unauthenticated brute-force attempts over port 22 with short timeouts  
 - These were **confirmed successful connection requests** to a range of external IPs
 
----
-March 14th, 2025 1:49 PM EST -> March 14th, 2025 2:22 PM EST - .bisis
-### IPs Contacted by 
-`.bisis` Command
-Confirmed via `ConnectionSuccess` with `.bisis` in `InitiatingProcessCommandLine`:
+### March 14, 2025 @ 18:49 – 19:22 UTC — `.bisis` Connections
+
+**Confirmed Outbound IPs:**
 - `140.186.43.104`, `140.186.248.106`, `140.186.59.95`, `140.186.205.38`, `140.186.253.5`
 - `175.201.2.110`, `175.201.47.187`, `175.201.82.226`, `175.201.109.213`, `175.201.116.12`, `175.201.131.118`, `175.201.167.35`, `175.201.181.162`, `175.201.239.38`
 - `45.64.124.130`, `45.64.129.246`, `45.64.185.5`
 - `137.204.40.210`, `137.204.139.202`, `137.204.162.100`, `137.204.215.215`, `137.204.227.143`, `137.204.229.148`
 
+**Query Used:**
 ```kql
 DeviceNetworkEvents
 | where DeviceName == "sakel-lunix-2.p2zfvso05mlezjev3ck4vqd3kd.cx.internal.cloudapp.net"
@@ -464,10 +462,12 @@ and InitiatingProcessCommandLine !contains "tenable"
   <img src="https://github.com/user-attachments/assets/f11353a2-f4b0-4809-a79c-df2d0f530123" alt="./network" width="1000"/>
 </p>
 
-March 17th, 2025 11:49 AM EST
-Contacted by `.bisis`
+### March 17, 2025 @ 15:49 UTC — `.bisis` Additional Connection
+
+**Confirmed Outbound IP:**
 - `213.217.173.134`
 
+**Query Used:**
 ```kql
 DeviceNetworkEvents
 | where DeviceName == "sakel-lunix-2.p2zfvso05mlezjev3ck4vqd3kd.cx.internal.cloudapp.net"
@@ -481,18 +481,18 @@ and InitiatingProcessCommandLine !contains "tenable"
 <p align="center">
   <img src="https://github.com/user-attachments/assets/ef2795dc-2732-4e0a-a8fa-6ad846eb59a8" alt="./network" width="1000"/>
 </p>
+
 ---
-March 14th, 2025 2:23 PM EST -> March 14th, 2025 2:25 PM EST - UPDATE
 
-### IPs Contacted by 
-`Update` Command
+### March 14, 2025 @ 19:23 – 19:25 UTC — `Update` Connections
 
-Confirmed via `ConnectionSuccess` with `Update` in `InitiatingProcessCommandLine`:
+**Confirmed Outbound IPs:**
 - `45.64.52.3`
 - `45.64.237.36`
 - `45.64.248.22`
 - `45.64.128.181`
 
+**Query Used:**
 ```kql
 DeviceNetworkEvents
 | where DeviceName == "sakel-lunix-2.p2zfvso05mlezjev3ck4vqd3kd.cx.internal.cloudapp.net"
@@ -507,7 +507,6 @@ and InitiatingProcessCommandLine !contains "tenable"
 <p align="center">
   <img src="https://github.com/user-attachments/assets/935e4433-7260-4a0a-8522-e9c3b0a6f050" alt="./network" width="800"/>
 </p>
----
 
 **Details:**  
 - Both binaries were used from the same directory and share identical behavior patterns  
@@ -518,11 +517,7 @@ and InitiatingProcessCommandLine !contains "tenable"
 
 **VirusTotal Score (Binary References):**  
 - `.bisis`: `31/64`  
-- `Update`: `30/64`  
-*(No file hashes linked to the IPs directly — scores are for the binaries used to make the connections)*
-
-**Likely Role:**  
-Outbound SSH brute-force scanners targeting vulnerable external systems
+- `Update`: `30/64`
 
 **Mapped MITRE Techniques:**  
 - `T1021.004` — Remote Services: SSH  
