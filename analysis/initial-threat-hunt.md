@@ -441,7 +441,7 @@ Credential harvester and secondary loader used to prepare system for mining and 
 
 ---
 March 14th, 2025 1:49 EST -> March 14th, 2025 2:22 EST - UPDATE
-### 🌐 IPs Contacted by `.bisis` Command
+### IPs Contacted by `.bisis` Command
 Confirmed via `ConnectionSuccess` with `.bisis` in `InitiatingProcessCommandLine`:
 - `102.130.127.53`
 - `45.64.186.20`
@@ -451,12 +451,23 @@ Confirmed via `ConnectionSuccess` with `.bisis` in `InitiatingProcessCommandLine
 
 ---
 March 14th, 2025 2:23 EST -> March 14th, 2025 2:25 EST - UPDATE
-### 🌐 IPs Contacted by `Update` Command
+### IPs Contacted by `Update` Command
 Confirmed via `ConnectionSuccess` with `Update` in `InitiatingProcessCommandLine`:
 - `20.210.113.219`
 - `89.116.38.131`
 - `45.142.182.165`
 
+```kql
+let Files = dynamic(["diicot", "kuak", "cache"]);
+DeviceFileEvents
+| where DeviceName == "sakel-lunix-2.p2zfvso05mlezjev3ck4vqd3kd.cx.internal.cloudapp.net"
+| where Timestamp between (datetime(2025-03-14T16:41:22.631607Z) .. datetime(2025-03-14T20:46:16.607719Z))
+| where FileName has_any(Files)
+```
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/034f2a65-993e-4f4f-88c8-35306e0649df" alt="./network" width="375"/>
+</p>
 ---
 
 **Details:**  
