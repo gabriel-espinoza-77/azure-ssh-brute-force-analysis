@@ -572,7 +572,9 @@ DeviceNetworkEvents
 | summarize FirstSeen=min(Timestamp), LastSeen=max(Timestamp), CommandOccurrence=count() by DeviceName
 ```
 
-> 🖼️ *Insert Screenshot: Summary table showing `.bisis` use across five distinct devices*
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/43815a9c-1013-4b10-a46b-05293644eb87" alt="./network" width="800"/>
+</p>
 
 **Query Used — `jr-linux-vm-test` Successes:**
 ```
