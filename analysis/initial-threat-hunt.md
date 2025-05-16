@@ -449,7 +449,7 @@ Credential harvester and secondary loader used to prepare system for mining and 
 - `45.64.124.130`, `45.64.129.246`, `45.64.185.5`
 - `137.204.40.210`, `137.204.139.202`, `137.204.162.100`, `137.204.215.215`, `137.204.227.143`, `137.204.229.148`
 
-**Query Used:**
+**Query Used to Observe Successful Connections:**
 ```kql
 DeviceNetworkEvents
 | where DeviceName == "sakel-lunix-2.p2zfvso05mlezjev3ck4vqd3kd.cx.internal.cloudapp.net"
@@ -545,7 +545,7 @@ and InitiatingProcessCommandLine !contains "tenable"
 - `linuxvmcraig.p2zfvso05mlezjev3ck4vqd3kd.cx.internal.cloudapp.net` — April 3, 2025
 
 **Timeframe:**  
-`March 14, 2025 @ 12:41 UTC` → `April 3, 2025 @ 17:18 UTC`
+`March 14, 2025 @ 12:41 UTC` → `April 3, 2025 @ 6:10 AM EST`
 
 **Behavior Observed:**  
 - The `.bisis` SSH brute-force command appeared across five different Linux VMs in the Azure tenant over three weeks.
@@ -553,13 +553,15 @@ and InitiatingProcessCommandLine !contains "tenable"
 - Notable successful outbound SSH connection attempts were observed from `jr-linux-vm-test` and `sakel-lunix-2`.
 
 **Details:**
-- `jr-linux-vm-test` successfully connected to multiple foreign IPs across regions:
-  - `123.116.x.x` (×2) — China Unicom Beijing Province Network
-  - `121.134.230.136` — Korea Telecom
-  - `80.179.x.x` (×2) — Partner Communications Ltd.
-  - `111.113.54.162` — Chinanet Ningxia Province Network
+- `jr-linux-vm-test` successfully connected to multiple IPs:
+  - `123.116.65.221`
+  - `123.116.78.224`
+  - `121.134.230.136`
+  - `80.179.162.216`
+  - `80.179.218.146`
+  - `111.113.54.162`
 - `sakel-lunix-2` made a successful outbound connection to:
-  - `42.121.86.211` — Aliyun Computing Co. Ltd (China)
+  - `42.121.86.211`
 
 **Query Used — Cross-Device `.bisis` Presence:**
 ```
@@ -573,7 +575,7 @@ DeviceNetworkEvents
 ```
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/43815a9c-1013-4b10-a46b-05293644eb87" alt="./network" width="800"/>
+  <img src="https://github.com/user-attachments/assets/43815a9c-1013-4b10-a46b-05293644eb87" alt="./network" width="1000"/>
 </p>
 
 **Query Used — `jr-linux-vm-test` Successes:**
@@ -587,7 +589,9 @@ DeviceNetworkEvents
 | where ActionType == "ConnectionSuccess"
 ```
 
-> 🖼️ *Insert Screenshot: `jr-linux-vm-test` showing successful connections to foreign IPs*
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/747e33c1-d59f-419a-a866-76c83a44bbdd" alt="./network" width="800"/>
+</p>
 
 **Query Used — `sakel-lunix-2` Success:**
 ```
@@ -597,10 +601,9 @@ DeviceNetworkEvents
 | where ActionType == "ConnectionSuccess"
 ```
 
-> 🖼️ *Insert Screenshot: `sakel-lunix-2` connection to `42.121.86.211` (Aliyun Computing)*
-
-**Likely Role:**  
-Lateral propagation and continued brute-force attempts across internal VMs. `jr-linux-vm-test` shows signs of outbound success, suggesting compromise.
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/e8fd8fc6-7fbd-453e-8c55-05c9ec08f698" alt="./network" width="800"/>
+</p>
 
 **Mapped MITRE Techniques:**  
 - `T1021.004` — Remote Services: SSH  
