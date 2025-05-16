@@ -123,12 +123,12 @@ and InitiatingProcessCommandLine !contains "tenable"
 | order by CommandOccurrence desc
 ```-->
 
-**March 14th Activity**
+**March 14th Activity:**
 <p align="left">
   <img src="https://github.com/user-attachments/assets/e9f0ab77-0292-4613-bbe3-2a41a6ccaf34" alt="Screenshot description" width="770"/>
 </p>
 
-**March 17th Activity**
+**March 17th Activity:**
 <p align="left">
   <img src="https://github.com/user-attachments/assets/280d4db6-c6a9-4808-a134-65ce13b99b89" alt="Screenshot description" width="770"/>
 </p>
