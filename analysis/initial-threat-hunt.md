@@ -611,4 +611,35 @@ DeviceNetworkEvents
 - `T1078` — Valid Accounts  
 - `T1036` — Masquerading
 
+---
+
+## 5. Conclusion
+
+
+
+This analysis confirms the presence of coordinated attacker activity over a 3-week period, starting March 14 and concluding around April 3, 2025. While the brute-force attempts appear to have stopped, further validation is required to ensure no remaining persistence exists.
+
+The next section investigates what Microsoft Defender for Endpoint's **Incidents Dashboard** detected automatically — and where gaps in detection may exist.
+
+---
+
+
+## 6. Recommendations
+
+DETECTION RULES
+
+
+This analysis confirms the presence of coordinated attacker activity over a 3-week period, starting March 14 and concluding around April 3, 2025. While the brute-force attempts appear to have stopped, further validation is required to ensure no remaining persistence exists.
+
+The next section investigates what Microsoft Defender for Endpoint's **Incidents Dashboard** detected automatically — and where gaps in detection may exist.
+
+
+Avoid filler or speculation unless flagged (e.g., “likely persistence mechanism”).
+Make sure the screenshots have context above it (if its missing or you dont know what to have then have it empty so i can fill in the context)
+A **high-level conclusion** tying all findings together
+
+
+---
+
+
 
