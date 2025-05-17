@@ -615,31 +615,33 @@ DeviceNetworkEvents
 
 ## 5. Conclusion
 
+An in-depth analysis of outbound SSH traffic from the Azure tenant revealed that several Linux-based virtual machines had been compromised and were actively participating in coordinated malicious activity attributed to the Romanian threat actor group Diicot. The investigation was initiated following an abuse notice from Microsoft, which identified brute-force activity originating from the IP address `20.81.228.191`. Subsequent telemetry correlation using Microsoft Defender for Endpoint and KQL-based querying identified the device `sakel-lunix-2.p2zfvso05mlezjev3ck4vqd3kd.cx.internal.cloudapp.net` as the source of the activity.
 
+During the observed attack window, the device executed a series of obfuscated scripts—`.bisis`, `Update`, `cache`, and `retea`—from concealed directories, primarily under `/var/tmp/.update-logs`. These scripts initiated over **180,000** SSH connection attempts, established multiple successful connections, and deployed persistence mechanisms through scheduled cron jobs. Forensic review uncovered additional binaries—`diicot` and `kuak`—commonly linked to **Diicot's** known cryptojacking campaigns. These binaries were involved in executing malicious payloads, mining cryptocurrency, and facilitating internal lateral movement to expand control over additional systems.
 
-This analysis confirms the presence of coordinated attacker activity over a 3-week period, starting March 14 and concluding around April 3, 2025. While the brute-force attempts appear to have stopped, further validation is required to ensure no remaining persistence exists.
+VirusTotal analysis and process tree reviews confirmed the malicious nature of these components, with high detection scores and clear behavioral alignment with Diicot’s documented toolset. The compromise spanned five virtual machines and persisted over a three-week period, from March 14 to April 3, 2025. Indicators of compromise included unauthorized SSH access attempts, payload delivery from suspicious external servers, and stealth mechanisms designed to evade detection and maintain long-term access. The campaign illustrates a well-structured, multi-stage intrusion with confirmed attribution to a sophisticated threat group operating with clear intent and persistence across the environment.
+
+While the brute-force attempts appear to have stopped, further validation is required to ensure no remaining persistence exists.
 
 The next section investigates what Microsoft Defender for Endpoint's **Incidents Dashboard** detected automatically — and where gaps in detection may exist.
 
 ---
-
 
 ## 6. Recommendations
 
-DETECTION RULES
+- **Rebuild All Affected Hosts**: Any system observed to have executed `.bisis`, `./network`, or similar binaries should be considered compromised and fully rebuilt.  
+- **Implement SSH Rate Limiting and MFA**: Enforce `fail2ban` or similar rate-limiting tools on all Linux VMs and require multi-factor authentication where possible.  
+- **Block Malicious Domains/IPs**: Add known indicators such as `85.31.47.99`, `dinpasiune.com`, and any VirusTotal-flagged infrastructure to your firewall blocklists.  
+- **Harden VM Baseline Configurations**: Disable password-based SSH authentication and only allow certificate-based logins using updated authorized keys.  
+- **Review Audit Policies and Logging Retention**: Extend log retention windows and configure auditd or sysmon-like tools for deeper visibility into system-level events.  
+- **Conduct Tenant-Wide Threat Hunts**: Repeat similar queries across all accessible devices in the Azure tenant to identify any additional signs of compromise.  
+- **Report Indicators to Microsoft Security**: Submit indicators and findings to Microsoft’s Security Response Center for review and possible enforcement or intelligence enrichment.  
 
-
-This analysis confirms the presence of coordinated attacker activity over a 3-week period, starting March 14 and concluding around April 3, 2025. While the brute-force attempts appear to have stopped, further validation is required to ensure no remaining persistence exists.
-
-The next section investigates what Microsoft Defender for Endpoint's **Incidents Dashboard** detected automatically — and where gaps in detection may exist.
-
-
+<!--
 Avoid filler or speculation unless flagged (e.g., “likely persistence mechanism”).
 Make sure the screenshots have context above it (if its missing or you dont know what to have then have it empty so i can fill in the context)
 A **high-level conclusion** tying all findings together
-
-
----
+-->
 
 
 
