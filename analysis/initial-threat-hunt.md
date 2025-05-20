@@ -2,7 +2,7 @@
 
 ## 1. Objective
 
-To identify, analyze, and document SSH brute-force activity targeting virtual machines (VMs) within a Microsoft Azure tenant. This phase focuses on **manual threat hunting** using Microsoft Defender for Endpoint (MDE)’s Advanced Hunting capabilities, rather than relying on MDE's automated Incidents Dashboard. This decision was made to showcase practical investigation and hunting techniques as part of an end-to-end post-incident analysis.
+To identify, analyze, and document SSH brute-force activity targeting virtual machines (VMs) within a Microsoft Azure tenant. This phase focuses on **manual threat hunting** using Microsoft Defender for Endpoint (MDE)’s Advanced Hunting capabilities, rather than relying on MDE's automated Incidents Dashboard. This decision was made to showcase practical investigation and hunting techniques as part of a full-cycle post-incident analysis.
 
 ---
 
@@ -13,12 +13,12 @@ To identify, analyze, and document SSH brute-force activity targeting virtual ma
 - **Tools Used**:
   - Microsoft Defender for Endpoint (Advanced Hunting)
   - VirusTotal
-  - ChatGPT (for log interpretation and enrichment)
+  - ChatGPT (for log interpretation)
 
 - **Access Constraints**:
   - Only VMs personally deployed by the analyst were accessible
   - Isolation of other users' devices was not permitted due to tenant policy
-  - Log data was limited by a 30-day retention window, preventing full root-cause tracing of earliest activity
+  - Log data was limited by an automated process that deleted entries older than 30 days, preventing effective root-cause analysis
 
 > This investigation is conducted in two phases:  
 > **Phase 1 (this file)**: Manual log-based hunting  
