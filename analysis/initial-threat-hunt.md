@@ -40,10 +40,10 @@ Analysis was initiated based on a Microsoft security alert indicating SSH brute-
 
 ## 4. Findings
 
-### Finding #1 — Source Device Attribution
+### Finding #1 — Source Device
 
 **Indicator:**  
-`20.81.228.191` (Internal Azure IP flagged in Microsoft security notice)
+`20.81.228.191` (Internal IP flagged in Microsoft security notice)
 
 **Associated Device:**  
 `sakel-lunix-2.p2zfvso05mlezjev3ck4vqd3kd.cx.internal.cloudapp.net`
@@ -52,9 +52,9 @@ Analysis was initiated based on a Microsoft security alert indicating SSH brute-
 `March 14, 2025 @ 12:41 UTC` → `March 18, 2025 @ 02:24 UTC`
 
 **Behavior Observed:**  
-- Over **99,000** SSH connection attempts in a short timeframe  
-- Brute-force behavior originating from a single internal system  
-- IP-to-device attribution confirmed via `DeviceInfo` schema
+- Brute-force behavior sourced from a single internal device  
+- IP-to-device attribution confirmed via `DeviceInfo` schema  
+- Over **99,000** SSH connection events observed in a short timeframe (March 14)  
 
 **Query Used:**  
 ```kql
@@ -69,7 +69,7 @@ DeviceInfo
   <img src="https://github.com/user-attachments/assets/135723e8-64fb-47cf-85ce-a980ac502f4e" alt="Screenshot description" width="600"/>
 </p>
 
-**Query Used:**
+**Query Used - March 14 Events:**
 ```kql
 //Filtering out normal processes
 DeviceNetworkEvents
@@ -83,8 +83,6 @@ and InitiatingProcessCommandLine !contains "tenable"
 <p align="center">
   <img src="https://github.com/user-attachments/assets/754928b6-e72a-4f57-84e3-b083f27333fa" alt="Screenshot description" width="800"/>
 </p>
-
-**Note:** 
 
 ---
 
