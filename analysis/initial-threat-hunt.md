@@ -29,12 +29,12 @@ To identify, analyze, and document SSH brute-force activity targeting virtual ma
 
 ## 3. Methodology
 
-Investigation was initiated based on a Microsoft security alert indicating SSH brute-force behavior from internal IP `20.81.228.191`. Manual threat hunting was conducted using KQL queries across multiple schemas in MDE:
+Analysis was initiated based on a Microsoft security alert indicating SSH brute-force behavior from internal IP `20.81.228.191`. Manual threat hunting was performed using KQL queries across multiple schemas in MDE:
 
-- `DeviceInfo` to identify affected systems
+- `DeviceInfo` to identify systems
 - `DeviceProcessEvents`, `DeviceFileEvents`, and `DeviceNetworkEvents` to trace behavior
-- VirusTotal to enrich SHA-256 hashes and assess malware reputation
-- MITRE ATT&CK used for TTP classification (linked in `mitre-attack-mapping.md`)
+- VirusTotal to evaluate the notoriety of files and addresses
+- MITRE ATT&CK used for TTP classification (shown in [`mitre-attack-mapping.md`](./mitre-attack-mapping.md))
 
 ---
 
