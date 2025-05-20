@@ -101,25 +101,11 @@ and InitiatingProcessCommandLine !contains "tenable"
 `March 14, 2025 @ 16:41 UTC` and `March 17, 2025 @ 12:36 UTC`
 
 **Details:**  
-- `bash` command responsible for 97,318 SSH attempts on March 14 and 85,152 more on March 17
-- `.bisis` is a hidden binary located in a non-standard `/var/tmp/.update-logs/` path  
-- Executes SSH attempts using a config file (`data.json`)  
+- `.bisis` is a hidden executable located in a non-standard path: `/var/tmp/.update-logs/`  
+- Executes SSH attempts using a configuration file (`data.json`)  
+- Responsible for 97,318 SSH attempts on March 14 and 85,152 more on March 17  
 - 8-second timeout suggests aggressive brute-forcing or scanning  
-- Used repeatedly from the source device across multiple sessions
-
-<!--
-**Query Used:**
-
-```kql
-DeviceNetworkEvents
-| where DeviceName == "sakel-lunix-2.p2zfvso05mlezjev3ck4vqd3kd.cx.internal.cloudapp.net"
-| where Timestamp between (datetime(2025-03-14T16:41:22.631607Z) .. datetime(2025-03-14T20:46:16.607719Z))
-| where InitiatingProcessCommandLine !contains "nessus" and InitiatingProcessCommandLine !contains "/var/lib/waagent/"
-and InitiatingProcessCommandLine !contains "tenable"
-| where ActionType == "ConnectionRequest"
-| summarize CommandOccurrence = count() by InitiatingProcessCommandLine, ActionType
-| order by CommandOccurrence desc
-```-->
+- Repeatedly executed from the same source device across multiple sessions
 
 **March 14th Activity:**
 <p align="left">
@@ -137,12 +123,11 @@ and InitiatingProcessCommandLine !contains "tenable"
 - `T1110.001` — Brute Force: Password Guessing  
 - `T1059` — Command and Scripting Interpreter
 
-**Note**
-- *Brute-force activity began on March 14, but MDE only flagged it after the March 17 activity.*
+**Note:** *Brute-force activity began on March 14, but MDE only flagged it after the March 17 activity.*
 
 ---
 
-### Finding #3 —Brute-Force Execution of `.bisis` with Follow-Up Payload
+### Finding #3 — Brute-Force Execution of `.bisis` with Follow-Up Payload
 
 **Command Observed:**
 ```bash
@@ -192,8 +177,7 @@ DeviceFileEvents
   <img src="https://github.com/user-attachments/assets/1c5b83cd-5b2f-4985-bb88-2cf3fe6370fc" alt="Process execution of .bisis and x" width="300"/>
 </p>
 
-**Note**
-- The observed `bash` command was executed via the `Update` file, as shown in the screenshots above.
+**Note:** *The observed `bash` command was executed via the `Update` file, as shown in the screenshots above.*
 
 **VirusTotal Score (.bisis):** `6/64` 
 
