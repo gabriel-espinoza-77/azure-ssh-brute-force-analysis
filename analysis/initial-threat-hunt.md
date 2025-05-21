@@ -173,9 +173,13 @@ bash -c "cd /var/tmp/.update-logs ; chmod +x /var/tmp/.update-logs/.bisis ; ulim
 
 ---
 
-### Finding #4 — Malicious File Executions in `/var/tmp/`
+**The following results were idenitifed through an additional query of the `update-logs` directory**
 
-**Indicator:**  
+---
+
+### Finding #4 — Malicious File Generated in `/var/tmp/`
+
+**Indicators:**  
 Files: `.b`, `.bisis`, `History`, `Update`, `x` and `UpzBUBnv`
 
 **Associated Device:**  
@@ -185,8 +189,8 @@ Files: `.b`, `.bisis`, `History`, `Update`, `x` and `UpzBUBnv`
 `March 14, 2025 @ 18:46 UTC` → `March 14, 2025 @ 21:29 UTC`
 
 **Details:**  
-- Multiple hidden files created from `/var/tmp/.update-logs/`
-- No suspicious files or activity were observed prior to the creation of `UpzBUBnv`, suggesting it as the first clear indicator of malicious behavior
+- `UpzBUBnv` appears as a notable process in the `InitiatingProcessCommandLine` column of the query results
+- No suspicious files were identified prior to the creation of `UpzBUBnv`, suggesting it as the first indicator of malicious activity
 - Subsequent malicious files appear to have been introduced following the execution of `UpzBUBnv`
 - `.bisis` was observed along with `x`, `.b`, `Update`, and `History`
 
@@ -199,7 +203,7 @@ DeviceFileEvents
 | project Timestamp, ActionType, FileName, FolderPath, SHA256, InitiatingProcessFolderPath, InitiatingProcessCommandLine
 ```  
 
-**Note:** *InitiatingProcessCommandLine output on `Update` record shows a process called `UpzBUBnv`.*
+**Note:** *`InitiatingProcessCommandLine output` on `Update` record shows a process called `UpzBUBnv`.*
 
 <p align="left">
   <img src="https://github.com/user-attachments/assets/b494bfc8-e572-497f-9cad-8cf0c7fbae4d" alt="Screenshot description" width="900"/>
@@ -229,11 +233,11 @@ DeviceFileEvents
 
 **VirusTotal Scores:**
 - `.bisis`: `6/64`  
-- `.b`: Unknown  
-- `x`: Unknown  
-- `Update`: Unknown  
-- `History`: Unknown  
-- `UpzBUBnv`: Unknown  
+- `.b`: N/A 
+- `x`: N/A   
+- `Update`: N/A   
+- `History`: N/A  
+- `UpzBUBnv`: N/A  
 
 **Mapped MITRE Techniques:**  
 - `T1059.004` — Command and Scripting Interpreter: Unix Shell  
