@@ -247,6 +247,8 @@ DeviceFileEvents
 
 ### Finding #5 — Deployment of Diicot Cryptominer via `./network` Loader
 
+**Note:** *This command was observed in the March 14 `ConnectionRequests` query.*
+
 **Command Observed:**
 ```bash
 ./network "rm -rf /var/tmp/Documents ; 
@@ -275,8 +277,6 @@ history -c ;
 rm -rf .bash_history ~/.bash_history"
 ```
 
-**Note:** This command was observed in the March 14 `ConnectionRequests` query.
-
 **Associated Device:**  
 `sakel-lunix-2.p2zfvso05mlezjev3ck4vqd3kd.cx.internal.cloudapp.net`
 
@@ -285,11 +285,14 @@ rm -rf .bash_history ~/.bash_history"
 
 **Details:**
 - `./network` functions as a loader and cleanup script
-- Deletes and recreates `/var/tmp/Documents` as a staging area
-- Executes `.diicot` and `.kuak`, then downloads and runs `.balu` (renamed to `cache`)
-- Kills known miner processes (`xmrig`, `cnrig`, `Opera`, `java`) to remove competition
+- Deletes and recreates `/var/tmp/Documents` as a setup area
+- Kills competitive miner processes: `xmrig`, `cnrig`, `Opera`, and `java`
+- Moves `diicot` and `kuak` to staging directory, and executes `.diicot`
+- Downloads `.balu` from remote IP `85.31.47.99`, renames file to `cache` and runs it 
+- Modifies SSH configs and uses obfuscated paths to avoid detection
 - Clears shell and bash history to erase evidence
-- Modifies SSH configs and uses obfuscated paths to evade detection
+
+**Note:** *DIICOT is a known*
 
 **Queries Used:**
 ```kql
@@ -301,11 +304,11 @@ DeviceNetworkEvents
 | project Timestamp, DeviceName, ActionType, RemoteIP, RemotePort, InitiatingProcessCommandLine
 ```
 
+**Note:** *Presence of `diicot`, `kuak`, and `cache` in `InitiatingProcessCommandLine` prompted deeper investigation of the `./network` loader's execution.*
+
 <p align="center">
   <img src="https://github.com/user-attachments/assets/01004535-b8d4-4c0d-bda5-b4e83b2d8620" alt="./network" width="800"/>
 </p>
-
-**Note:** Presence of `diicot`, `kuak`, and `cache` in `InitiatingProcessCommandLine` prompted deeper investigation of the `./network` loader's execution.
 
 ```kql
 let Files = dynamic(["diicot", "kuak", "cache"]);
@@ -313,7 +316,9 @@ DeviceFileEvents
 | where DeviceName == "sakel-lunix-2.p2zfvso05mlezjev3ck4vqd3kd.cx.internal.cloudapp.net"
 | where Timestamp between (datetime(2025-03-14T16:41:22.631607Z) .. datetime(2025-03-14T20:46:16.607719Z))
 | where FileName has_any(Files)
-```
+```  
+
+**Note:** *Two process trees were observed — one for `diicot` (top-right) and one for `kuak` (bottom). An unfamiliar `./retea` command also appears and will be examined next.*
 
 <p align="center">
   <img src="https://github.com/user-attachments/assets/50b894e5-8d5d-4613-a153-271be77ab166" alt="./network" width="600"/>
@@ -322,12 +327,11 @@ DeviceFileEvents
   <img src="https://github.com/user-attachments/assets/ea24de2f-0e57-4327-8bef-ffd34af025f8" alt="UpzBUBnv" width="250"/>
 </p>
 
-**Note:** Two process trees were observed — one for `diicot` (top-right) and one for `kuak` (bottom). An unfamiliar `./retea` command also appears and will be examined next.
-
 **VirusTotal Scores:**  
 - `.diicot`: `21/64`
-- `.kuak`: `30/64`
-- `.balu` (renamed to `cache`): `33/64` 
+- `kuak`: `30/64`
+- `.balu` (renamed to `cache`): `33/64`
+- `85.31.47.99`: `1/94`
 
 **Mapped MITRE Techniques:**  
 - `T1059` — Command and Scripting Interpreter  
