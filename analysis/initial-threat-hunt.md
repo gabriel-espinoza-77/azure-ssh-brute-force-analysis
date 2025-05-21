@@ -145,35 +145,8 @@ bash -c "cd /var/tmp/.update-logs ; chmod +x /var/tmp/.update-logs/.bisis ; ulim
 - Activity occurs from a hidden directory:`/var/tmp/.update-logs`, featuring obfuscated file names
 - System limits via `ulimit` increased to support mass connection attempts  
 - Executes `.bisis` with SSH brute-force parameters using high thread and timeout values
-- Targets IPs listed in `iplist` and `iplist2`, brute-forcing the `root` user over port 22
-- Launches secondary binary `./x` after brute-force phase
-
-- Activity originates from a hidden directory: /var/tmp/.update-logs, containing obfuscated file names
-
-System limits are raised via ulimit to enable large-scale connection attempts
-
-Executes the .bisis binary with SSH brute-force parameters, using high thread counts and short timeouts
-
-Targets IP addresses listed in iplist and iplist2, attempting to brute-force the root user over port 22
-
-After the brute-force phase, a secondary binary (./x) is launched
-
-<!--
-> 🖼️ *Insert Screenshot 3: Process tree or timeline showing `.bisis` and `./x` execution*
-
-**Query Used:**
-```kql
-DeviceFileEvents
-| where DeviceName == "sakel-lunix-2.p2zfvso05mlezjev3ck4vqd3kd.cx.internal.cloudapp.net"
-| where Timestamp between (datetime(2025-03-14T16:41:22.631607Z) .. datetime(2025-03-14T20:46:16.607719Z))
-| where FolderPath contains "update-logs"
-| project Timestamp, ActionType, FileName, FolderPath, SHA256, InitiatingProcessFolderPath, InitiatingProcessCommandLine
-```
-
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/ecc9ca13-cca3-42a5-84c7-e8d9b479d76a" alt="Process execution of .bisis and x" width="800"/>
-</p>
--->
+- Targets IPs listed in `iplist` and `iplist2`, attempting to brute-force the `root` user over port 22
+- After brute-force phase, Secondary binary `./x` is launched
 
 <p align="center">
   <img src="https://github.com/user-attachments/assets/0ad63c32-9742-4013-822b-fe89b1c1f27e" alt="Process execution of .bisis and x" width="300"/>
