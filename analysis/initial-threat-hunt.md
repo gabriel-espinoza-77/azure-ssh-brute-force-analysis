@@ -143,8 +143,8 @@ bash -c "cd /var/tmp/.update-logs ; chmod +x /var/tmp/.update-logs/.bisis ; ulim
 
 **Details**
 - Activity occurs from a hidden directory:`/var/tmp/.update-logs`, featuring obfuscated file names
+- System limits via `ulimit` increased to support mass connection attempts  
 - Executes `.bisis` with SSH brute-force parameters using high thread and timeout values
-- Raises system limits via `ulimit` to support mass connection attempts
 - Targets IPs listed in `iplist` and `iplist2`, brute-forcing the `root` user over port 22
 - Launches secondary binary `./x` after brute-force phase
 
