@@ -127,7 +127,7 @@ and InitiatingProcessCommandLine !contains "tenable"
 
 ---
 
-### Finding #3 — Brute-Force Execution of `.bisis` with Follow-Up Payload
+### Finding #3 — Brute-Force Implementation of `.bisis` with Subsequent Payload
 
 **Command Observed:**
 ```bash
@@ -141,19 +141,22 @@ bash -c "cd /var/tmp/.update-logs ; chmod +x /var/tmp/.update-logs/.bisis ; ulim
 **Time Detected:**  
 `March 14, 2025 @ 18:48 UTC`
 
-<!--
-**Details:**  
-- Executes `.bisis`, `.b`, and `x` — multiple hidden binaries  
-- Uses `ulimit` to raise system limits for high concurrency  
-- Behavior indicates repeated brute-force and secondary payload execution  
-- No scheduled task or cron job confirmed
--->
 **Details**
-- Activity occurs from a hidden directory (`/var/tmp/.update-logs`) with obfuscated file names
+- Activity occurs from a hidden directory:`/var/tmp/.update-logs`, featuring obfuscated file names
 - Executes `.bisis` with SSH brute-force parameters using high thread and timeout values
 - Raises system limits via `ulimit` to support mass connection attempts
 - Targets IPs listed in `iplist` and `iplist2`, brute-forcing the `root` user over port 22
 - Launches secondary binary `./x` after brute-force phase
+
+- Activity originates from a hidden directory: /var/tmp/.update-logs, containing obfuscated file names
+
+System limits are raised via ulimit to enable large-scale connection attempts
+
+Executes the .bisis binary with SSH brute-force parameters, using high thread counts and short timeouts
+
+Targets IP addresses listed in iplist and iplist2, attempting to brute-force the root user over port 22
+
+After the brute-force phase, a secondary binary (./x) is launched
 
 <!--
 > 🖼️ *Insert Screenshot 3: Process tree or timeline showing `.bisis` and `./x` execution*
