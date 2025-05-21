@@ -86,6 +86,11 @@ and InitiatingProcessCommandLine !contains "tenable"
 
 ---
 
+**The following findings present an investigation into the most significant `InitiatingProcessCommandLine` events related to the SSH brute-force activity.
+Each record has been analyzed for its role in supporting or executing the attack.**
+
+---
+
 ### Finding #2 — Execution of `.bisis` SSH Brute-Force Binary
 
 **Command Executed:**
@@ -127,6 +132,10 @@ and InitiatingProcessCommandLine !contains "tenable"
 
 ---
 
+****
+
+---
+
 ### Finding #3 — Brute-Force Implementation of `.bisis` with Subsequent Payload
 
 **Command Observed:**
@@ -146,7 +155,7 @@ bash -c "cd /var/tmp/.update-logs ; chmod +x /var/tmp/.update-logs/.bisis ; ulim
 - System limits via `ulimit` increased to support mass connection attempts  
 - Executes `.bisis` with SSH brute-force parameters using high thread and timeout values
 - Targets IPs listed in `iplist` and `iplist2`, attempting to brute-force the `root` user over port 22
-- After brute-force phase, Secondary binary `./x` is launched
+- After brute-force phase, secondary binary `./x` is launched
 
 <p align="center">
   <img src="https://github.com/user-attachments/assets/0ad63c32-9742-4013-822b-fe89b1c1f27e" alt="Process execution of .bisis and x" width="300"/>
