@@ -132,7 +132,8 @@ Each record has been analyzed for its role in supporting or executing the attack
 
 ---
 
-****
+**During the review of additional records associated with `update-logs`, the same `bisis` file reappears in this instance.
+Analysis of the linked process tree revealed a sequence of commands executed leading to the launch of the `bisis` script**
 
 ---
 
