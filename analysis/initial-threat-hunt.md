@@ -197,13 +197,13 @@ DeviceFileEvents
 | where Timestamp between (datetime(2025-03-14T16:41:22.631607Z) .. datetime(2025-03-14T20:46:16.607719Z))
 | where FolderPath contains "update-logs"
 | project Timestamp, ActionType, FileName, FolderPath, SHA256, InitiatingProcessFolderPath, InitiatingProcessCommandLine
-```
+```  
+
+**Note:** *InitiatingProcessCommandLine output on `Update` record shows a process called `UpzBUBnv`.*
 
 <p align="left">
   <img src="https://github.com/user-attachments/assets/b494bfc8-e572-497f-9cad-8cf0c7fbae4d" alt="Screenshot description" width="900"/>
 </p>
-
-**Comment**: InitiatingProcessCommandLine output on `Update` record shows a process called `UpzBUBnv`.
 
 **Query Used:**  
 ```kql
@@ -212,7 +212,9 @@ DeviceFileEvents
 | where DeviceName == "sakel-lunix-2.p2zfvso05mlezjev3ck4vqd3kd.cx.internal.cloudapp.net"
 | where Timestamp between (datetime(2025-03-14T16:41:22.631607Z) .. datetime(2025-03-14T20:46:16.607719Z))
 | where FileName == "UpzBUBnv"
-```
+```  
+
+**Note:** *Remote SSH connection was established, and the file `UpzBUBnv` was transferred to `/var/tmp/` using SCP.*  
 
 <p align="center">
   <img src="https://github.com/user-attachments/assets/63985440-ea64-4e9e-9176-cecd1337d03b" alt="UpzBUBnv" width="300"/>
@@ -223,7 +225,7 @@ DeviceFileEvents
   <img src="https://github.com/user-attachments/assets/e6d0ad88-8eb3-4e49-befd-e82c930a046b" alt="UpzBUBnv" width="900"/>
 </p>
 
-**Comment**: Remote SSH connection was established, and the file `UpzBUBnv` was transferred to `/var/tmp/` using SCP. 
+
 
 **VirusTotal Scores:**
 - `.bisis`: `6/64`  
