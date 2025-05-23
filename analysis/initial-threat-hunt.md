@@ -292,7 +292,8 @@ rm -rf .bash_history ~/.bash_history"
 - Modifies SSH configs and uses obfuscated paths to avoid detection
 - Clears shell and bash history to erase evidence
 
-**Note:** *DIICOT is a known*
+**Note:** *DIICOT is a Romanian cybercriminal group known for targeting Linux systems using SSH brute-force attacks, gaining unauthorized 
+access to deploy malware for cryptomining—reflective of the activity identified during this investigation.*
 
 **Queries Used:**
 ```kql
