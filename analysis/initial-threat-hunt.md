@@ -377,15 +377,12 @@ DeviceFileEvents
   <img src="https://github.com/user-attachments/assets/034f2a65-993e-4f4f-88c8-35306e0649df" alt="./network" width="375"/>
 </p>
 
-**Note:** The `./retea` script was identified during deeper investigation into the origin of the `./network` loader's execution.
+**Note:** *The `./retea` script was identified during deeper investigation into the origin of the `./network` loader's execution.*
 
 **VirusTotal Scores:**  
 - `payload` (from dinpasiune.com): `43/64` 
 - `retea`: `38/64`
 - `dinpasiune.com`: `17/94`
-
-**Likely Role:**  
-Credential harvester and secondary loader used to prepare system for mining and persistence
 
 **Mapped MITRE Techniques:**  
 - `T1110.001` — Brute Force: Password Guessing  
