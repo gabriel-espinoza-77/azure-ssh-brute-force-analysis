@@ -357,13 +357,14 @@ DeviceFileEvents
 `March 14, 2025 @ 18:46 UTC`
 
 **Behavior Observed:**  
-- Script performs credential harvesting by enumerating local users and generating a large password dictionary (`pass`) using common and patterned guesses
-- Wipes cron jobs, SSH authorized keys, and command history to conceal prior actions
+- Terminates known miner processes and removes previous malware traces (e.g., `xmrig`, `cnrig`, `Opera`)*************************
+- Disables scehduled tasks and removes SSH authorized keys and command history
 - Downloads and silently executes a remote payload (`payload`) from `dinpasiune.com`
-- Kills known miner processes and removes previous malware traces (e.g., `xmrig`, `cnrig`, `Opera`)
-- Alters system limits (`ulimit`, `/etc/sysctl.conf`) to enable high concurrency
-- Executes a hidden binary `.teaca` and modifies `/dev/shm` for staging and persistence
-- This is also where the `./network` loader script is executed, which is detailed in the following finding
+- Executes second hidden binary `.teaca`, subsequently clearing logs
+- Alters system limits (`ulimit`, `/etc/sysctl.conf`) and prepares `/dev/shm` for staging and persistence
+- Credential harvesting done by enumerating local users and generating a large password dictionary (`pass`) using common variations
+- `./network` loader script is executed, as detailed in the previous finding
+- Carries out a final round of log and history deletion
 
 ```kql
 let Files = dynamic(["diicot", "kuak", "cache"]);
