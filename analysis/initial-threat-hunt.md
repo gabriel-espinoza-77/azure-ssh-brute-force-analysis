@@ -424,6 +424,8 @@ connections to external hosts observed on this device**
 **Behavior Observed:**  
 - High-volume outbound SSH connections were initiated using two different binaries: `.bisis` and `Update`  
 - All connections were confirmed as successful unauthenticated brute-force attempts over port 22, using with short timeout values
+- All IPs targeted are public and routable, indicating external brute-force attempts  
+- **No connections to internal Azure tenant IPs** were observed 
 
 ### `March 14, 2025 @ 18:49` – `19:22 UTC` — `.bisis` Connections
 
@@ -494,11 +496,6 @@ and InitiatingProcessCommandLine !contains "tenable"
 <p align="center">
   <img src="https://github.com/user-attachments/assets/935e4433-7260-4a0a-8522-e9c3b0a6f050" alt="./network" width="800"/>
 </p>
-
-**Details:**    
-- All IPs targeted are public and routable, indicating external brute-force attempts  
-- The split usage suggests either a fallback mechanism or stealth evasion via renaming  
-- **No connections to internal Azure tenant IPs** were observed in this phase  
 
 **VirusTotal Score (Binary References):**  
 - `.bisis`: `6/64`  
