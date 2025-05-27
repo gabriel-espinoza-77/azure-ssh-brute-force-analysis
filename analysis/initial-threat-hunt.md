@@ -357,14 +357,14 @@ DeviceFileEvents
 `March 14, 2025 @ 18:46 UTC`
 
 **Behavior Observed:**  
-- Terminates known miner processes and removes previous malware traces (e.g., `xmrig`, `cnrig`, `Opera`)*************************
+- Terminates known miner processes to stop existing cryptomining activity (e.g., xmrig, cnrig, Opera)
 - Disables scehduled tasks and removes SSH authorized keys and command history
 - Downloads and silently executes a remote payload (`payload`) from `dinpasiune.com`
 - Executes second hidden binary `.teaca`, subsequently clearing logs
 - Alters system limits (`ulimit`, `/etc/sysctl.conf`) and prepares `/dev/shm` for staging and persistence
 - Credential harvesting done by enumerating local users and generating a large password dictionary (`pass`) using common variations
 - `./network` loader script is executed, as detailed in the previous finding
-- Carries out a final round of log and history deletion
+- Performs a final round of log and history deletion
 
 ```kql
 let Files = dynamic(["diicot", "kuak", "cache"]);
@@ -383,7 +383,8 @@ DeviceFileEvents
 **VirusTotal Scores:**  
 - `payload` (from dinpasiune.com): `43/64` 
 - `retea`: `38/64`
-- `dinpasiune.com`: `17/94`
+- `dinpasiune.com`: `16/94`
+- `85.31.47.99`: `1/94`
 
 **Mapped MITRE Techniques:**  
 - `T1110.001` — Brute Force: Password Guessing  
