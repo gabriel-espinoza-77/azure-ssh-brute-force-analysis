@@ -394,16 +394,23 @@ DeviceFileEvents
 
 ---
 
+**Following the review of the commmands associated with the brute-force attack, an in-depth analysis was conducted to examine the successful 
+connections to external hosts observed on this device**
+
+---
+
 ### Finding #7 — Outbound SSH Connections via `.bisis` and `Update` Binaries
 
-**Command Observed:**
+**Commands Observed:**
 ```bash
 /var/tmp/.update-logs/./.bisis ssh -o /var/tmp/.update-logs/data.json --userauth none --timeout 8
 ```
 ```bash
 /var/tmp/.update-logs/Update -o /var/tmp/.update-logs/data.json --userauth none --timeout 8
 ```
+<!--
 [View full commands → `observed-commands.md`](./observed-commands.md#ssh-brute-force-commands)
+-->
 
 **Associated Device:**  
 `sakel-lunix-2.p2zfvso05mlezjev3ck4vqd3kd.cx.internal.cloudapp.net`
@@ -416,8 +423,7 @@ DeviceFileEvents
 
 **Behavior Observed:**  
 - High-volume outbound SSH connections were initiated using two different binaries: `.bisis` and `Update`  
-- All connections were unauthenticated brute-force attempts over port 22 with short timeouts  
-- These were **confirmed successful connection requests** to a range of external IPs
+- All connections were confirmed as successful unauthenticated brute-force attempts over port 22, using with short timeout values
 
 ### `March 14, 2025 @ 18:49` – `19:22 UTC` — `.bisis` Connections
 
@@ -489,16 +495,14 @@ and InitiatingProcessCommandLine !contains "tenable"
   <img src="https://github.com/user-attachments/assets/935e4433-7260-4a0a-8522-e9c3b0a6f050" alt="./network" width="800"/>
 </p>
 
-**Details:**  
-- Both binaries were used from the same directory and share identical behavior patterns  
+**Details:**    
 - All IPs targeted are public and routable, indicating external brute-force attempts  
 - The split usage suggests either a fallback mechanism or stealth evasion via renaming  
 - **No connections to internal Azure tenant IPs** were observed in this phase  
-- This activity represents the scanning and propagation phase of the attack prior to payload deployment
 
 **VirusTotal Score (Binary References):**  
-- `.bisis`: `31/64`  
-- `Update`: `30/64`
+- `.bisis`: `6/64`  
+- `Update`: N/A
 
 **Mapped MITRE Techniques:**  
 - `T1021.004` — Remote Services: SSH  
