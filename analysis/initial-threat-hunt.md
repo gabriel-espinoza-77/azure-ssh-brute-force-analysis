@@ -408,9 +408,6 @@ connections to external hosts observed on this device**
 ```bash
 /var/tmp/.update-logs/Update -o /var/tmp/.update-logs/data.json --userauth none --timeout 8
 ```
-<!--
-[View full commands → `observed-commands.md`](./observed-commands.md#ssh-brute-force-commands)
--->
 
 **Associated Device:**  
 `sakel-lunix-2.p2zfvso05mlezjev3ck4vqd3kd.cx.internal.cloudapp.net`
@@ -497,7 +494,7 @@ and InitiatingProcessCommandLine !contains "tenable"
   <img src="https://github.com/user-attachments/assets/935e4433-7260-4a0a-8522-e9c3b0a6f050" alt="./network" width="800"/>
 </p>
 
-**VirusTotal Score (Binary References):**  
+**VirusTotal Score (Referenced Binaries):**  
 - `.bisis`: `6/64`  
 - `Update`: N/A
 
@@ -508,13 +505,17 @@ and InitiatingProcessCommandLine !contains "tenable"
 
 ---
 
+**A decision was made to perform additional checks to determine if other devices within the tenant may have been impacted. The `.bisis` 
+binary was used as a reference to identify whether similar malicious activity occurred elsewhere within the network**
+
+---
+
 ### Finding #8 — Multi-Host Deployment of `.bisis` SSH Brute-Force Tool
 
 **Command Observed:**
 ```
 /var/tmp/.update-logs/./.bisis ssh -o /var/tmp/.update-logs/data.json --userauth none --timeout 8
 ```
-[View full command → `observed-commands.md`](./observed-commands.md#ssh-brute-force-commands)
 
 **Associated Devices (First Observed):**
 - `sakel-lunix-2.p2zfvso05mlezjev3ck4vqd3kd.cx.internal.cloudapp.net` — March 14, 2025
@@ -543,7 +544,7 @@ and InitiatingProcessCommandLine !contains "tenable"
   - `42.121.86.211`
 
 **Query Used — Cross-Device `.bisis` Presence:**
-```
+```kql
 DeviceNetworkEvents
 | where Timestamp > ago(100d)
 | where InitiatingProcessCommandLine !contains "nessus"
@@ -558,7 +559,7 @@ DeviceNetworkEvents
 </p>
 
 **Query Used — `jr-linux-vm-test` Successes:**
-```
+```kql
 DeviceNetworkEvents
 | where DeviceName == "jr-linux-vm-test.p2zfvso05mlezjev3ck4vqd3kd.cx.internal.cloudapp.net"
 | where InitiatingProcessCommandLine !contains "nessus"
@@ -573,7 +574,7 @@ DeviceNetworkEvents
 </p>
 
 **Query Used — `sakel-lunix-2` Success:**
-```
+```kql
 DeviceNetworkEvents
 | where DeviceName == "sakel-lunix-2"
 | where InitiatingProcessCommandLine == "/var/tmp/.update-logs/./.bisis ssh -o /var/tmp/.update-logs/data.json --userauth none --timeout 8"
