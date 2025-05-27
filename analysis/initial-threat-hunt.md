@@ -510,7 +510,7 @@ binary was used as a reference to identify whether similar malicious activity oc
 
 ---
 
-### Finding #8 — Multi-Host Deployment of `.bisis` SSH Brute-Force Tool
+### Finding #8 — Multi-System Presence of `.bisis` Binary
 
 **Command Observed:**
 ```
@@ -529,16 +529,14 @@ binary was used as a reference to identify whether similar malicious activity oc
 
 **Behavior Observed:**  
 - The `.bisis` SSH brute-force command appeared across five different Linux VMs in the Azure tenant over three weeks.
-- All hosts executed the same `.bisis` binary with similar parameters, suggesting lateral spread or manual attacker reuse.
-- Notable successful outbound SSH connection attempts were observed from `jr-linux-vm-test` and `sakel-lunix-2`.
+- All hosts executed the same `.bisis` binary with similar parameters, suggesting lateral spread.
+- Notable successful outbound SSH connections were observed from `jr-linux-vm-test` and `sakel-lunix-2`.
 
 **Details:**
 - `jr-linux-vm-test` successfully connected to multiple IPs:
-  - `123.116.65.221`
-  - `123.116.78.224`
+  - `123.116.65.221`, `123.116.78.224`
   - `121.134.230.136`
-  - `80.179.162.216`
-  - `80.179.218.146`
+  - `80.179.162.216`, `80.179.218.146`
   - `111.113.54.162`
 - `sakel-lunix-2` made a successful outbound connection to:
   - `42.121.86.211`
