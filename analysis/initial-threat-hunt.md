@@ -613,15 +613,4 @@ The next section investigates what Microsoft Defender for Endpoint's **Incidents
 - **Implement SSH Rate Limiting and MFA**: Enforce `fail2ban` or similar rate-limiting tools on all Linux VMs and require multi-factor authentication where possible.  
 - **Block Malicious Domains/IPs**: Add known indicators such as `85.31.47.99`, `dinpasiune.com`, and any VirusTotal-flagged infrastructure to your firewall blocklists.  
 - **Harden VM Baseline Configurations**: Disable password-based SSH authentication and only allow certificate-based logins using updated authorized keys.  
-- **Review Audit Policies and Logging Retention**: Extend log retention windows and configure auditd or sysmon-like tools for deeper visibility into system-level events.  
-- **Conduct Tenant-Wide Threat Hunts**: Repeat similar queries across all accessible devices in the Azure tenant to identify any additional signs of compromise.  
-- **Report Indicators to Microsoft Security**: Submit indicators and findings to Microsoft’s Security Response Center for review and possible enforcement or intelligence enrichment.  
-
-<!--
-Avoid filler or speculation unless flagged (e.g., “likely persistence mechanism”).
-Make sure the screenshots have context above it (if its missing or you dont know what to have then have it empty so i can fill in the context)
-A **high-level conclusion** tying all findings together
--->
-
-
 
