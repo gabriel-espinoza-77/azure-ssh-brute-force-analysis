@@ -11,8 +11,8 @@
 | cache/.balu  | 0e13e9e4443102bf5b26396b5319f528642b4f0477feb9c7f536fab379b73074     | 34/64            | Cryptominer             | Downloaded and executed as `./cache` via `./network` script                                                                  |
 | kuak         | 11d43b9ef1678a889cfbca33ca13314d07824753965cafb28d4030644a2c5ccd     | 31/64            | Cryptominer             | Deployed by `./network` script; executed from `/var/tmp/Documents/kuak`                                                      |
 | diicot       | 9462261543bfaf008f4748c76a7a2aec95d67f73315d1adea1833d51f9ec29f6     | 9/65             | Cryptominer             | Hidden file launched from `/var/tmp/Documents/.diicot`, tied to known Diicot campaigns                                       |
-| dinpasiune.com | *No SHA256 (domain only)*                                          | 12/94            | Payload Hosting Domain  | Used in `./retea` script and curl commands to download and execute remote payloads                                           |
-| 85.31.47.99  | *No SHA256 (IP address)*                                             | 11/94            | Payload Hosting IP      | Accessed via curl in `./network` and `./retea` scripts to download `cache` and `.balu` payloads                              |
+| dinpasiune.com | *No SHA256 (domain only)*                                          | 16/94            | Payload Hosting Domain  | Used in `./retea` script and curl commands to download and execute remote payloads                                           |
+| 85.31.47.99  | *No SHA256 (IP address)*                                             | 1/94            | Payload Hosting IP      | Accessed via curl in `./network` and `./retea` scripts to download `cache` and `.balu` payloads                              |
 
 ---
 
