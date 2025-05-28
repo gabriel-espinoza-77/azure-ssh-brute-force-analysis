@@ -122,7 +122,8 @@ Each record has been analyzed for its role in supporting or executing the attack
   <img src="https://github.com/user-attachments/assets/280d4db6-c6a9-4808-a134-65ce13b99b89" alt="Screenshot description" width="770"/>
 </p>
 
-**VirusTotal Score (.bisis):** `6/64`  
+**VirusTotal Scores:**
+- `.bisis`: `6/64` 
 
 **Mapped MITRE Techniques:**  
 - `T1110.001` — Brute Force: Password Guessing  
