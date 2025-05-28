@@ -14,6 +14,9 @@
 | dinpasiune.com | *No SHA256 (domain only)*                                          | 16/94            | Payload Hosting Domain  | Used in `./retea` script and curl commands to download and execute remote payloads                                           |
 | 85.31.47.99  | *No SHA256 (IP address)*                                             | 1/94            | Payload Hosting IP      | Accessed via curl in `./network` and `./retea` scripts to download `cache` and `.balu` payloads                              |
 
+| 194.32.145.243  | *No SHA256 (IP address)*                                             | 12/94            | !!Payload Hosting IP      | !!Accessed via curl in `./network` and `./retea` scripts to download `cache` and `.balu` payloads                        |
+| b, c, d, etc. files  | 3786ea07da754523923421729dc438b79e8e920eff1b436c762667567b7c7d30    | 43/63            | !!Payload Hosting IP      | !!Accessed via curl in `./network` and `./retea` scripts to download `cache` and `.balu` payloads                        |
+
 ---
 
 ### Descriptions and Observations
@@ -29,6 +32,8 @@
 - **`diicot`**: Lower VT score (9/65) than `kuak` but still flagged. Tied to known Romanian Diicot threat group malware.
 - **`dinpasiune.com`**: Used to serve payloads in both `./retea` and `./network` scripts. Flagged on VirusTotal with a 12/94 score.
 - **`85.31.47.99`**: IP associated with payload retrieval. Involved in both `cache` and `.balu` delivery; VT score is 11/94.
+- !!!!!!!!!!!!
+- !!!!!!!!!!!!
 
 ---
 
