@@ -20,11 +20,39 @@ The objective is to assess MDE’s automated coverage and correlate it with find
 
 ## Alert Storyline and Timeline of Detection
 
-### February 17, 2025 — First Suspicious Activity (Not Detected)
+### February 17, 2025 8:37 PM — First Suspicious Activity (Not Detected)
 
-No MDE alert was generated during the earliest stages of compromise on `Linux-VulnMgmt-Kobe`, despite a large number of failed SSH sign-in attempts followed by a successful brute-force login from a Microsoft Azure IP. The system then executed scripts that disabled firewall protections and retrieved multiple malicious files from `194.32.145.243`.
+Suspsicous activity was detected during the earliest stages of compromise on `Linux-VulnMgmt-Kobe`. A large number of failed SSH sign-in attempts followed by a successful brute-force login from a Microsoft Azure IP was detected. The system then executed scripts that disabled firewall protections and retrieved multiple malicious files from `194.32.145.243`.
 
-> ❗ This stage was completely missed by MDE’s automated detection. Manual investigation documented these details in `initial-threat-hunt.md`.
+**Note:** *Process starts the SSH daemon and listens for incoming SSH connections, subsequently, there was a successful logon from the source address 20.80.241.91. The address itself isn't known to be malicious as the address is form the Microsofts Azure cloud services, but the activity it performs after from this device shows that this is the inital Indicator of Compromise. The address performs many logon attempts but fails until they are successful indicating a successful brute-force.*
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/9d1387fd-0dfe-47ed-b662-f961fc7cc5ab" alt="Screenshot description" width="700"/>
+  <img src="https://github.com/user-attachments/assets/cac9b34b-0d24-4e30-aeb5-9cc31a8d8bd1" alt="Screenshot description" width="750"/>
+</p>
+
+Device later performs a process using this command:
+
+```bash
+bash -c "pkill firewalld  -9;pkill iptables -9;ulimit -e 999999;... -rf .bash_history; history -c
+```
+[View full command → `observed-commands.md`](./observed-commands.md#bisis-ssh-brute-force-command)
+
+**Command Details:**
+- Disables local firewall services by terminating `firewalld` and `iptables` processes
+- Increases system resource limits via `ulimit` to support high-volume execution and network activity
+- Downloads and executes multiple payloads(`logsbins.sh`, `logstftp1.sh` and `logstftp2.sh`) from the malicious IP `194.32.145.243` using `wget`, `curl` and `tftp`
+- Performs cleanup operations by deleting payloads, clearing shell history, and removing evidence of execution
+
+**VirusTotal Score:**
+- `194.32.145.243`: `12/94`
+
+**Note:** **
+
+
+---
+
+
 
 ---
 
