@@ -17,6 +17,21 @@
 | 194.32.145.243  | *No SHA256 (IP address)*                                             | 12/94            | !!Payload Hosting IP      | !!Accessed via curl in `./network` and `./retea` scripts to download `cache` and `.balu` payloads                        |
 | b, c, d, etc. files  | 3786ea07da754523923421729dc438b79e8e920eff1b436c762667567b7c7d30    | 43/63            | !!Payload Hosting IP      | !!Accessed via curl in `./network` and `./retea` scripts to download `cache` and `.balu` payloads                        |
 
+
+b = f79bf0f316ca76b6710e2f45a57ae85b4d4ce9eb = score 43/63
+c = b783a02f7d5187371360d572ccfc50988be8b8e1 = score 43/63
+d = 508e4c6e40bbdbe55a317f658da3c572fc716513 = score 43/63
+e = 1a6b6a6b6121d94f0c6f1d842be8ead9ffb18ae1 = score 43/63
+h = c3490fca6ca16732fa6cedb7b2c03a161e120238 = score 44/64
+i = f9a06280e4a9bdf064a09e1144dfe90785652a87 = score 40/63
+j = f43f76d7c9f4885edc6698153669baec6400c25a = score 42/63
+k = aab111ba9f35ee1fbca34f808a05a7c31252c252 = score 41/64
+m = 244930375901ffb88341fcac57ccae3bfad4e7f2 = score 41/64
+n = 05b1ac7ea86a8a2fc43fc79661669bd9d36595f7 = score 42/63
+o = 1ac5190b66232a83cca200f651ed2b080a0382d0 = score 42/63
+p = 9673fc5503f1342822d325ab784c1b20f03b2a2e = score 44/64
+
+
 ---
 
 ### Descriptions and Observations
