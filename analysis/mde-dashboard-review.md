@@ -20,43 +20,47 @@ The objective is to assess MDE’s automated coverage and correlate it with find
 
 ## Alert Storyline and Timeline of Detection
 
-### February 17, 2025 8:37 PM — First Suspicious Activity (Not Detected)
+### February 17, 2025 — Initial Indicator of Compromise
 
-Suspsicous activity was detected during the earliest stages of compromise on `Linux-VulnMgmt-Kobe`. A large number of failed SSH sign-in attempts followed by a successful brute-force login from a Microsoft Azure IP was detected. The system then executed scripts that disabled firewall protections and retrieved multiple malicious files from `194.32.145.243`.
+**Device Involved:** `Linux-VulnMgmt-Kobe`  
+**Time:** 8:37 PM  
+**Activity:** Multiple failed SSH logon attempts followed by a successful brute-force login attempt from a Microsoft Azure IP.
 
-**Note:** *The user had intentionally exposed the device to internet-facing SSH access. The process starts the SSH daemon, and after multiple failed logon attempts, a successful connection is made from `20.80.241.91`—a Microsoft Azure IP not inherently malicious. Malicious behavior follows the logon, marking the initial indicator of compromise.*
+**Note:** *The user had intentionally exposed the device to internet-facing SSH access. The SSH daemon was started, and after numerous failed logon attempts, a successful connection was made from IP `20.80.241.91` — a Microsoft Azure cloud address not inherently malicious. Malicious behavior was observed immediately after this connection, marking the initial indicator of compromise.*
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/9d1387fd-0dfe-47ed-b662-f961fc7cc5ab" alt="Screenshot description" width="700"/>
-  <img src="https://github.com/user-attachments/assets/cac9b34b-0d24-4e30-aeb5-9cc31a8d8bd1" alt="Screenshot description" width="750"/>
+  <img src="https://github.com/user-attachments/assets/9d1387fd-0dfe-47ed-b662-f961fc7cc5ab" alt="Screenshot description" width="500"/>
+  <img src="https://github.com/user-attachments/assets/cac9b34b-0d24-4e30-aeb5-9cc31a8d8bd1" alt="Screenshot description" width="500"/>
 </p>
 
-**Device later performs a process using this command:**
+**Observed Command:**
 
 ```bash
 -c "pkill firewalld  -9;pkill iptables -9;ulimit -e 999999;... rm -rf .bash_history; history -c
 ```
 [View full command → `observed-commands.md`](./observed-commands.md#bisis-ssh-brute-force-command)
 
-**Command Details:**
-- Disables local firewall services by terminating `firewalld` and `iptables` processes
-- Increases system resource limits via `ulimit` to support high-volume execution and network activity
-- Downloads and executes multiple payloads(`logsbins.sh`, `logstftp1.sh` and `logstftp2.sh`) from the malicious IP `194.32.145.243` using `wget`, `curl` and `tftp`
-- Performs cleanup operations by deleting payloads, clearing shell history, and removing evidence of execution
-
-**Note:** *From the bash command reviewed above, the execution of the `logsbins.sh` shell script triggers a `wget` request, resulting in the creation of files named after each letter of the alphabet. We can see the file `b` and `c` and it continues until it reaches `o`.*
+**Command Breakdown:**
+- Disables local firewall protections by terminating `firewalld` and `iptables`
+- Increases system resource limits with `ulimit`
+- Downloads and executes multiple payloads from `194.32.145.243` using `wget`, `curl`, and `tftp`
+- Cleans execution traces by deleting shell history and temporary files
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/09a6b57f-0c77-49c0-b4fd-a39ba10e0a95" alt="Screenshot description" width="700"/>
-  <img src="https://github.com/user-attachments/assets/c7ed4c85-88ff-4c10-bcb9-3c6356c5a814" alt="Screenshot description" width="700"/>
-  <img src="https://github.com/user-attachments/assets/b00a6d04-c1cc-4442-af3a-4e373333d025" alt="Screenshot description" width="700"/>
+  <img src="https://github.com/user-attachments/assets/09a6b57f-0c77-49c0-b4fd-a39ba10e0a95" alt="Screenshot description" width="525"/>
+  <img src="https://github.com/user-attachments/assets/c7ed4c85-88ff-4c10-bcb9-3c6356c5a814" alt="Screenshot description" width="475"/>
+  <img src="https://github.com/user-attachments/assets/b00a6d04-c1cc-4442-af3a-4e373333d025" alt="Screenshot description" width="600"/>
 </p>
 
-**All files from `b` to `p` are different and have high virustotal scores which consider theses files as malicious. DOing more research on this shows that these files are linked to the botnet Gafgyt. It seems as if the purpose of the reviewed bash command is trying to use this device as a bot for the botnet Gafgyt.**
+**File Activity:** Execution of `logsbins.sh` triggered creation of multiple files named sequentially from `b` to `o`. Each of these files is distinct and has been flagged as malicious.
+
+**Malware Association:** These alphabetically named files are linked to the **Gafgyt** botnet, commonly used to conscript infected systems into coordinated botnet operations.
+
+**VirusTotal Scores:**
+- IP `194.32.145.243`: `12/94`
+- File `b`: `44/64`
 
 
-**VirusTotal Score:**
-- `194.32.145.243`: `12/94`
 
 ---
 
