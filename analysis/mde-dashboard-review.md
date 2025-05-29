@@ -64,6 +64,15 @@ The objective is to assess MDE’s automated coverage and correlate it with find
 
 ---
 
+### February 20, 2025 — Lateral Movement Begins
+
+
+
+
+
+
+
+
 
 
 ---
