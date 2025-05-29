@@ -58,13 +58,25 @@ The objective is to assess MDE’s automated coverage and correlate it with find
 
 **VirusTotal Scores:**
 - IP `194.32.145.243`: `12/94`
-- File `b`: `44/64`
+- File `b`: `44/64` (add link to virustotal-summary)
 
 
 
 ---
 
-### February 20, 2025 — Lateral Movement Begins
+### February 18 19 , 2025
+
+Feb 18
+**Devices Involved:**
+- `Linux-VulnMgmt-Kobe`
+- `linux-ubuntu-lab`
+- `ed-linux`
+- `linux--programtic-fix-dre`
+
+**Activity:** The IP address `10.0.0.160` matching the `Linux-VulnMgmt-Kobe` device started making login attempts to other VMs within the tenant network resulting in a **unusual number of failed sign-in attemtps** detection.
+
+Feb 19
+
 
 
 
