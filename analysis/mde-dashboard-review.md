@@ -60,47 +60,66 @@ The objective is to assess MDE’s automated coverage and correlate it with find
 - IP `194.32.145.243`: `12/94`
 - File `b`: `44/64` (add link to virustotal-summary)
 
+---
 
+### February 18-19, 2025 — Lateral Movement and Persistence Activity
+
+#### February 18, 2025
+
+**Devices Involved:**  
+- `Linux-VulnMgmt-Kobe`  
+- `linux-ubuntu-lab`  
+- `ed-linux`
+
+**Activity:**  
+The device `Linux-VulnMgmt-Kobe` (IP `10.0.0.160`) began making repeated login attempts to other virtual machines within the tenant network. This activity triggered detection alerts for an **unusual number of failed sign-in attempts**.
+
+**Screenshot Context:**
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/6e52e8a7-ea19-4d40-b56d-566a20b9dc29" alt="Login Attempts Timeline" width="250"/>
+  <img src="https://github.com/user-attachments/assets/22ac491f-e4fe-44db-9e88-f6e52e72d229" alt="Failed SSH Attempts on VM" width="400"/>
+</p>
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/316a6aef-1dfd-431e-84ed-8d8f0bf029c9" alt="Expanded Device Activity" width="700"/>
+  <img src="https://github.com/user-attachments/assets/dc5d668b-7ec7-4192-8f5c-71211caca724" alt="Detailed SSH Activity" width="700"/>
+</p>
+
+**Behavior Observed:**  
+- Device `Linux-VulnMgmt-Kobe` initiated multiple SSH brute-force attempts within the Azure tenant.
+- The failed sign-in attempts suggest the attacker was systematically probing for weak SSH credentials.
 
 ---
 
-### February 18 19 , 2025
+**Between February 18 and 19, the first indicator of compromise was traced to `Linux-VulnMgmt-Kobe` (IP `10.0.0.160`), which was seen performing SSH brute-force attacks within the tenant network. However, `Linuz-scan-agent`, highlighted in the February 19 findings, was compromised by a brute-force attack originating from the internal IP `10.0.0.8`, which belongs to the same Azure tenant. Although the exact source device could not be identified, the subsequent devices discussed were all compromised by brute-force attempts originating from the IP address `10.0.0.8`.**
 
-Feb 18
-**Devices Involved:**
-- `Linux-VulnMgmt-Kobe`
-- `linux-ubuntu-lab`
-- `ed-linux`
+---
 
-**Activity:** The IP address `10.0.0.160` matching the `Linux-VulnMgmt-Kobe` device started making login attempts to other VMs within the tenant network resulting in a **unusual number of failed sign-in attemtps** detection.
+#### February 19, 2025
 
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/6e52e8a7-ea19-4d40-b56d-566a20b9dc29" alt="Screenshot description" width="250"/>
-  <img src="https://github.com/user-attachments/assets/22ac491f-e4fe-44db-9e88-f6e52e72d229" alt="Screenshot description" width="400"/>
-</p>
-
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/316a6aef-1dfd-431e-84ed-8d8f0bf029c9" alt="Screenshot description" width="700"/>
-  <img src="https://github.com/user-attachments/assets/dc5d668b-7ec7-4192-8f5c-71211caca724" alt="Screenshot description" width="700"/>
-</p>
-
-
-Feb 19
-**Devices Involved:**
+**Device Involved:**  
 - `Linuz-scan-agent`
 
-**Activity:** Again, there were many failed login attempts on many devices, but after another successful login, the one device `Linuz-scan-agent` started using `cron` to schedule execution of a file named `VwIEbFMroMSrleiJ` and oddly enough this file uses the same format as the one we came across earlier in the `initial-threat-hunt.md` which was `UpzBUBnv`
+**Activity:**  
+The device `Linuz-scan-agent`  was subjected to a similar pattern of brute-force attempts.  After numerous failed logon attempts, an attacker successfully gained access. Subsequently, the device began using the `cron` service to schedule execution of a file named `VwIEbFMroMSrleiJ`.
 
+**File Details:**  
+The file `VwIEbFMroMSrleiJ` shares the same obfuscated naming style as `UpzBUBnv` observed in previous threat-hunt findings (`initial-threat-hunt.md`).
+
+**Screenshot Context: **
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/3e4963e2-b321-4034-b902-e7eb4386d9fe" alt="Screenshot description" width="700"/>
-  <img src="https://github.com/user-attachments/assets/d904a958-88d6-45ca-ad35-9178bfeb5487" alt="Screenshot description" width="700"/>
-  <img src="https://github.com/user-attachments/assets/fa2da0dc-a09d-4898-9ee9-2949eb4f594f" alt="Screenshot description" width="700"/>
+  <img src="https://github.com/user-attachments/assets/3e4963e2-b321-4034-b902-e7eb4386d9fe" alt="Cron Execution Evidence" width="700"/>
+  <img src="https://github.com/user-attachments/assets/d904a958-88d6-45ca-ad35-9178bfeb5487" alt="File Ingress Events" width="700"/>
+  <img src="https://github.com/user-attachments/assets/fa2da0dc-a09d-4898-9ee9-2949eb4f594f" alt="Detailed Process Timeline" width="700"/>
 </p>
 
-**Additional Information:** Doing substantial research on the file `VwIEbFMroMSrleiJ`, again it is associated with the **Gafgyt** botnet and its another elf file. This file was using cron to execute it every minute for 10 minutes.
+**Additional Context:**  
+Subsequent research confirmed that `VwIEbFMroMSrleiJ` is an ELF file associated with the **Gafgyt botnet**. It was scheduled via `cron` to execute every minute for a 10-minute interval, suggesting automated persistence and a potential for repeated malicious activity.
 
 **VirusTotal Scores:**
-- File `VwIEbFMroMSrleiJ`: `14/64`
+- File `VwIEbFMroMSrleiJ`: **14/64**
+
+---
+
 
 
 
