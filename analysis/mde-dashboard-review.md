@@ -71,17 +71,36 @@ Feb 18
 - `Linux-VulnMgmt-Kobe`
 - `linux-ubuntu-lab`
 - `ed-linux`
-- `linux--programtic-fix-dre`
 
 **Activity:** The IP address `10.0.0.160` matching the `Linux-VulnMgmt-Kobe` device started making login attempts to other VMs within the tenant network resulting in a **unusual number of failed sign-in attemtps** detection.
 
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/6e52e8a7-ea19-4d40-b56d-566a20b9dc29" alt="Screenshot description" width="250"/>
+  <img src="https://github.com/user-attachments/assets/22ac491f-e4fe-44db-9e88-f6e52e72d229" alt="Screenshot description" width="400"/>
+</p>
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/316a6aef-1dfd-431e-84ed-8d8f0bf029c9" alt="Screenshot description" width="700"/>
+  <img src="https://github.com/user-attachments/assets/dc5d668b-7ec7-4192-8f5c-71211caca724" alt="Screenshot description" width="700"/>
+</p>
+
+
 Feb 19
+**Devices Involved:**
+- `Linuz-scan-agent`
 
+**Activity:** Again, there were many failed login attempts on many devices, but after another successful login, the one device `Linuz-scan-agent` started using `cron` to schedule execution of a file named `VwIEbFMroMSrleiJ` and oddly enough this file uses the same format as the one we came across earlier in the `initial-threat-hunt.md` which was `UpzBUBnv`
 
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/3e4963e2-b321-4034-b902-e7eb4386d9fe" alt="Screenshot description" width="700"/>
+  <img src="https://github.com/user-attachments/assets/d904a958-88d6-45ca-ad35-9178bfeb5487" alt="Screenshot description" width="700"/>
+  <img src="https://github.com/user-attachments/assets/fa2da0dc-a09d-4898-9ee9-2949eb4f594f" alt="Screenshot description" width="700"/>
+</p>
 
+**Additional Information:** Doing substantial research on the file `VwIEbFMroMSrleiJ`, again it is associated with the **Gafgyt** botnet and its another elf file. This file was using cron to execute it every minute for 10 minutes.
 
-
-
+**VirusTotal Scores:**
+- File `VwIEbFMroMSrleiJ`: `14/64`
 
 
 
