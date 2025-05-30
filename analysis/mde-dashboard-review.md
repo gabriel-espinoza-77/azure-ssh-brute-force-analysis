@@ -90,7 +90,7 @@ The device `Linux-VulnMgmt-Kobe` (IP `10.0.0.160`) began making repeated login a
 
 ---
 
-**Between February 18 and 19, the first indicator of compromise was traced to `Linux-VulnMgmt-Kobe` (IP `10.0.0.160`), which was seen performing SSH brute-force attacks within the tenant network. However, `Linuz-scan-agent`, highlighted in the February 19 findings, was compromised by a brute-force attack originating from the internal IP `10.0.0.8`, which belongs to the same Azure tenant. Although the exact source device could not be identified, the subsequent devices discussed were all compromised by brute-force attempts originating from the IP address `10.0.0.8`.**
+**The compromise of the `Linux-VulnMgmt-Kobe` device on February 18 set the stage for subsequent lateral movement throughout the Azure tenant environment. Attackers leveraged the initial breach to pivot across the network, targeting additional virtual machines in the tenant infrastructure. This activity marked the start of a broader campaign of internal reconnaissance and credential harvesting aimed at expanding their foothold.**
 
 ---
 
@@ -105,7 +105,7 @@ The device `Linuz-scan-agent`  was subjected to a similar pattern of brute-force
 **File Details:**  
 The file `VwIEbFMroMSrleiJ` shares the same obfuscated naming style as `UpzBUBnv` observed in previous threat-hunt findings (`initial-threat-hunt.md`).
 
-**Screenshot Context: **
+**Screenshot Context:**
 <p align="center">
   <img src="https://github.com/user-attachments/assets/3e4963e2-b321-4034-b902-e7eb4386d9fe" alt="Cron Execution Evidence" width="700"/>
   <img src="https://github.com/user-attachments/assets/d904a958-88d6-45ca-ad35-9178bfeb5487" alt="File Ingress Events" width="700"/>
