@@ -109,11 +109,14 @@ The file `VwIEbFMroMSrleiJ` shares the same obfuscated naming style as `UpzBUBnv
 <p align="center">
   <img src="https://github.com/user-attachments/assets/3e4963e2-b321-4034-b902-e7eb4386d9fe" alt="Cron Execution Evidence" width="700"/>
   <img src="https://github.com/user-attachments/assets/d904a958-88d6-45ca-ad35-9178bfeb5487" alt="File Ingress Events" width="700"/>
+
+**Additional Context:**  
+Subsequent research confirmed that `VwIEbFMroMSrleiJ` is an ELF file associated with the **Gafgyt botnet**. It was scheduled via `cron` to execute every minute for a 1-minute interval, suggesting automated persistence and a potential for repeated malicious activity.
+  
   <img src="https://github.com/user-attachments/assets/fa2da0dc-a09d-4898-9ee9-2949eb4f594f" alt="Detailed Process Timeline" width="700"/>
 </p>
 
-**Additional Context:**  
-Subsequent research confirmed that `VwIEbFMroMSrleiJ` is an ELF file associated with the **Gafgyt botnet**. It was scheduled via `cron` to execute every minute for a 10-minute interval, suggesting automated persistence and a potential for repeated malicious activity.
+
 
 **VirusTotal Scores:**
 - File `VwIEbFMroMSrleiJ`: **14/64**
