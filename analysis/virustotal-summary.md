@@ -10,7 +10,7 @@
 | UpzBUBnv     | 81d9ef2342cb1d7329a6b53297678c925b0b5380b2add63a140db83fa046a83d     | N/A              | !!Suspicious Executable   | Dropped via SCP; used as an early-stage executable on compromised system                                                     |
 | cache/.balu  | 0e13e9e4443102bf5b26396b5319f528642b4f0477feb9c7f536fab379b73074     | 34/64            | Cryptominer             | Downloaded and executed as `./cache` via `./network` script                                                                  |
 | kuak         | 11d43b9ef1678a889cfbca33ca13314d07824753965cafb28d4030644a2c5ccd     | 31/64            | Cryptominer             | Deployed by `./network` script; executed from `/var/tmp/Documents/kuak`                                                      |
-| diicot       | 9462261543bfaf008f4748c76a7a2aec95d67f73315d1adea1833d51f9ec29f6     | 9/65             | Cryptominer             | Hidden file launched from `/var/tmp/Documents/.diicot`, tied to known Diicot campaigns                                       |
+| diicot       | 9462261543bfaf008f4748c76a7a2aec95d67f73315d1adea1833d51f9ec29f6     | 25/60             | Cryptominer             | Hidden file launched from `/var/tmp/Documents/.diicot`, tied to known Diicot campaigns                                       |
 | dinpasiune.com | *No SHA256 (domain only)*                                          | 16/94            | Payload Hosting Domain  | Used in `./retea` script and curl commands to download and execute remote payloads                                           |
 | 85.31.47.99  | *No SHA256 (IP address)*                                             | 1/94            | Payload Hosting IP      | Accessed via curl in `./network` and `./retea` scripts to download `cache` and `.balu` payloads                              |
 
@@ -31,8 +31,11 @@ n = 05b1ac7ea86a8a2fc43fc79661669bd9d36595f7 = score 42/63
 o = 1ac5190b66232a83cca200f651ed2b080a0382d0 = score 42/63
 p = 9673fc5503f1342822d325ab784c1b20f03b2a2e = score 44/64
 
-128.199.194.30 = 8/94
-766207c362bd73e2690f9d53c40104fbb22284e5b1fd0ef3a3a746a8179a6c47 = 34/64
+128.199.194.30 = 8/94  
+766207c362bd73e2690f9d53c40104fbb22284e5b1fd0ef3a3a746a8179a6c47 = 34/64  
+retea 061f2562bf4ad2db25f218e218920aece057024cd2c8826c87f65acc29583191 = 25/64  
+Update 7d48d223d81a0dd8150d27685a7f9808cb59bd9da918f992ce6dac1c387aa16e = 27/63
+
 
 ---
 
