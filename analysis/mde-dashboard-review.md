@@ -174,7 +174,9 @@ Minutes later we see the creation of the file `Update`, we’ve established this
 
 ---
 
-#### March 4, 2025 - *Need Title*
+#### March 4 and 7, 2025 - *Need Title*
+
+March 4
 
 **Device Involved:**
 - `Linux-Program-Fix`
@@ -200,11 +202,42 @@ Shortly after the execution of both `cache` and `MNFlEGNm`, hidden process named
   <img src="https://github.com/user-attachments/assets/55ac6de8-403f-42d6-b11f-b8035455a84f" alt="Detailed Process Timeline" width="800"/>
 </p>
 
+
+March 7
+
+**Device Involved:**
+- `linux-programatic-ajs`
+
+**Activity:**
+Similar file ingress from IP address `196.251.88.103` via SCP created a file `cache` which was exwritten to the `/tmp` directory
+
+<p align="center">  
+  <img src="https://github.com/user-attachments/assets/6beead87-7cfc-4c3b-8bcf-5010a5f06bc9" alt="Detailed Process Timeline" width="700"/>
+</p>
+
+**Subsequent Activity:**
+File `AqsEUmKy` appeared—its naming convention closely aligns with previously observed files such as "MNFlEGNm" and "UpzBUBnv", suggesting a likely common origin and functionality. Concurrently, a hidden script named History was made executable and executed within the same /tmp/.update-logs directory. followed by the execution of an Update file from the same location potentially facilitating persistence or further payload execution tied to the cache and AqsEUmKy files
+
+<p align="center">  
+  <img src="https://github.com/user-attachments/assets/60a1fa32-8ccd-421b-9176-89533271eb84" alt="Detailed Process Timeline" width="700"/>
+</p>
+
+**More Activity:**
+file named `.bisis` was created and was tagged as PUA.Portscan commonly used for network reconnaissance or scanning for vulnerable services
+
+<p align="center">  
+  <img src="https://github.com/user-attachments/assets/2be455e3-a82d-4876-91b2-639c5ffcf726" alt="Detailed Process Timeline" width="700"/>
+</p>
+
 **VirusTotal Scores:**
 - `cache`: ****
-- `MNFlEGNm`
-e3d4d62da209f86f345ee98351dd4062b65ab635: ****
+- `MNFlEGNm`: **N/A**
+- `AqsEUmKy`: **N/A**
 - `170.64.230.111`: **3/94**
+- `196.251.88.103`: ****
+- `.bisis`: ****
+
+---
 
 
 
