@@ -123,10 +123,27 @@ Subsequent research confirmed that `VwIEbFMroMSrleiJ` is an ELF file associated 
 
 ---
 
+#### February 20-22, 2025 - *Need Title*
+
+**Devices Involved:**
+- `Levi-Linux-Vulnerability`
+
+**Activity:**
+The `Levi` compromised device showed activity of a file ingress `YAvdMwRw` from the IP address `128.199.194.30`. This file is considered to be a malicious trojan file called multiverze from the frtizfrog family (a well known trojan malware). IT targets Linux systems by breaking into them through SSH. Once inside, it spreads to other machines using a peer-to-peer (P2P) network and this is how the VMs are being infected in our azure tenant as the malware is spreading laterally to other devices.
+
+<p align="center">  
+  <img src="https://github.com/user-attachments/assets/00469dee-993a-4b76-b3f1-7407a12a766c" alt="Detailed Process Timeline" width="700"/>
+</p>
+
+**Subsequent Activity:**
+Once the file `YAvdMwRw` is executed once in the system, 2 other files are created-`retea` and `Update`. (these are two familiar files we've seen in the previous initial-threat-hunt.md analysis)
 
 
 
 
+**VirusTotal Scores:**
+- IP `128.199.194.30`: **8/94**
+- File `YAvdMwRw`: ****
 
 ---
 
