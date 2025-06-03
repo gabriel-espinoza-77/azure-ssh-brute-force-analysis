@@ -123,12 +123,13 @@ Subsequent research confirmed that `VwIEbFMroMSrleiJ` is an ELF file associated 
 
 ---
 
-#### February 20 and 22, 2025 - *Need Title*
+#### February 20, 2025 - *Need Title*
 
 Feb 20
 
-**Devices Involved:**
+**Device Involved:**
 - `Levi-Linux-Vulnerability`
+- `Linux-Vuln-Test-Jonz`
 
 **Activity:**
 The `Levi` compromised device showed activity of a file ingress `YAvdMwRw` from the IP address `128.199.194.30`. This file is considered to be a malicious trojan file called multiverze from the frtizfrog family (a well known trojan malware). IT targets Linux systems by breaking into them through SSH. Once inside, it spreads to other machines using a peer-to-peer (P2P) network and this is how the VMs are being infected in our azure tenant as the malware is spreading laterally to other devices.
@@ -165,33 +166,123 @@ Minutes later we see the creation of the file `Update`, we’ve established this
   <img src="https://github.com/user-attachments/assets/153793e0-53f0-4a85-850a-17d1dd9472fe" alt="Detailed Process Timeline" width="800"/>
 </p>
 
-Feb 22
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 **VirusTotal Scores:**
 - IP `128.199.194.30`: **8/94**
 - File `YAvdMwRw`: **34/64**
 - `retea`: **23/64**
 - `Update`: **27/63**
+
 ---
+
+#### March 4, 2025 - *Need Title*
+
+**Device Involved:**
+- `Linux-Program-Fix`
+
+**Activity:**
+A file ingress from IP address `170.64.230.111` via SCP was initiated, a file under the name of `cache` was written to the `/tmp` directory
+
+<p align="center">  
+  <img src="https://github.com/user-attachments/assets/d243bb56-63b2-4d7f-81c4-fb029943f9ba" alt="Detailed Process Timeline" width="700"/>
+</p>
+
+**Subsequent Activity:**
+Concurrently of the `cache` file drop, an additional file `MNFlEGNm` was introduced and executed. WE can see the resemblence of the file name with previous files encountered such as `UpzBUBnv` in our initital analysis.
+
+<p align="center">  
+  <img src="https://github.com/user-attachments/assets/14996335-df77-4ee9-bbba-8bc6ec6198b5" alt="Detailed Process Timeline" width="800"/>
+</p>
+
+**Malicious Scripts Observered Again:**
+Shortly after the execution of both `cache` and `MNFlEGNm`, hidden process named `.b` was launched. the `.b` binary has been observed in conjunction with scheduled `cron` jobs, indicating a potential persistence mechanism.
+
+<p align="center">  
+  <img src="https://github.com/user-attachments/assets/55ac6de8-403f-42d6-b11f-b8035455a84f" alt="Detailed Process Timeline" width="800"/>
+</p>
+
+**VirusTotal Scores:**
+- `cache`: ****
+- `MNFlEGNm`
+e3d4d62da209f86f345ee98351dd4062b65ab635: ****
+- `170.64.230.111`: **3/94**
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ### February 20, 2025 — Lateral Movement Begins
 
