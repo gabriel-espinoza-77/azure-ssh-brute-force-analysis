@@ -123,7 +123,9 @@ Subsequent research confirmed that `VwIEbFMroMSrleiJ` is an ELF file associated 
 
 ---
 
-#### February 20-22, 2025 - *Need Title*
+#### February 20 and 22, 2025 - *Need Title*
+
+Feb 20
 
 **Devices Involved:**
 - `Levi-Linux-Vulnerability`
@@ -138,13 +140,57 @@ The `Levi` compromised device showed activity of a file ingress `YAvdMwRw` from 
 **Subsequent Activity:**
 Once the file `YAvdMwRw` is executed once in the system, 2 other files are created-`retea` and `Update`. (these are two familiar files we've seen in the previous initial-threat-hunt.md analysis)
 
+<p align="center">  
+  <img src="https://github.com/user-attachments/assets/a2fa0fb0-e5ac-46d8-ba73-4c4b7b9b48fb" alt="Detailed Process Timeline" width="800"/>
+  <img src="https://github.com/user-attachments/assets/e3f3e114-4f26-4ef2-9e99-542552d52da9" alt="Detailed Process Timeline" width="800"/>
+</p>
+
+**Malicious Scripts Observered Again:**
+We can observe the same bash script we analyzed in the `initial-threat-hunt` that executes `retea` and `network`. Subsequently, `kuak` and `diicot` are created. 
+
+Put this in 1 sentence: Terminates known miner processes to stop existing cryptomining activity (e.g., xmrig, cnrig, Opera)
+Disables scehduled tasks and removes SSH authorized keys and command history
+Downloads and silently executes a remote payload (payload) from dinpasiune.com
+Executes second hidden binary .teaca, subsequently clearing logs
+Alters system limits (ulimit, /etc/sysctl.conf) and prepares /dev/shm for staging and persistence
+Credential harvesting done by enumerating local users and generating a large password dictionary (pass) using common variations
+./network loader script is executed, as detailed in the previous finding
+Performs a final round of log and history deletion
+
+**More Activity**
+Minutes later we see the creation of the file `Update`, we’ve established this file is executed to maintain the persistence aspect of the brute-force attack. We also see the `Update` file creating a `cache` file from it. `cache` is used to avoid detection of any suspicious behaviour.
+
+<p align="center">  
+  <img src="https://github.com/user-attachments/assets/dc9c1b26-4a05-4dde-8f13-46d825babc43" alt="Detailed Process Timeline" width="800"/>
+  <img src="https://github.com/user-attachments/assets/153793e0-53f0-4a85-850a-17d1dd9472fe" alt="Detailed Process Timeline" width="800"/>
+</p>
+
+Feb 22
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 **VirusTotal Scores:**
 - IP `128.199.194.30`: **8/94**
-- File `YAvdMwRw`: ****
-
+- File `YAvdMwRw`: **34/64**
+- `retea`: **23/64**
+- `Update`: **27/63**
 ---
 
 ### February 20, 2025 — Lateral Movement Begins
