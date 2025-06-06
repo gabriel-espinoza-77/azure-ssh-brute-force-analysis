@@ -375,20 +375,20 @@ cat /var/tmp/.update-logs/iplist | /var/tmp/.update-logs/./.bisis ssh -o /var/tm
 
 ## Gaps and Observations
 
-### 🔍 Strengths
+### Strengths
 - MDE successfully detected:
   - High-volume SSH brute-force activity once a threshold was reached (March 17 alert)
   - Connections to known malicious domains (e.g., `dinpasiune.com`)
 - Correlation between network behavior and some known C2 infrastructure was effective.
 
-### 🚨 Gaps
+### Gaps
 - **Delayed detection**: Brute-force attempts began March 14; MDE only triggered alerts on March 17.
 - **Missed early-stage persistence**: Initial execution of `Update`, `.b`, and `History` was not flagged.
 - **Limited visibility into lateral movement**: Even with similar behaviors across five VMs, MDE only surfaced alerts on two.
 - **No behavioral alerting on ELF-based mining payloads**: Despite multiple VirusTotal-flagged binaries (e.g., `kuak` scored 31/64), no execution-level alerts were generated.
 - **Script-based attacks flew under radar**: Custom cron jobs, obfuscated bash payloads, and curl-based exfiltration were not surfaced.
 
-### 🧭 Manual Correlation Gained Visibility
+### Manual Correlation Gained Visibility
 The threat-hunting methodology outlined in `initial-threat-hunt.md` revealed:
 - Early infection vectors  
 - The full lifecycle of deployed payloads  
