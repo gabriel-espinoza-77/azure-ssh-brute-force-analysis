@@ -8,13 +8,16 @@ The objective is to assess MDE’s automated coverage and correlate it with find
 
 ## Incidents Timeline
 
-| Date & Time (UTC)     | Incident Title                                                   | Affected Device                                |
-|-----------------------|------------------------------------------------------------------|------------------------------------------------|
-| February 17, 2025     | Unusual SSH authentication behavior                             | Linux-VulnMgmt-Kobe                            |
-| February 18–20, 2025  | Lateral movement and brute-force attempts across tenant          | Multiple Azure VMs                             |
-| March 17, 2025 15:36  | Possible SSH brute-force attack                                  | sakel-lunix-2.p2zfvso05mlezjev3ck4vqd3kd       |
-| March 18, 2025        | Connection to malicious domain (dinpasiune.com)                  | jr-linux-vm-test                               |
-| March 18–April 3, 2025| Sustained brute-force & mining activity                          | linuxvmcraig, linux-vulnerability-test-dylan   |
+| Date & Time (UTC)     | Incident Title                                          | Affected Device(s)                                 |
+|-----------------------|---------------------------------------------------------|----------------------------------------------------|
+| February 17, 2025     | Initial SSH brute-force compromise                      | Linux-VulnMgmt-Kobe                                |
+| February 18–19, 2025  | Lateral movement and internal brute-force activity      | Linux-VulnMgmt-Kobe, linux-ubuntu-lab, ed-linux, Linuz-scan-agent |
+| February 20, 2025     | Multiverze Trojan deployment and lateral spread         | Levi-Linux-Vulnerability, Linux-Vuln-Test-Jonz     |
+| March 4, 2025         | File ingress and persistence via cron jobs              | Linux-Program-Fix                                  |
+| March 7, 2025         | File ingress and additional persistence mechanisms      | linux-programatic-ajs                              |
+| March 8, 2025         | Covert data exfiltration via crafted HTTP requests      | linux-programatic-ajs                              |
+| March 14–17, 2025     | Advanced lateral movement and recon                     | sakel-linux-2                                      |
+| March 24, 2025        | XorDDoS deployment, obfuscation, and system manipulation| JR-Linux-VM-Test                                   |
 
 ---
 
