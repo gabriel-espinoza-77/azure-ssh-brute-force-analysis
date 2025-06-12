@@ -42,7 +42,7 @@ The goal of this project is to showcase deep forensic investigation techniques, 
 
 ## Disclaimer
 
-All analysis presented in this repository is for **educational and professional development** purposes only.  
+**All analysis presented in this repository is for **educational and professional development** purposes only.  
 No real production environments were harmed or interfered with during this investigation.  
-All systems analyzed were under the analyst's authorized scope.
-This investigation was conducted within a controlled cyber range environment using a personal Microsoft Azure tenant.
+All systems analyzed were under the analyst's authorized scope.  
+This investigation was conducted within a controlled cyber range environment using a personal Microsoft Azure tenant.**
