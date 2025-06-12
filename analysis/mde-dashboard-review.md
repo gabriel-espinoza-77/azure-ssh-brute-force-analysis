@@ -427,6 +427,40 @@ An unknown process was observed creating a file named `libudev.so.6`, which appe
 
 ---
 
+### After March 24, 2025 to April 15
+
+the next devices we encounter, we observe similar activity with a file ingress, then an execution of the files that are named as `History`, `Update` and `.bisis` which are performing the same activities that we’ve seen with the other compromised devices. This same routine of malicious activity is observed with, `linux-vulnerability-test-dylan` and `linuxvmcraig` which are the devices we encountered in the threat hunt. 
+
+<p align="center">  
+  <img src="" width="700"/>
+</p>
+
+
+
+<p align="center">  
+  <img src="" width="700"/>
+</p>
+
+
+
+<p align="center">  
+  <img src="" width="700"/>
+</p>
+
+
+
+<p align="center">  
+  <img src="" width="700"/>
+</p>
+
+On the **Incidents** dashboard, the last recorded incident occured on April 15th. 
+
+<p align="center">  
+  <img src="https://github.com/user-attachments/assets/2e6638c4-7843-49d6-a55b-bec0655ea7b8" width="350"/>
+</p>
+
+---
+
 ## Gaps and Observations
 
 ### Strengths
