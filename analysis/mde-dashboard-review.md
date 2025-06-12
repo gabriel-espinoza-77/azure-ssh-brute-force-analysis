@@ -459,6 +459,14 @@ On the **Incidents** dashboard, the last recorded incident occured on April 15th
   <img src="https://github.com/user-attachments/assets/2e6638c4-7843-49d6-a55b-bec0655ea7b8" width="350"/>
 </p>
 
+AN "Unknown Process Name" started to create `libudev.so.6` files and then there is an execution of the shell script named `gcc.sh` (same one we observed earlier) within the `cron.hourly` directory. It seems to be that the `gcc.sh` file is the process that continues to create the `libudev.so.6` files. That is all this device did, it kept creating the `libudev.so.6` file over and over again, and thats where the activity of this incident stops.
+
+<p align="center">  
+  <img src="https://github.com/user-attachments/assets/52659fde-496c-4cad-a5db-be79237791e1" width="700"/>
+  <img src="https://github.com/user-attachments/assets/3b6ddf2e-ede1-4a2c-928b-7df9869c7c43" width="700"/>
+</p>
+
+
 ---
 
 ## Gaps and Observations
