@@ -463,14 +463,17 @@ No further malicious behavior was detected beyond the repeated creation of the `
 
 ---
 
-### Final Assessment
+## Conclusion
 
-The Microsoft Defender for Endpoint (MDE) dashboard provided partial but useful visibility into the SSH brute-force campaign that impacted the Azure tenant from February to April 2025. While MDE successfully surfaced alerts during several critical phases—such as brute-force thresholds, lateral movement, and domain contact—many early-stage activities, including script-based persistence and malware deployment, were not detected. These blind spots highlight gaps in behavioral detection and the need for stronger visibility into Linux-based threats.
+The MDE Dashboard Review revealed that while Microsoft Defender for Endpoint (MDE) was able to detect certain brute-force attempts and network-based indicators tied to known threat infrastructure, much of the early- and mid-stage malicious activity went unnoticed without manual correlation. Initial compromise activity on February 17 began with the successful brute-force of `Linux-VulnMgmt-Kobe`, followed by internal SSH propagation, credential abuse, and the deployment of malware like Gafgyt, Multiverze, and XorDDoS across a wide array of Azure-based Linux virtual machines.
 
-Manual threat hunting using KQL and advanced telemetry correlation proved instrumental in uncovering these hidden indicators of compromise, revealing consistent attacker behavior across multiple virtual machines. These included the reuse of obfuscated scripts (`Update`, `History`, `.bisis`), cron-based persistence, command history clearing, and the exfiltration of system metadata via crafted HTTP requests. Additionally, several malicious binaries tied to botnets like Gafgyt and XorDDoS were identified with high VirusTotal scores—despite MDE generating no behavioral alerts for their execution.
+Throughout the campaign, attackers consistently reused obfuscated scripts (`Update`, `cache`, `History`, `.bisis`) and leveraged cron-based scheduling to maintain persistence. Obfuscation techniques such as renaming payloads to mimic legitimate binaries (e.g., `libudev.so.6`) and concealing command execution further reduced the likelihood of detection. Exfiltration activity was covert, utilizing crafted `curl` requests with browser headers, often flying under MDE’s behavioral detection capabilities.
 
-The final traceable event occurred on April 15 with repeated regeneration of the file `libudev.so.6` by a `cron`-executed script, signaling the conclusion of observable malicious activity in this campaign. This case underscores the value of combining EDR coverage with proactive threat hunting to reconstruct the full attack chain and strengthen detection capabilities.
+Despite the breadth of the campaign, MDE surfaced alerts for only a subset of affected devices and missed several key behaviors — including ELF payload execution, early-stage file ingress, and widespread lateral movement. Notably, key infections and reconnaissance behaviors were only made visible through deep manual analysis and timeline correlation, as detailed in `initial-threat-hunt.md`.
 
+This investigation reinforces the importance of layered visibility in cloud environments, particularly when facing threat actors such as **Diicot**, who demonstrate reuse of tooling, stealth persistence, and automation across multiple hosts. It also highlights critical detection gaps when relying on endpoint telemetry alone, underscoring the need for proactive threat hunting and enrichment with external intelligence sources.
+
+No malicious behavior was observed after April 15, 2025. At this point, activity linked to this incident appears to have ceased.
 
 ---
 
