@@ -429,7 +429,31 @@ An unknown process was observed creating a file named `libudev.so.6`, which appe
 
 ### After March 24, 2025 to April 15
 
-the next devices we encounter, we observe similar activity with a file ingress, then an execution of the files that are named as `History`, `Update` and `.bisis` which are performing the same activities that we’ve seen with the other compromised devices. This same routine of malicious activity is observed with, `linux-vulnerability-test-dylan` and `linuxvmcraig` which are the devices we encountered in the threat hunt. 
+the next devices we encounter are `linux-vm-vulnerability-test` and `linux-vulnerability-test-dylan`, we observe similar activity with a file ingress, then an execution of the files that are named as `History`, `Update` and `.bisis` which are performing the same activities that we’ve seen with the other compromised devices. This same routine of malicious activity observered with previous devices.
+
+<p align="center">  
+  <img src="https://github.com/user-attachments/assets/465b4976-ce85-470f-ab1d-ca8f73c02ee4" width="700"/>
+  <img src="https://github.com/user-attachments/assets/f9863d77-48d1-4d7b-b95b-66ea513701d7" width="700"/>
+  <img src="https://github.com/user-attachments/assets/96a1ecf8-1a7e-4e9a-a0b4-480d34fa4f12" width="700"/>
+</p>
+
+March 26 for `linux-vm-vulnerability-test`, March 29 for `linux-vulnerability-test-dylan`
+
+<p align="center">  
+  <img src="https://github.com/user-attachments/assets/71f581b0-bb63-4c39-a1da-d47f05b9b9b2" width="700"/>
+</p>
+
+<p align="center">  
+  <img src="" width="700"/>
+</p>
+
+<p align="center">  
+  <img src="" width="700"/>
+</p>
+
+<p align="center">  
+  <img src="" width="700"/>
+</p>
 
 <p align="center">  
   <img src="" width="700"/>
@@ -437,26 +461,13 @@ the next devices we encounter, we observe similar activity with a file ingress, 
 
 
 
-<p align="center">  
-  <img src="" width="700"/>
-</p>
-
-
-
-<p align="center">  
-  <img src="" width="700"/>
-</p>
-
-
-
-<p align="center">  
-  <img src="" width="700"/>
-</p>
-
-On the **Incidents** dashboard, the last recorded incident occured on April 15th. 
+On the **Incidents** dashboard, the last recorded incident occured on April 15th with `linuxremediation`
 
 <p align="center">  
   <img src="https://github.com/user-attachments/assets/2e6638c4-7843-49d6-a55b-bec0655ea7b8" width="350"/>
+</p>
+<p align="center">  
+  <img src="https://github.com/user-attachments/assets/51835f79-3af3-4c17-b4e3-7e9ab2a73c85" width="700"/>
 </p>
 
 AN "Unknown Process Name" started to create `libudev.so.6` files and then there is an execution of the shell script named `gcc.sh` (same one we observed earlier) within the `cron.hourly` directory. It seems to be that the `gcc.sh` file is the process that continues to create the `libudev.so.6` files. That is all this device did, it kept creating the `libudev.so.6` file over and over again, and thats where the activity of this incident stops.
