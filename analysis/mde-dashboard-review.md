@@ -463,6 +463,17 @@ No further malicious behavior was detected beyond the repeated creation of the `
 
 ---
 
+### Final Assessment
+
+The Microsoft Defender for Endpoint (MDE) dashboard provided partial but useful visibility into the SSH brute-force campaign that impacted the Azure tenant from February to April 2025. While MDE successfully surfaced alerts during several critical phases—such as brute-force thresholds, lateral movement, and domain contact—many early-stage activities, including script-based persistence and malware deployment, were not detected. These blind spots highlight gaps in behavioral detection and the need for stronger visibility into Linux-based threats.
+
+Manual threat hunting using KQL and advanced telemetry correlation proved instrumental in uncovering these hidden indicators of compromise, revealing consistent attacker behavior across multiple virtual machines. These included the reuse of obfuscated scripts (`Update`, `History`, `.bisis`), cron-based persistence, command history clearing, and the exfiltration of system metadata via crafted HTTP requests. Additionally, several malicious binaries tied to botnets like Gafgyt and XorDDoS were identified with high VirusTotal scores—despite MDE generating no behavioral alerts for their execution.
+
+The final traceable event occurred on April 15 with repeated regeneration of the file `libudev.so.6` by a `cron`-executed script, signaling the conclusion of observable malicious activity in this campaign. This case underscores the value of combining EDR coverage with proactive threat hunting to reconstruct the full attack chain and strengthen detection capabilities.
+
+
+---
+
 ## Gaps and Observations
 
 ### Strengths
