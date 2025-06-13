@@ -427,56 +427,39 @@ An unknown process was observed creating a file named `libudev.so.6`, which appe
 
 ---
 
-### After March 24, 2025 to April 15
+### March 26 – April 15, 2025 — Final Wave of File Ingress and Repeated Persistence Activity
 
-the next devices we encounter are `linux-vm-vulnerability-test` and `linux-vulnerability-test-dylan`, we observe similar activity with a file ingress, then an execution of the files that are named as `History`, `Update` and `.bisis` which are performing the same activities that we’ve seen with the other compromised devices. This same routine of malicious activity observered with previous devices.
+**Devices Involved:**  
+- `linux-vm-vulnerability-test` (March 26)  
+- `linux-vulnerability-test-dylan` (March 29)  
+- `linuxremediation` (April 15)
 
-<p align="center">  
-  <img src="https://github.com/user-attachments/assets/465b4976-ce85-470f-ab1d-ca8f73c02ee4" width="700"/>
-  <img src="https://github.com/user-attachments/assets/f9863d77-48d1-4d7b-b95b-66ea513701d7" width="700"/>
-  <img src="https://github.com/user-attachments/assets/96a1ecf8-1a7e-4e9a-a0b4-480d34fa4f12" width="700"/>
+**Observed Activity:**  
+The devices `linux-vm-vulnerability-test` and `linux-vulnerability-test-dylan` exhibited behavior consistent with previously compromised systems. Specifically, known malicious files — `History`, `Update`, and `.bisis` — were observed being introduced and executed, continuing the attacker’s established pattern of persistence, reconnaissance, and potential lateral movement.
+
+<p align="center"> 
+  <img src="https://github.com/user-attachments/assets/73bab3f0-5418-4eaf-a7aa-bd974fe50038" width="400"/>
+  <img src="https://github.com/user-attachments/assets/67793d3f-6f60-4ddd-b6df-7f8d3e644550" width="400"/>
+  <img src="https://github.com/user-attachments/assets/f9863d77-48d1-4d7b-b95b-66ea513701d7" width="750"/>
+  <img src="https://github.com/user-attachments/assets/96a1ecf8-1a7e-4e9a-a0b4-480d34fa4f12" width="450"/>
 </p>
 
-March 26 for `linux-vm-vulnerability-test`, March 29 for `linux-vulnerability-test-dylan`
+**April 15 – Final Recorded Activity:**  
+The last entry on the Microsoft Defender for Endpoint *Incidents* dashboard involved the device `linuxremediation`.
 
 <p align="center">  
-  <img src="https://github.com/user-attachments/assets/71f581b0-bb63-4c39-a1da-d47f05b9b9b2" width="700"/>
+  <img src="https://github.com/user-attachments/assets/2e6638c4-7843-49d6-a55b-bec0655ea7b8" width="450"/>
 </p>
+
+An **Unknown Process Name** was observed repeatedly creating the file `libudev.so.6`, which matches the behavior and file renaming pattern used in earlier stages of the attack. Additionally, the script `gcc.sh` — previously associated with the **XorDDoS** dropper — was executed from the `/etc/cron.hourly/` directory, likely responsible for re-generating the `libudev.so.6` file.
 
 <p align="center">  
-  <img src="" width="700"/>
+  <img src="https://github.com/user-attachments/assets/52659fde-496c-4cad-a5db-be79237791e1" width="450"/>
+  <img src="https://github.com/user-attachments/assets/3b6ddf2e-ede1-4a2c-928b-7df9869c7c43" width="500"/>
 </p>
 
-<p align="center">  
-  <img src="" width="700"/>
-</p>
-
-<p align="center">  
-  <img src="" width="700"/>
-</p>
-
-<p align="center">  
-  <img src="" width="700"/>
-</p>
-
-
-
-On the **Incidents** dashboard, the last recorded incident occured on April 15th with `linuxremediation`
-
-<p align="center">  
-  <img src="https://github.com/user-attachments/assets/2e6638c4-7843-49d6-a55b-bec0655ea7b8" width="350"/>
-</p>
-<p align="center">  
-  <img src="https://github.com/user-attachments/assets/51835f79-3af3-4c17-b4e3-7e9ab2a73c85" width="700"/>
-</p>
-
-AN "Unknown Process Name" started to create `libudev.so.6` files and then there is an execution of the shell script named `gcc.sh` (same one we observed earlier) within the `cron.hourly` directory. It seems to be that the `gcc.sh` file is the process that continues to create the `libudev.so.6` files. That is all this device did, it kept creating the `libudev.so.6` file over and over again, and thats where the activity of this incident stops.
-
-<p align="center">  
-  <img src="https://github.com/user-attachments/assets/52659fde-496c-4cad-a5db-be79237791e1" width="700"/>
-  <img src="https://github.com/user-attachments/assets/3b6ddf2e-ede1-4a2c-928b-7df9869c7c43" width="700"/>
-</p>
-
+**Conclusion:**  
+No further malicious behavior was detected beyond the repeated creation of the `libudev.so.6` file. This marks the end of observable activity for this specific incident.
 
 ---
 
