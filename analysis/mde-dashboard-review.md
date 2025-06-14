@@ -471,9 +471,9 @@ Throughout the campaign, attackers consistently reused obfuscated scripts (`Upda
 
 Although the campaign had a wide reach, MDE failed to surface activity on impacted devices and overlooked key behaviors. Notably, the device `linuxvmcraig`—which attempted SSH brute-force attacks on over 3,500 targets ([initial-threat-hunt.md](https://github.com/gabriel-espinoza-77/azure-ssh-brute-force-analysis))—did not appear at all in the *Incidents* dashboard. These detection blind spots are why a deeper manual investigation was conducted to gain a clearer understanding of the full extent of the intrusion.
 
-This investigation reinforces the importance of layered visibility in cloud environments, particularly when facing threat actors such as **Diicot**, who demonstrate reuse of tooling, stealth persistence, and automation across multiple hosts. It also highlights critical detection gaps when relying on endpoint telemetry alone, underscoring the need for proactive threat hunting and enrichment with external intelligence sources.
+This investigation highlights the critical need for multiple layers of visibility in cloud environments, particularly when facing threat actors such as **Diicot**, who demonstrate reuse of tooling, stealth persistence, and automation across multiple hosts. It also highlights critical detection gaps when relying on endpoint telemetry alone, emphasizing the importance of proactive threat hunting and integration of external intelligence.
 
-No malicious behavior was observed after April 15, 2025. At this point, activity linked to this incident appears to have ceased.
+No malicious behavior was observed after April 15, 2025. At this point, activity linked to this incident appears to have concluded.
 
 ---
 
