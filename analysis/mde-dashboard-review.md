@@ -6,21 +6,6 @@ The objective is to assess MDE’s automated coverage and correlate it with find
 
 ---
 
-## Incidents Timeline
-
-| Date & Time (UTC)     | Incident Title                                          | Affected Device(s)                                 |
-|-----------------------|---------------------------------------------------------|----------------------------------------------------|
-| February 17, 2025     | Initial SSH brute-force compromise                      | Linux-VulnMgmt-Kobe                                |
-| February 18–19, 2025  | Lateral movement and internal brute-force activity      | Linux-VulnMgmt-Kobe, linux-ubuntu-lab, ed-linux, Linuz-scan-agent |
-| February 20, 2025     | Multiverze Trojan deployment and lateral spread         | Levi-Linux-Vulnerability, Linux-Vuln-Test-Jonz     |
-| March 4, 2025         | File ingress and persistence via cron jobs              | Linux-Program-Fix                                  |
-| March 7, 2025         | File ingress and additional persistence mechanisms      | linux-programatic-ajs                              |
-| March 8, 2025         | Covert data exfiltration via crafted HTTP requests      | linux-programatic-ajs                              |
-| March 14–17, 2025     | Advanced lateral movement and recon                     | sakel-linux-2                                      |
-| March 24, 2025        | XorDDoS deployment, obfuscation, and system manipulation| JR-Linux-VM-Test                                   |
-
----
-
 ## Alert Storyline and Timeline of Detection
 
 ### February 17, 2025 — Initial Indicator of Compromise
