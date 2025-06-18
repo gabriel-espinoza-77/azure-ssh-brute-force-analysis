@@ -1,8 +1,8 @@
 # MDE Dashboard Review
 
-This file summarizes alerts, incidents, and automated detections surfaced by Microsoft Defender for Endpoint (MDE) during the SSH brute-force campaign observed in March–April 2025.
+This file summarizes the most significant alerts, incidents, and automated detections surfaced by Microsoft Defender for Endpoint (MDE) during the SSH brute-force campaign observed in February–April 2025.
 
-The objective is to assess MDE’s automated coverage and correlate it with findings from manual threat hunting documented in `initial-threat-hunt.md`.
+The objective is to assess MDE’s automated coverage and correlate it with findings from manual threat hunting documented in [initial-threat-hunt.md](./initial-threat-hunt.md).
 
 ---
 
@@ -20,6 +20,8 @@ The objective is to assess MDE’s automated coverage and correlate it with find
   <img src="https://github.com/user-attachments/assets/9d1387fd-0dfe-47ed-b662-f961fc7cc5ab" alt="Screenshot description" width="500"/>
   <img src="https://github.com/user-attachments/assets/cac9b34b-0d24-4e30-aeb5-9cc31a8d8bd1" alt="Screenshot description" width="500"/>
 </p>
+
+**Device Activity:** Suspicious command executions followed, as detailed below.
 
 **Observed Command:**
 
@@ -42,11 +44,11 @@ The objective is to assess MDE’s automated coverage and correlate it with find
 
 **File Activity:** Execution of `logsbins.sh` triggered creation of multiple files named sequentially from `b` to `o`. Each of these files is distinct and has been flagged as malicious.
 
-**Malware Association:** These alphabetically named files are linked to the **Gafgyt** botnet, commonly used to conscript infected systems into coordinated botnet operations.
+**Malware Association:** These alphabetically named files are linked to the **Gafgyt botnet**, which enlists compromised systems into its coordinated operation.
 
 **VirusTotal Scores:**
 - IP `194.32.145.243`: `12/94`
-- File `b`: `44/64` (add link to virustotal-summary)
+- File `b`: `44/64`
 
 ---
 
@@ -74,11 +76,11 @@ The device `Linux-VulnMgmt-Kobe` (IP `10.0.0.160`) began making repeated login a
 
 **Behavior Observed:**  
 - Device `Linux-VulnMgmt-Kobe` initiated multiple SSH brute-force attempts within the Azure tenant.
-- The failed sign-in attempts suggest the attacker was systematically probing for weak SSH credentials.
+- The failed sign-in attempts suggest the attacker was strategically probing for weak SSH credentials.
 
 ---
 
-**The compromise of the `Linux-VulnMgmt-Kobe` device on February 18 set the stage for subsequent lateral movement throughout the Azure tenant environment. Attackers leveraged the initial breach to pivot across the network, targeting additional virtual machines in the tenant infrastructure. This activity marked the start of a broader campaign of internal reconnaissance and credential harvesting.**
+**The compromise of the `Linux-VulnMgmt-Kobe` device on February 18 set the stage for subsequent lateral movement throughout the Azure tenant environment. Attackers leveraged the initial breach to pivot across the network, targeting additional virtual machines in the tenant infrastructure. All devices referenced below were successfully targeted by brute-force attacks and are confirmed to be compromised**
 
 ---
 
@@ -88,10 +90,10 @@ The device `Linux-VulnMgmt-Kobe` (IP `10.0.0.160`) began making repeated login a
 - `Linuz-scan-agent`
 
 **Activity:**  
-The device `Linuz-scan-agent`  was subjected to a similar pattern of brute-force attempts.  After numerous failed logon attempts, an attacker successfully gained access. Subsequently, the device began using the `cron` service to schedule execution of a file named `VwIEbFMroMSrleiJ`.
+The device `Linuz-scan-agent` was subjected to a similar pattern of brute-force attempts. After the attacker gained access, the device used the `cron` service to schedule execution of the file `VwIEbFMroMSrleiJ`.
 
 **File Details:**  
-The file `VwIEbFMroMSrleiJ` shares the same obfuscated naming style as `UpzBUBnv` observed in previous threat-hunt findings (`initial-threat-hunt.md`).
+The file `VwIEbFMroMSrleiJ` shares the same obfuscated naming style as `UpzBUBnv` observed in previous threat-hunt findings ([initial-threat-hunt.md](./initial-threat-hunt.md)).
 
 **Screenshot Context:**
 <p align="center">
@@ -100,7 +102,7 @@ The file `VwIEbFMroMSrleiJ` shares the same obfuscated naming style as `UpzBUBnv
 </p>
 
 **Additional Context:**  
-Subsequent research confirmed that `VwIEbFMroMSrleiJ` is an ELF file associated with the **Gafgyt botnet**. It was scheduled via `cron` to execute every minute for a 1-minute interval, suggesting automated persistence.
+Further analysis confirmed that `VwIEbFMroMSrleiJ` is an ELF binary linked to the **Gafgyt botnet** previously discussed. It was scheduled via `cron` to run every minute, suggesting automated persistence.
 
 <p align="center">  
   <img src="https://github.com/user-attachments/assets/fa2da0dc-a09d-4898-9ee9-2949eb4f594f" alt="Detailed Process Timeline" width="700"/>
@@ -118,14 +120,14 @@ Subsequent research confirmed that `VwIEbFMroMSrleiJ` is an ELF file associated 
 - `Linux-Vuln-Test-Jonz`
 
 **Observed Activity:**  
-The compromised device `Levi-Linux-Vulnerability` downloaded a file named `YAvdMwRw` from IP `128.199.194.30`. This file is identified as **Multiverze** malware, part of the **FritzFrog** trojan family known for infecting Linux systems via SSH and spreading laterally using a peer-to-peer (P2P) network — explaining how it’s circulating through the Azure tenant.
+The compromised device `Levi-Linux-Vulnerability` downloaded a file named `YAvdMwRw` from IP `128.199.194.30`. This file is identified as **Multiverze** malware, part of the **FritzFrog** trojan family known for infecting Linux systems via SSH and spreading laterally.
 
 <p align="center">  
   <img src="https://github.com/user-attachments/assets/00469dee-993a-4b76-b3f1-7407a12a766c" width="700"/>
 </p>
 
 **Subsequent Behavior:**  
-Execution of `YAvdMwRw` created two additional malicious files, `retea` and `Update`, both previously observed in the `initial-threat-hunt.md` analysis.
+Execution of `YAvdMwRw` created two additional malicious files, `retea` and `Update`, both previously observed in the [initial-threat-hunt.md](./initial-threat-hunt.md) analysis.
 
 <p align="center">  
   <img src="https://github.com/user-attachments/assets/a2fa0fb0-e5ac-46d8-ba73-4c4b7b9b48fb" width="800"/>
