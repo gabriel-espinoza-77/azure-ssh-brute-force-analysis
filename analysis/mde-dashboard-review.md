@@ -61,7 +61,7 @@ bash -c "
   history -c
 "
 ```
-[View full command → `observed-commands.md`](./observed-commands.md#bisis-ssh-brute-force-command)
+[View full command → `observed-commands.md`](./observed-commands.md)
 
 
 
@@ -166,15 +166,17 @@ Execution of `YAvdMwRw` created two additional malicious files, `retea` and `Upd
 **Malicious Scripts Revisited:**  
 The same malicious bash script identified earlier was re-used, executing `retea` and `network`, creating `kuak` and `diicot`, terminating known miner processes, disabling scheduled tasks, clearing logs, and downloading further payloads.
 
+[View full command → `observed-commands.md`](./observed-commands.md)
+
 <p align="center">  
   <img src="https://github.com/user-attachments/assets/be9d25e4-aaf8-4332-b85b-9a0d994dbae1" width="700"/>
 </p>
 
-**Concise Summary:**  
+**retea Command Summary:**  
 The script disables security measures and system tasks, downloads a remote payload, clears logs, modifies system limits, harvests credentials, and uses the `network` loader script to finalize compromise.
 
 **Persistence & Obfuscation:**  
-Shortly after, the `Update` file was seen re-creating a `cache` file used to avoid detection.
+Shortly after, the `Update` file was seen re-creating a `cache` file.
 
 <p align="center">  
   <img src="https://github.com/user-attachments/assets/dc9c1b26-4a05-4dde-8f13-46d825babc43" width="800"/>
@@ -237,7 +239,7 @@ File `AqsEUmKy` was introduced and executed, mirroring previous obfuscated namin
 </p>
 
 **More Activity:**  
-A file named `.bisis` was created, tagged as **PUA.Portscan**, typically used for network reconnaissance.
+A file named `.bisis` was created, tagged as a **PUA.Portscan** on VirusTotal, typically used for network reconnaissance.
 
 <p align="center">  
   <img src="https://github.com/user-attachments/assets/2be455e3-a82d-4876-91b2-639c5ffcf726" width="700"/>
@@ -247,6 +249,10 @@ A file named `.bisis` was created, tagged as **PUA.Portscan**, typically used fo
 - IP `170.64.230.111`: **3/94**  
 - `.bisis`: **N/A**  
 - Others: **N/A**
+
+---
+
+**The remaining data exfiltration activity involves destination IP addresses unrelated to the Azure environment. They are included to highlight additional malicious activity within the tenant, though they do not affect the environment itself.**
 
 ---
 
@@ -317,8 +323,8 @@ The `Update` file was run again, mirroring the `.b` activity from March 14.
   <img src="https://github.com/user-attachments/assets/6756dbbe-9f5d-4b97-9475-cc4cf4850e6c" width="700"/>
 </p>
 
-**Lateral Movement Behavior:**  
-A bash command was run, leveraging `.bisis` to connect to a list of IPs using SSH without authentication, then executing script `x`.
+**Further Lateral Movement:**  
+A bash command was run, utilizing `.bisis` to connect to a list of IPs using SSH without authentication, then executing script `x`.
 
 ```bash
 bash -c "
@@ -330,19 +336,19 @@ cat /var/tmp/.update-logs/iplist | /var/tmp/.update-logs/./.bisis ssh -o /var/tm
 "
 ```
 
-```bash
-/var/tmp/.update-logs/./.bisis ssh \\
-  -o /var/tmp/.update-logs/data.json \\
-  --userauth none \\
-  --timeout 8
-```
-
 <p align="center">  
   <img src="https://github.com/user-attachments/assets/067ad23e-3d6a-44b7-ae61-9cedc5a0f9a5" width="700"/>
 </p>
 
 **Recon & Lateral Movement:**  
 `.bisis` was used to connect to multiple IP addresses, performing scans and brute-forcing.
+
+```bash
+/var/tmp/.update-logs/./.bisis ssh \\
+  -o /var/tmp/.update-logs/data.json \\
+  --userauth none \\
+  --timeout 8
+```
 
 <p align="center">  
   <img src="https://github.com/user-attachments/assets/58b57c3f-d9c8-45f4-8e34-014fe41d24c4" width="700"/>
