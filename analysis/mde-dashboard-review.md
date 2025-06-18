@@ -78,11 +78,11 @@ The device `Linux-VulnMgmt-Kobe` (IP `10.0.0.160`) began making repeated login a
 
 ---
 
-**The compromise of the `Linux-VulnMgmt-Kobe` device on February 18 set the stage for subsequent lateral movement throughout the Azure tenant environment. Attackers leveraged the initial breach to pivot across the network, targeting additional virtual machines in the tenant infrastructure. This activity marked the start of a broader campaign of internal reconnaissance and credential harvesting aimed at expanding their foothold.**
+**The compromise of the `Linux-VulnMgmt-Kobe` device on February 18 set the stage for subsequent lateral movement throughout the Azure tenant environment. Attackers leveraged the initial breach to pivot across the network, targeting additional virtual machines in the tenant infrastructure. This activity marked the start of a broader campaign of internal reconnaissance and credential harvesting.**
 
 ---
 
-#### February 19, 2025 — Cron-Based Persistence and Gafgyt Botnet Deployment
+#### February 19, 2025
 
 **Device Involved:**  
 - `Linuz-scan-agent`
@@ -100,7 +100,7 @@ The file `VwIEbFMroMSrleiJ` shares the same obfuscated naming style as `UpzBUBnv
 </p>
 
 **Additional Context:**  
-Subsequent research confirmed that `VwIEbFMroMSrleiJ` is an ELF file associated with the **Gafgyt botnet**. It was scheduled via `cron` to execute every minute for a 1-minute interval, suggesting automated persistence and a potential for repeated malicious activity.
+Subsequent research confirmed that `VwIEbFMroMSrleiJ` is an ELF file associated with the **Gafgyt botnet**. It was scheduled via `cron` to execute every minute for a 1-minute interval, suggesting automated persistence.
 
 <p align="center">  
   <img src="https://github.com/user-attachments/assets/fa2da0dc-a09d-4898-9ee9-2949eb4f594f" alt="Detailed Process Timeline" width="700"/>
